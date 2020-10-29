@@ -28,7 +28,7 @@ class BrotamientoCrudController extends CrudController
     {
         CRUD::setModel(\App\Models\Brotamiento::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/brotamiento');
-        CRUD::setEntityNameStrings('brotamiento', 'brotamientos');
+        CRUD::setEntityNameStrings('brotamiento', 'brotamiento');
     }
 
     /**

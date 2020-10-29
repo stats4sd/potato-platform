@@ -28,7 +28,7 @@ class FloracionCrudController extends CrudController
     {
         CRUD::setModel(\App\Models\Floracion::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/floracion');
-        CRUD::setEntityNameStrings('floracion', 'floracions');
+        CRUD::setEntityNameStrings('floracion', 'floracion');
     }
 
     /**

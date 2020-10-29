@@ -15,7 +15,7 @@ class Fructificacion extends Model
     |--------------------------------------------------------------------------
     */
 
-    protected $table = 'fructificacions';
+    protected $table = 'fructificacion';
     // protected $primaryKey = 'id';
     // public $timestamps = false;
     protected $guarded = ['id'];

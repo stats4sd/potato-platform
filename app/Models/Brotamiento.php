@@ -15,7 +15,7 @@ class Brotamiento extends Model
     |--------------------------------------------------------------------------
     */
 
-    protected $table = 'brotamientos';
+    protected $table = 'brotamiento';
     // protected $primaryKey = 'id';
     // public $timestamps = false;
     protected $guarded = ['id'];

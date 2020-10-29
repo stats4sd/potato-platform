@@ -15,7 +15,7 @@ class Market_info extends Model
     |--------------------------------------------------------------------------
     */
 
-    protected $table = 'market_infos';
+    protected $table = 'Markets';
     // protected $primaryKey = 'id';
     // public $timestamps = false;
     protected $guarded = ['id'];

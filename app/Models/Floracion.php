@@ -15,7 +15,7 @@ class Floracion extends Model
     |--------------------------------------------------------------------------
     */
 
-    protected $table = 'floracions';
+    protected $table = 'floracion';
     // protected $primaryKey = 'id';
     // public $timestamps = false;
     protected $guarded = ['id'];

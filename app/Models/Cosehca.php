@@ -15,7 +15,7 @@ class Cosehca extends Model
     |--------------------------------------------------------------------------
     */
 
-    protected $table = 'cosehcas';
+    protected $table = 'cosecha';
     // protected $primaryKey = 'id';
     // public $timestamps = false;
     protected $guarded = ['id'];

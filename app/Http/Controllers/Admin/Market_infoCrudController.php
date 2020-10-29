@@ -28,7 +28,7 @@ class Market_infoCrudController extends CrudController
     {
         CRUD::setModel(\App\Models\Market_info::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/market_info');
-        CRUD::setEntityNameStrings('market_info', 'market_infos');
+        CRUD::setEntityNameStrings('market', 'Markets');
     }
 
     /**

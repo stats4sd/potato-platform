@@ -28,7 +28,7 @@ class CosehcaCrudController extends CrudController
     {
         CRUD::setModel(\App\Models\Cosehca::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/cosehca');
-        CRUD::setEntityNameStrings('cosehca', 'cosehcas');
+        CRUD::setEntityNameStrings('cosecha', 'cosecha');
     }
 
     /**
