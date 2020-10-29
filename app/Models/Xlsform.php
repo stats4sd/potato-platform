@@ -34,7 +34,10 @@ class Xlsform extends Model
     | RELATIONS
     |--------------------------------------------------------------------------
     */
-
+    public function submissions()
+    {
+        return $this->hasMany(Submission::class);
+    }
     /*
     |--------------------------------------------------------------------------
     | SCOPES

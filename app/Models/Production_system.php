@@ -34,7 +34,10 @@ class Production_system extends Model
     | RELATIONS
     |--------------------------------------------------------------------------
     */
-
+    public function farmer()
+    {
+        return $this->belongsTo(Farmer::class);
+    }
     /*
     |--------------------------------------------------------------------------
     | SCOPES

@@ -34,7 +34,10 @@ class Region extends Model
     | RELATIONS
     |--------------------------------------------------------------------------
     */
-
+    public function provinces()
+    {
+        return $this->hasMany(Province::class);
+    }
     /*
     |--------------------------------------------------------------------------
     | SCOPES

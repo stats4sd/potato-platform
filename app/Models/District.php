@@ -34,7 +34,15 @@ class District extends Model
     | RELATIONS
     |--------------------------------------------------------------------------
     */
+    public function province()
+    {
+        return $this->belongsTo(Province::class);
+    }
 
+    public function communities()
+    {
+        return $this->hasMany(Community::class);
+    }
     /*
     |--------------------------------------------------------------------------
     | SCOPES

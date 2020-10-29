@@ -34,6 +34,30 @@ class Variety extends Model
     | RELATIONS
     |--------------------------------------------------------------------------
     */
+    public function farmer()
+    {
+        return $this->belongsTo(Farmer::class);
+    }
+
+    public function floracion()
+    {
+        return $this->hasMany(Floracion::class);
+    }
+
+    public function fructificacion()
+    {
+        return $this->hasMany(Fructificacion::class);
+    }
+
+    public function cosecha()
+    {
+        return $this->hasMany(Cosecha::class);
+    }
+
+    public function brotamiento()
+    {
+        return $this->hasMany(Brotamiento::class);
+    }
 
     /*
     |--------------------------------------------------------------------------

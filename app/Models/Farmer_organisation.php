@@ -34,7 +34,10 @@ class Farmer_organisation extends Model
     | RELATIONS
     |--------------------------------------------------------------------------
     */
-
+    public function farmer()
+    {
+        return $this->belongsTo(Farmer::class, 'submission_id');
+    }
     /*
     |--------------------------------------------------------------------------
     | SCOPES

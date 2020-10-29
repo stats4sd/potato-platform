@@ -34,6 +34,15 @@ class Community extends Model
     | RELATIONS
     |--------------------------------------------------------------------------
     */
+    public function district()
+    {
+        return $this->belongsTo(District::class);
+    }
+
+    public function farmers()
+    {
+        return $this->hasMany(Farmer::class);
+    }
 
     /*
     |--------------------------------------------------------------------------

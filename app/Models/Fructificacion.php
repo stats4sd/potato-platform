@@ -34,7 +34,10 @@ class Fructificacion extends Model
     | RELATIONS
     |--------------------------------------------------------------------------
     */
-
+    public function variety()
+    {
+        return $this->belongsTo(Variety::class);
+    }
     /*
     |--------------------------------------------------------------------------
     | SCOPES
