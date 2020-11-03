@@ -1,0 +1,66 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class CreateFarmersTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('farmers', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('submission_id');
+            $table->unsignedBigInteger('community_id');
+            $table->string('caserio')->nullable();
+            $table->decimal('latitude', 9,6);
+            $table->decimal('longitude', 9,6);
+            $table->decimal('altitude', 9,6);
+            $table->string('name')->nullable();
+            $table->string('DNI')->nullable();
+            $table->date('dob')->nullable();
+            $table->string('gender')->nullable();
+            $table->string('education')->nullable();
+            $table->tinyInteger('read_write')->nullable();
+            $table->string('languages')->nullable();
+            $table->string('language_prefered')->nullable();
+            $table->string('martital_status')->nullable();
+            $table->string('phone')->nullable();
+            $table->string('email')->nullable();
+            $table->tinyInteger('whatsapp')->nullable();
+            $table->string('phone_other')->nullable();
+            $table->integer('aguapan_year')->nullable();
+            $table->string('economic_activity')->nullable();
+            $table->string('partner_name')->nullable();
+            $table->integer('partner_dob')->nullable();
+            $table->string('partner_education')->nullable();
+            $table->integer('children_school_age')->nullable();
+            $table->string('agricultural_focus')->nullable();
+            $table->string('activity_agriculture')->nullable();
+            $table->string('activity_livestock')->nullable();
+            $table->string('production_destination')->nullable();
+            $table->integer('number_hh')->nullable();
+            $table->string('material')->nullable();
+            $table->tinyInteger('energy')->nullable();
+            $table->tinyInteger('water')->nullable();
+            $table->tinyInteger('drainage')->nullable();
+            $table->tinyInteger('phone_signal')->nullable();
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('farmers');
+    }
+}

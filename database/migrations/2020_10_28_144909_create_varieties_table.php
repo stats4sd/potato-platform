@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDistritosTable extends Migration
+class CreateVarietiesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,10 @@ class CreateDistritosTable extends Migration
      */
     public function up()
     {
-        Schema::create('distritos', function (Blueprint $table) {
-            $table->id();
+        Schema::create('varieties', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('name')->nullable();
+            $table->unsignedBigInteger('farmer_id');
             $table->timestamps();
         });
     }
@@ -26,6 +28,6 @@ class CreateDistritosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('distritos');
+        Schema::dropIfExists('varieties');
     }
 }
