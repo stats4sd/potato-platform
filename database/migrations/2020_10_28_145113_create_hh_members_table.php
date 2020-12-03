@@ -15,18 +15,19 @@ class CreateHhMembersTable extends Migration
     {
         Schema::create('hh_members', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('farmer_id');
+            $table->foreignId('farmer_id')->constrained()->onDelete('cascade');
             $table->string('name')->nullable();
             $table->string('relationship')->nullable();
             $table->string('gender')->nullable();
-            $table->date('dob')->nullable();
+            $table->date('birth_date')->nullable();
+            $table->integer('age')->nullable();
             $table->string('education')->nullable();
             $table->tinyInteger('helps_farm')->nullable();
             $table->decimal('months')->nullable();
             $table->decimal('days')->nullable();
             $table->decimal('hours')->nullable();
             $table->string('main_job')->nullable();
-            $table->tinyInteger('pay')->nullable();
+            $table->tinyInteger('is_payed')->nullable();
             $table->timestamps();
         });
     }

@@ -15,8 +15,8 @@ class CreateCommunitiesTable extends Migration
     {
         Schema::create('communities', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->foreignId('district_id')->constrained()->onDelete('cascade');
             $table->string('name')->nullable();
-            $table->unsignedBigInteger('district_id');
             $table->timestamps();
         });
     }

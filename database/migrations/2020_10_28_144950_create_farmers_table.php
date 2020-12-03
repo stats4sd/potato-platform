@@ -15,15 +15,14 @@ class CreateFarmersTable extends Migration
     {
         Schema::create('farmers', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('submission_id');
-            $table->unsignedBigInteger('community_id');
+            $table->foreignId('community_id')->constrained()->onDelete('cascade');
             $table->string('caserio')->nullable();
             $table->decimal('latitude', 9,6);
             $table->decimal('longitude', 9,6);
             $table->decimal('altitude', 9,6);
             $table->string('name')->nullable();
             $table->string('DNI')->nullable();
-            $table->date('dob')->nullable();
+            $table->date('birth_date')->nullable();
             $table->string('gender')->nullable();
             $table->string('education')->nullable();
             $table->tinyInteger('read_write')->nullable();
@@ -34,10 +33,11 @@ class CreateFarmersTable extends Migration
             $table->string('email')->nullable();
             $table->tinyInteger('whatsapp')->nullable();
             $table->string('phone_other')->nullable();
-            $table->integer('aguapan_year')->nullable();
-            $table->string('economic_activity')->nullable();
+            $table->year('aguapan_year')->nullable();
+            $table->json('economic_activity')->nullable();
+            $table->string('main_activity')->nullable();
             $table->string('partner_name')->nullable();
-            $table->integer('partner_dob')->nullable();
+            $table->integer('partner_birth')->nullable();
             $table->string('partner_education')->nullable();
             $table->integer('children_school_age')->nullable();
             $table->string('agricultural_focus')->nullable();
@@ -50,6 +50,7 @@ class CreateFarmersTable extends Migration
             $table->tinyInteger('water')->nullable();
             $table->tinyInteger('drainage')->nullable();
             $table->tinyInteger('phone_signal')->nullable();
+            $table->foreignId('submission_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }
