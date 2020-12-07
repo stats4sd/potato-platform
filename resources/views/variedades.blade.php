@@ -6,7 +6,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
          <!-- start here -->
-          variedades 
+          <h1>Variedades</h1> 
            
         </div>
     </div>
