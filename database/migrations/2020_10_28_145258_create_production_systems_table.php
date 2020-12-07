@@ -58,7 +58,6 @@ class CreateProductionSystemsTable extends Migration
             $table->decimal('quantity_chuno')->nullable();
             $table->string('quantity_chuno_unity')->nullable();
 
-
             $table->foreignId('submission_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
