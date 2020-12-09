@@ -16,7 +16,7 @@ class CreateVarietiesTable extends Migration
         Schema::create('varieties', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name')->nullable();
-            $table->unsignedBigInteger('farmer_id');
+            $table->foreignId('farmer_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

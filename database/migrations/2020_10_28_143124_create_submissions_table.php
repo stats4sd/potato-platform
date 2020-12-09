@@ -16,7 +16,7 @@ class CreateSubmissionsTable extends Migration
         Schema::create('submissions', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('uuid',255);
-            $table->bigInteger('xlsform_id');
+            $table->foreignId('xlsform_id')->constrained()->onDelete('cascade');
             $table->json('content');
             $table->dateTime('date_time');
             $table->timestamps();

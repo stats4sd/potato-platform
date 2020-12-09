@@ -5,7 +5,7 @@ namespace App\Models;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
 
-class Fructificacion extends Model
+class Sprout extends Model
 {
     use CrudTrait;
 
@@ -15,7 +15,7 @@ class Fructificacion extends Model
     |--------------------------------------------------------------------------
     */
 
-    protected $table = 'fructificacion';
+    protected $table = 'sprouts';
     // protected $primaryKey = 'id';
     // public $timestamps = false;
     protected $guarded = ['id'];
@@ -34,10 +34,7 @@ class Fructificacion extends Model
     | RELATIONS
     |--------------------------------------------------------------------------
     */
-    public function variety()
-    {
-        return $this->belongsTo(Variety::class);
-    }
+
     /*
     |--------------------------------------------------------------------------
     | SCOPES

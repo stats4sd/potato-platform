@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\CosehcaRequest;
+use App\Http\Requests\HhMemberRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
 /**
- * Class CosehcaCrudController
+ * Class HhMemberCrudController
  * @package App\Http\Controllers\Admin
  * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
  */
-class CosehcaCrudController extends CrudController
+class HhMemberCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
@@ -26,9 +26,9 @@ class CosehcaCrudController extends CrudController
      */
     public function setup()
     {
-        CRUD::setModel(\App\Models\Cosehca::class);
-        CRUD::setRoute(config('backpack.base.route_prefix') . '/cosehca');
-        CRUD::setEntityNameStrings('cosecha', 'cosecha');
+        CRUD::setModel(\App\Models\HhMember::class);
+        CRUD::setRoute(config('backpack.base.route_prefix') . '/hhmember');
+        CRUD::setEntityNameStrings('hhmember', 'hh_members');
     }
 
     /**
@@ -56,7 +56,7 @@ class CosehcaCrudController extends CrudController
      */
     protected function setupCreateOperation()
     {
-        CRUD::setValidation(CosehcaRequest::class);
+        CRUD::setValidation(HhMemberRequest::class);
 
         CRUD::setFromDb(); // fields
 

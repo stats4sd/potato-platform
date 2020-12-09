@@ -5,7 +5,7 @@ namespace App\Models;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
 
-class Cosehca extends Model
+class ProductionSystem extends Model
 {
     use CrudTrait;
 
@@ -15,7 +15,7 @@ class Cosehca extends Model
     |--------------------------------------------------------------------------
     */
 
-    protected $table = 'cosecha';
+    protected $table = 'production_systems';
     // protected $primaryKey = 'id';
     // public $timestamps = false;
     protected $guarded = ['id'];
@@ -34,10 +34,7 @@ class Cosehca extends Model
     | RELATIONS
     |--------------------------------------------------------------------------
     */
-    public function variety()
-    {
-        return $this->belongsTo(Variety::class);
-    }
+
     /*
     |--------------------------------------------------------------------------
     | SCOPES

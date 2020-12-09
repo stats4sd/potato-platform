@@ -16,7 +16,7 @@ class CreateFarmersTable extends Migration
         Schema::create('farmers', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->foreignId('community_id')->constrained()->onDelete('cascade');
-            $table->string('caserio')->nullable();
+            $table->string('farmhouse')->nullable();
             $table->decimal('latitude', 9,6);
             $table->decimal('longitude', 9,6);
             $table->decimal('altitude', 9,6);
@@ -28,7 +28,7 @@ class CreateFarmersTable extends Migration
             $table->tinyInteger('read_write')->nullable();
             $table->string('languages')->nullable();
             $table->string('language_prefered')->nullable();
-            $table->string('martital_status')->nullable();
+            $table->string('marital_status')->nullable();
             $table->string('phone')->nullable();
             $table->string('email')->nullable();
             $table->tinyInteger('whatsapp')->nullable();

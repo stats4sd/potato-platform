@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\FloracionRequest;
+use App\Http\Requests\PlotRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
 /**
- * Class FloracionCrudController
+ * Class PlotCrudController
  * @package App\Http\Controllers\Admin
  * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
  */
-class FloracionCrudController extends CrudController
+class PlotCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
@@ -26,9 +26,9 @@ class FloracionCrudController extends CrudController
      */
     public function setup()
     {
-        CRUD::setModel(\App\Models\Floracion::class);
-        CRUD::setRoute(config('backpack.base.route_prefix') . '/floracion');
-        CRUD::setEntityNameStrings('floracion', 'floracion');
+        CRUD::setModel(\App\Models\Plot::class);
+        CRUD::setRoute(config('backpack.base.route_prefix') . '/plot');
+        CRUD::setEntityNameStrings('plot', 'plots');
     }
 
     /**
@@ -56,7 +56,7 @@ class FloracionCrudController extends CrudController
      */
     protected function setupCreateOperation()
     {
-        CRUD::setValidation(FloracionRequest::class);
+        CRUD::setValidation(PlotRequest::class);
 
         CRUD::setFromDb(); // fields
 

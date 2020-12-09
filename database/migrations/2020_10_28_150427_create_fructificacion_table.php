@@ -13,13 +13,14 @@ class CreateFructificacionTable extends Migration
      */
     public function up()
     {
-        Schema::create('fructificacion', function (Blueprint $table) {
+        Schema::create('fructification', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('variety_id');
-            $table->string('color_baya')->nullable();
-            $table->string('forma_baya')->nullable();
-            $table->string('madurez_variedad')->nullable();
-            $table->string('codigo_baya')->nullable();
+            $table->foreignId('variety_id')->constrained()->onDelete('cascade');
+            $table->string('color_berries')->nullable();
+            $table->string('shape_berry')->nullable();
+            $table->string('maturity_variety')->nullable();
+            $table->string('photo_berry')->nullable();
+            $table->foreignId('submission_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -31,6 +32,6 @@ class CreateFructificacionTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('fructificacion');
+        Schema::dropIfExists('fructification');
     }
 }

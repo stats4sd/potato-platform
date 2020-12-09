@@ -5,7 +5,7 @@ namespace App\Models;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
 
-class Hh_member extends Model
+class HhMember extends Model
 {
     use CrudTrait;
 
@@ -34,10 +34,7 @@ class Hh_member extends Model
     | RELATIONS
     |--------------------------------------------------------------------------
     */
-    public function farmer()
-    {
-        return $this->belongsTo(Farmer::class);
-    }
+
     /*
     |--------------------------------------------------------------------------
     | SCOPES

@@ -5,7 +5,7 @@ namespace App\Models;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
 
-class Market_info extends Model
+class TubersAtHarvest extends Model
 {
     use CrudTrait;
 
@@ -15,7 +15,7 @@ class Market_info extends Model
     |--------------------------------------------------------------------------
     */
 
-    protected $table = 'Markets';
+    protected $table = 'tubers_at_harvest';
     // protected $primaryKey = 'id';
     // public $timestamps = false;
     protected $guarded = ['id'];
@@ -34,10 +34,7 @@ class Market_info extends Model
     | RELATIONS
     |--------------------------------------------------------------------------
     */
-    public function farmer()
-    {
-        return $this->belongsTo(Farmer::class);
-    }
+
     /*
     |--------------------------------------------------------------------------
     | SCOPES
