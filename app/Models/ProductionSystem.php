@@ -34,6 +34,15 @@ class ProductionSystem extends Model
     | RELATIONS
     |--------------------------------------------------------------------------
     */
+    public function farmer()
+    {
+        return $this->belongsTo(Farmer::class);
+    }
+
+    public function plots()
+    {
+        return $this->hasMany(Plot::class);
+    }
 
     /*
     |--------------------------------------------------------------------------

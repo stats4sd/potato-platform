@@ -34,6 +34,10 @@ class HhMember extends Model
     | RELATIONS
     |--------------------------------------------------------------------------
     */
+    public function farmer()
+    {
+        return $this->belongsTo(Farmer::class);
+    }
 
     /*
     |--------------------------------------------------------------------------

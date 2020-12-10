@@ -15,7 +15,7 @@ class CreateCosechaTable extends Migration
     {
         Schema::create('tubers_at_harvest', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->foreignId('variety_id')->constrained()->onDelete('cascade');
+            $table->string('variety_id');
             $table->string('color_predominant_tuber')->nullable();
             $table->string('intensity_color_predominant_tuber')->nullable();
             $table->string('color_secondary_tuber')->nullable();

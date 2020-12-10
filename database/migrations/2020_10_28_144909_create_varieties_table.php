@@ -14,7 +14,7 @@ class CreateVarietiesTable extends Migration
     public function up()
     {
         Schema::create('varieties', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->string('id')->unique();
             $table->string('name')->nullable();
             $table->foreignId('farmer_id')->constrained()->onDelete('cascade');
             $table->timestamps();

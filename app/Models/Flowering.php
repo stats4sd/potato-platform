@@ -35,6 +35,11 @@ class Flowering extends Model
     |--------------------------------------------------------------------------
     */
 
+    public function variety()
+    {
+        return $this->belongsTo(Variety::class);
+    }
+
     /*
     |--------------------------------------------------------------------------
     | SCOPES

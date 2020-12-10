@@ -15,7 +15,7 @@ class CreateBrotamientoTable extends Migration
     {
         Schema::create('sprouts', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->foreignId('variety_id')->constrained()->onDelete('cascade');
+            $table->string('variety_id');
             $table->string('color_predominant_tuber_shoot')->nullable();
             $table->string('color_secondary_tuber_shoot')->nullable();
             $table->string('distribution_color_secodary_tuber_shoot')->nullable();

@@ -34,6 +34,10 @@ class FarmerOrganisation extends Model
     | RELATIONS
     |--------------------------------------------------------------------------
     */
+    public function farmers()
+    {
+        return $this->belongsToMany(Farmer::class, '_farmers_farmer_organisations');
+    }
 
     /*
     |--------------------------------------------------------------------------

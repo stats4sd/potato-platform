@@ -15,7 +15,7 @@ class CreateFloracionTable extends Migration
     {
         Schema::create('flowering', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->foreignId('variety_id')->constrained()->onDelete('cascade');
+            $table->string('variety_id');
             $table->string('plant_growth')->nullable();
             $table->string('leaf_dissection')->nullable();
             $table->string('number_lateral_leaflets')->nullable();

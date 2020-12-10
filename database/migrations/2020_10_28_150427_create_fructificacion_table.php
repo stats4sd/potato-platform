@@ -15,7 +15,7 @@ class CreateFructificacionTable extends Migration
     {
         Schema::create('fructification', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->foreignId('variety_id')->constrained()->onDelete('cascade');
+            $table->string('variety_id');
             $table->string('color_berries')->nullable();
             $table->string('shape_berry')->nullable();
             $table->string('maturity_variety')->nullable();

@@ -28,6 +28,10 @@ class Plot extends Model
     | FUNCTIONS
     |--------------------------------------------------------------------------
     */
+    public function production_system()
+    {
+        return $this->belongsTo(ProductionSystem::class);
+    }
 
     /*
     |--------------------------------------------------------------------------
