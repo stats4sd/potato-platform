@@ -5,7 +5,7 @@ namespace App\Models;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
 
-class Production_system extends Model
+class Flowering extends Model
 {
     use CrudTrait;
 
@@ -15,7 +15,7 @@ class Production_system extends Model
     |--------------------------------------------------------------------------
     */
 
-    protected $table = 'production_systems';
+    protected $table = 'flowering';
     // protected $primaryKey = 'id';
     // public $timestamps = false;
     protected $guarded = ['id'];
@@ -34,10 +34,12 @@ class Production_system extends Model
     | RELATIONS
     |--------------------------------------------------------------------------
     */
-    public function farmer()
+
+    public function variety()
     {
-        return $this->belongsTo(Farmer::class);
+        return $this->belongsTo(Variety::class);
     }
+
     /*
     |--------------------------------------------------------------------------
     | SCOPES

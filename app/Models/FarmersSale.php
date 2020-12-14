@@ -5,7 +5,7 @@ namespace App\Models;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
 
-class Hh_member extends Model
+class FarmersSale extends Model
 {
     use CrudTrait;
 
@@ -15,7 +15,7 @@ class Hh_member extends Model
     |--------------------------------------------------------------------------
     */
 
-    protected $table = 'hh_members';
+    protected $table = 'farmers_sales';
     // protected $primaryKey = 'id';
     // public $timestamps = false;
     protected $guarded = ['id'];
@@ -38,6 +38,7 @@ class Hh_member extends Model
     {
         return $this->belongsTo(Farmer::class);
     }
+
     /*
     |--------------------------------------------------------------------------
     | SCOPES

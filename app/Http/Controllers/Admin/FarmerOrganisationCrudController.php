@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\Hh_memberRequest;
+use App\Http\Requests\FarmerOrganisationRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
 /**
- * Class Hh_memberCrudController
+ * Class FarmerOrganisationCrudController
  * @package App\Http\Controllers\Admin
  * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
  */
-class Hh_memberCrudController extends CrudController
+class FarmerOrganisationCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
@@ -26,9 +26,9 @@ class Hh_memberCrudController extends CrudController
      */
     public function setup()
     {
-        CRUD::setModel(\App\Models\Hh_member::class);
-        CRUD::setRoute(config('backpack.base.route_prefix') . '/hh_member');
-        CRUD::setEntityNameStrings('hh_member', 'hh_members');
+        CRUD::setModel(\App\Models\FarmerOrganisation::class);
+        CRUD::setRoute(config('backpack.base.route_prefix') . '/farmerorganisation');
+        CRUD::setEntityNameStrings('farmerorganisation', 'farmer_organisations');
     }
 
     /**
@@ -56,7 +56,7 @@ class Hh_memberCrudController extends CrudController
      */
     protected function setupCreateOperation()
     {
-        CRUD::setValidation(Hh_memberRequest::class);
+        CRUD::setValidation(FarmerOrganisationRequest::class);
 
         CRUD::setFromDb(); // fields
 

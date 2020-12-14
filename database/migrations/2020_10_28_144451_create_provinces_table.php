@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSubmissionsTable extends Migration
+class CreateProvincesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,10 @@ class CreateSubmissionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('submissions', function (Blueprint $table) {
+        Schema::create('provinces', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('uuid',255);
-            $table->bigInteger('xlsform_id');
-            $table->json('content');
-            $table->dateTime('date_time');
+            $table->string('region_id');
+            $table->string('name')->nullable();
             $table->timestamps();
         });
     }
@@ -30,6 +28,6 @@ class CreateSubmissionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('submissions');
+        Schema::dropIfExists('provinces');
     }
 }

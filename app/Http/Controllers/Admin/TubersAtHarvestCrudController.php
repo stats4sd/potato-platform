@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\Production_systemRequest;
+use App\Http\Requests\TubersAtHarvestRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
 /**
- * Class Production_systemCrudController
+ * Class TubersAtHarvestCrudController
  * @package App\Http\Controllers\Admin
  * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
  */
-class Production_systemCrudController extends CrudController
+class TubersAtHarvestCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
@@ -26,9 +26,9 @@ class Production_systemCrudController extends CrudController
      */
     public function setup()
     {
-        CRUD::setModel(\App\Models\Production_system::class);
-        CRUD::setRoute(config('backpack.base.route_prefix') . '/production_system');
-        CRUD::setEntityNameStrings('production_system', 'production_systems');
+        CRUD::setModel(\App\Models\TubersAtHarvest::class);
+        CRUD::setRoute(config('backpack.base.route_prefix') . '/tubersatharvest');
+        CRUD::setEntityNameStrings('tubersatharvest', 'tubers_at_harvests');
     }
 
     /**
@@ -56,7 +56,7 @@ class Production_systemCrudController extends CrudController
      */
     protected function setupCreateOperation()
     {
-        CRUD::setValidation(Production_systemRequest::class);
+        CRUD::setValidation(TubersAtHarvestRequest::class);
 
         CRUD::setFromDb(); // fields
 

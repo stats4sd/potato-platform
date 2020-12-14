@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProvincesTable extends Migration
+class CreateSubmissionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,12 @@ class CreateProvincesTable extends Migration
      */
     public function up()
     {
-        Schema::create('provinces', function (Blueprint $table) {
+        Schema::create('submissions', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->foreignId('region_id')->constrained()->onDelete('cascade');
-            $table->string('name')->nullable();
+            $table->string('uuid',255);
+            $table->foreignId('xlsform_id')->constrained()->onDelete('cascade');
+            $table->json('content');
+            $table->dateTime('date_time');
             $table->timestamps();
         });
     }
@@ -28,6 +30,6 @@ class CreateProvincesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('provinces');
+        Schema::dropIfExists('submissions');
     }
 }

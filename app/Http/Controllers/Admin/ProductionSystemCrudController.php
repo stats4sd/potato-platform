@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\Farmer_organisationRequest;
+use App\Http\Requests\ProductionSystemRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
 /**
- * Class Farmer_organisationCrudController
+ * Class ProductionSystemCrudController
  * @package App\Http\Controllers\Admin
  * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
  */
-class Farmer_organisationCrudController extends CrudController
+class ProductionSystemCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
@@ -26,9 +26,9 @@ class Farmer_organisationCrudController extends CrudController
      */
     public function setup()
     {
-        CRUD::setModel(\App\Models\Farmer_organisation::class);
-        CRUD::setRoute(config('backpack.base.route_prefix') . '/farmer_organisation');
-        CRUD::setEntityNameStrings('farmer_organisation', 'farmer_organisations');
+        CRUD::setModel(\App\Models\ProductionSystem::class);
+        CRUD::setRoute(config('backpack.base.route_prefix') . '/productionsystem');
+        CRUD::setEntityNameStrings('productionsystem', 'production_systems');
     }
 
     /**
@@ -56,7 +56,7 @@ class Farmer_organisationCrudController extends CrudController
      */
     protected function setupCreateOperation()
     {
-        CRUD::setValidation(Farmer_organisationRequest::class);
+        CRUD::setValidation(ProductionSystemRequest::class);
 
         CRUD::setFromDb(); // fields
 

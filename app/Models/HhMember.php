@@ -5,7 +5,7 @@ namespace App\Models;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
 
-class Farmer extends Model
+class HhMember extends Model
 {
     use CrudTrait;
 
@@ -15,7 +15,7 @@ class Farmer extends Model
     |--------------------------------------------------------------------------
     */
 
-    protected $table = 'farmers';
+    protected $table = 'hh_members';
     // protected $primaryKey = 'id';
     // public $timestamps = false;
     protected $guarded = ['id'];
@@ -34,39 +34,9 @@ class Farmer extends Model
     | RELATIONS
     |--------------------------------------------------------------------------
     */
-    public function submission()
+    public function farmer()
     {
-        return $this->belongsTo(Submission::class, 'submission_id');
-    }
-
-    public function community()
-    {
-        return $this->belongsTo(Community::class);
-    }
-
-    public function varieties()
-    {
-        return $this->hasMany(Variety::class);
-    }
-    
-    public function hh_members()
-    {
-        return $this->hasMany(HhMember::class);
-    }
-
-    public function farmer_organisations()
-    {
-        return $this->belongsToMany(FarmerOrganisation::class);
-    }
-
-    public function farmers_sales()
-    {
-        return $this->hasMany(FarmersSale::class);
-    }
-
-    public function production_systems()
-    {
-        return $this->hasMany(ProductionSystem::class);
+        return $this->belongsTo(Farmer::class);
     }
 
     /*

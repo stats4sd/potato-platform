@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\FructificacionRequest;
+use App\Http\Requests\FarmersSaleRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
 /**
- * Class FructificacionCrudController
+ * Class FarmersSaleCrudController
  * @package App\Http\Controllers\Admin
  * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
  */
-class FructificacionCrudController extends CrudController
+class FarmersSaleCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
@@ -26,9 +26,9 @@ class FructificacionCrudController extends CrudController
      */
     public function setup()
     {
-        CRUD::setModel(\App\Models\Fructificacion::class);
-        CRUD::setRoute(config('backpack.base.route_prefix') . '/fructificacion');
-        CRUD::setEntityNameStrings('fructificacion', 'fructificacion');
+        CRUD::setModel(\App\Models\FarmersSale::class);
+        CRUD::setRoute(config('backpack.base.route_prefix') . '/farmerssale');
+        CRUD::setEntityNameStrings('farmerssale', 'farmers_sales');
     }
 
     /**
@@ -56,7 +56,7 @@ class FructificacionCrudController extends CrudController
      */
     protected function setupCreateOperation()
     {
-        CRUD::setValidation(FructificacionRequest::class);
+        CRUD::setValidation(FarmersSaleRequest::class);
 
         CRUD::setFromDb(); // fields
 

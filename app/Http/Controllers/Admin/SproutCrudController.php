@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\BrotamientoRequest;
+use App\Http\Requests\SproutRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
 /**
- * Class BrotamientoCrudController
+ * Class SproutCrudController
  * @package App\Http\Controllers\Admin
  * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
  */
-class BrotamientoCrudController extends CrudController
+class SproutCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
@@ -26,9 +26,9 @@ class BrotamientoCrudController extends CrudController
      */
     public function setup()
     {
-        CRUD::setModel(\App\Models\Brotamiento::class);
-        CRUD::setRoute(config('backpack.base.route_prefix') . '/brotamiento');
-        CRUD::setEntityNameStrings('brotamiento', 'brotamiento');
+        CRUD::setModel(\App\Models\Sprout::class);
+        CRUD::setRoute(config('backpack.base.route_prefix') . '/sprout');
+        CRUD::setEntityNameStrings('sprout', 'sprouts');
     }
 
     /**
@@ -56,7 +56,7 @@ class BrotamientoCrudController extends CrudController
      */
     protected function setupCreateOperation()
     {
-        CRUD::setValidation(BrotamientoRequest::class);
+        CRUD::setValidation(SproutRequest::class);
 
         CRUD::setFromDb(); // fields
 

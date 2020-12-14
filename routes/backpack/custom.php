@@ -20,14 +20,15 @@ Route::group([
     Route::crud('farmer', 'FarmerCrudController');
     Route::crud('community', 'CommunityCrudController');
     Route::crud('variety', 'VarietyCrudController');
-    Route::crud('farmer_organisation', 'Farmer_organisationCrudController');
     Route::crud('xlsform', 'XlsformCrudController');
     Route::crud('submission', 'SubmissionCrudController');
-    Route::crud('production_system', 'Production_systemCrudController');
-    Route::crud('market_info', 'Market_infoCrudController');
-    Route::crud('hh_member', 'Hh_memberCrudController');
-    Route::crud('fructificacion', 'FructificacionCrudController');
-    Route::crud('floracion', 'FloracionCrudController');
-    Route::crud('cosehca', 'CosehcaCrudController');
-    Route::crud('brotamiento', 'BrotamientoCrudController');
+    Route::crud('hhmember', 'HhMemberCrudController');
+    Route::crud('productionsystem', 'ProductionSystemCrudController');
+    Route::crud('farmerorganisation', 'FarmerOrganisationCrudController');
+    Route::crud('flowering', 'FloweringCrudController');
+    Route::crud('fructification', 'FructificationCrudController');
+    Route::crud('tubersatharvest', 'TubersAtHarvestCrudController');
+    Route::crud('sprout', 'SproutCrudController');
+    Route::crud('farmerssale', 'FarmersSaleCrudController');
+    Route::crud('plot', 'PlotCrudController');
 }); // this should be the absolute last line of this file

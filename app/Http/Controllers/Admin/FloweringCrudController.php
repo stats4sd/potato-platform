@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\Market_infoRequest;
+use App\Http\Requests\FloweringRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
 /**
- * Class Market_infoCrudController
+ * Class FloweringCrudController
  * @package App\Http\Controllers\Admin
  * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
  */
-class Market_infoCrudController extends CrudController
+class FloweringCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
@@ -26,9 +26,9 @@ class Market_infoCrudController extends CrudController
      */
     public function setup()
     {
-        CRUD::setModel(\App\Models\Market_info::class);
-        CRUD::setRoute(config('backpack.base.route_prefix') . '/market_info');
-        CRUD::setEntityNameStrings('market', 'Markets');
+        CRUD::setModel(\App\Models\Flowering::class);
+        CRUD::setRoute(config('backpack.base.route_prefix') . '/flowering');
+        CRUD::setEntityNameStrings('flowering', 'flowerings');
     }
 
     /**
@@ -56,7 +56,7 @@ class Market_infoCrudController extends CrudController
      */
     protected function setupCreateOperation()
     {
-        CRUD::setValidation(Market_infoRequest::class);
+        CRUD::setValidation(FloweringRequest::class);
 
         CRUD::setFromDb(); // fields
 
