@@ -10,6 +10,7 @@ Vue.use(BootstrapVue);
 Vue.use(IconsPlugin);
 
 Vue.component('v-select', vSelect);
+Vue.component('variety-catalog', require('./components/VarietyCatalog.vue').default);
 
 const app = new Vue({
     el: '#app' 
