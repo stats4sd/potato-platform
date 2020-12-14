@@ -18,7 +18,7 @@
                                         <b-input-group-prepend is-text>
                                             <b-icon icon="person-fill"></b-icon>
                                         </b-input-group-prepend>
-                                            <b-form-select v-model="regionSelected" :options="regions"></b-form-select>
+                                            <b-form-select v-model="farmerSelected" :options="farmers" value-field="id" text-field="name"></b-form-select>
                                         </b-input-group>
                                     </b-form-group>
                                     <b-form-group label="Variedad" label-for="form-variedad" label-cols-lg="2">
@@ -61,15 +61,21 @@ export default {
         return {
             regions:[],
             regionSelected:null,
+            farmers:[],
+            farmerSelected:null,
             
         }
 
     },
     mounted () {
-         axios.get('api/regions').then((response) => {
-             
+        axios.get('api/regions').then((response) => {
                 this.regions = response.data;
+            }),
+        
+         axios.get('api/farmers').then((response) => {
+                this.farmers = response.data;
             })
+
     }
     
 }

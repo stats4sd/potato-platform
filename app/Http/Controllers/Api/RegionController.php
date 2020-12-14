@@ -10,7 +10,6 @@ class RegionController extends Controller
 {
     public function index()
     {
-        // $regions = DB::table('regions')->select('id', 'name')->get();
         $regions = Region::select('id', 'name')->get();
 
         return $regions->toJson();
