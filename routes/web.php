@@ -25,6 +25,10 @@ Route::get('/variedades', function () {
     return view('variedades');
 });
 
+Route::get('/fotos', function () {
+    return view('fotos');
+});
+
 Route::get('/agronomic_data', function () {
     return view('agronomic_data');
 });
