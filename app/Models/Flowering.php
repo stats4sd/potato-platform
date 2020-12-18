@@ -22,6 +22,11 @@ class Flowering extends Model
     // protected $fillable = [];
     // protected $hidden = [];
     // protected $dates = [];
+    protected $casts = [
+        'photos' => 'array',
+        'photo_flower' => 'array',
+        'photo_plant' => 'array',
+    ];
 
     /*
     |--------------------------------------------------------------------------
@@ -57,4 +62,30 @@ class Flowering extends Model
     | MUTATORS
     |--------------------------------------------------------------------------
     */
+    public function setPhotosAttribute($value)
+    {
+        $attribute_name = "photos";
+        $disk = "public";
+        $destination_path = "flowering";
+
+        $this->uploadMultipleFilesToDisk($value, $attribute_name, $disk, $destination_path);
+    }
+
+    public function setPhotoFlowerAttribute($value)
+    {
+        $attribute_name = "photo_flower";
+        $disk = "public";
+        $destination_path = "flowering";
+
+        $this->uploadMultipleFilesToDisk($value, $attribute_name, $disk, $destination_path);
+    }
+
+    public function setPhotoPlantAttribute($value)
+    {
+        $attribute_name = "photo_plant";
+        $disk = "public";
+        $destination_path = "flowering";
+
+        $this->uploadMultipleFilesToDisk($value, $attribute_name, $disk, $destination_path);
+    }
 }

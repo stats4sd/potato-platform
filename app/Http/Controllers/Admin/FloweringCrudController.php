@@ -39,6 +39,28 @@ class FloweringCrudController extends CrudController
      */
     protected function setupListOperation()
     {
+        $this->crud->addFilter([
+            'type'  => 'simple',
+            'name'  => 'photo_empty',
+            'label' => 'Photo to uploader'
+        ], 
+        false, 
+        function() { // if the filter is active
+            $this->crud->addClause('where', 'photos', null); 
+        } );
+        
+        $this->crud->removeFilter('photo_empty');
+        // select2 filter
+        $this->crud->addFilter([
+            'name'  => 'variedad_code',
+            'type'  => 'text',
+            'label' => 'Variedad Code'
+        ],
+        false,
+        function ($value) { // if the filter is active
+            $this->crud->addClause('where', 'variety_id', $value);
+        });
+
         CRUD::setFromDb(); // columns
 
         /**
@@ -58,13 +80,17 @@ class FloweringCrudController extends CrudController
     {
         CRUD::setValidation(FloweringRequest::class);
 
-        CRUD::setFromDb(); // fields
-
-        /**
-         * Fields can be defined using the fluent syntax or array syntax:
-         * - CRUD::field('price')->type('number');
-         * - CRUD::addField(['name' => 'price', 'type' => 'number'])); 
-         */
+        CRUD::addField(
+            [   // Upload
+                'name'      => 'photos',
+                'label'     => 'Upload the berry pictures',
+                'type'      => 'upload_multiple',
+                'upload'    => true,
+                'disk'      => 'uploads', // if you store files in the /public folder, please omit this; if you store them in /storage or S3, please specify it;
+                // optional:
+                // 'temporary' => 10 // if using a service, such as S3, that requires you to make temporary URLs this will make a URL that is valid for the number of minutes specified
+            ]
+        );
     }
 
     /**

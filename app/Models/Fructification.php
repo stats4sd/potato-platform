@@ -22,6 +22,11 @@ class Fructification extends Model
     // protected $fillable = [];
     // protected $hidden = [];
     // protected $dates = [];
+ 
+
+    protected $casts = [
+        'photo_berry' => 'array'
+    ];
 
     /*
     |--------------------------------------------------------------------------
@@ -56,4 +61,12 @@ class Fructification extends Model
     | MUTATORS
     |--------------------------------------------------------------------------
     */
+    public function setPhotoBerryAttribute($value)
+    {
+        $attribute_name = "photo_berry";
+        $disk = "public";
+        $destination_path = "fructification";
+
+        $this->uploadMultipleFilesToDisk($value, $attribute_name, $disk, $destination_path);
+    }
 }

@@ -3,6 +3,10 @@
 <li class="nav-item"><a class="nav-link" href="{{ backpack_url('dashboard') }}"><i class="nav-icon fa fa-dashboard"></i> {{ trans('backpack::base.dashboard') }}</a></li>
 
 <li class='nav-item'><a class='nav-link' href="{{ backpack_url('upload') }}"><i class="nav-icon fa fa-cloud-upload"></i> Image Uploader</a></li>
+<li class='nav-item'><a class='nav-link' href='{{ backpack_url('fructification?photo_empty=true') }}'><i class='nav-icon la la-question'></i> Fructifications</a></li>
+<li class='nav-item'><a class='nav-link' href='{{ backpack_url('flowering') }}'><i class='nav-icon la la-question'></i> Flowerings</a></li>
+<li class='nav-item'><a class='nav-link' href='{{ backpack_url('tubersatharvest') }}'><i class='nav-icon la la-question'></i> TubersAtHarvests</a></li>
+<li class='nav-item'><a class='nav-link' href='{{ backpack_url('sprout') }}'><i class='nav-icon la la-question'></i> Sprouts</a></li>
 
 <h4 class='nav-item nav-link text-white mt-3'>Agronomic Data</h4>
 

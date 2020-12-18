@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\FructificationRequest;
+use App\Models\Variety;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
@@ -39,6 +40,28 @@ class FructificationCrudController extends CrudController
      */
     protected function setupListOperation()
     {
+        $this->crud->addFilter([
+            'type'  => 'simple',
+            'name'  => 'photo_empty',
+            'label' => 'Photo to uploader'
+        ], 
+        false, 
+        function() { // if the filter is active
+            $this->crud->addClause('where', 'photo_berry', null); 
+        } );
+        
+        $this->crud->removeFilter('photo_empty');
+        // select2 filter
+        $this->crud->addFilter([
+            'name'  => 'variedad_code',
+            'type'  => 'text',
+            'label' => 'Variedad Code'
+        ],
+        false,
+        function ($value) { // if the filter is active
+            $this->crud->addClause('where', 'variety_id', $value);
+        });
+
         CRUD::setFromDb(); // columns
 
         /**
@@ -57,8 +80,19 @@ class FructificationCrudController extends CrudController
     protected function setupCreateOperation()
     {
         CRUD::setValidation(FructificationRequest::class);
-
-        CRUD::setFromDb(); // fields
+        
+        // CRUD::setFromDb(); // fields
+        CRUD::addField(
+            [   // Upload
+                'name'      => 'photo_berry',
+                'label'     => 'Upload the berry pictures',
+                'type'      => 'upload_multiple',
+                'upload'    => true,
+                'disk'      => 'uploads', // if you store files in the /public folder, please omit this; if you store them in /storage or S3, please specify it;
+                // optional:
+                // 'temporary' => 10 // if using a service, such as S3, that requires you to make temporary URLs this will make a URL that is valid for the number of minutes specified
+            ]
+        );
 
         /**
          * Fields can be defined using the fluent syntax or array syntax:
