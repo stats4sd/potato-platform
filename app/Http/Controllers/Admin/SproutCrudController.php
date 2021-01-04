@@ -39,6 +39,30 @@ class SproutCrudController extends CrudController
      */
     protected function setupListOperation()
     {
+        $this->crud->denyAccess('create');
+        $this->crud->denyAccess('delete');
+
+        $this->crud->addFilter([
+            'type'  => 'simple',
+            'name'  => 'photo_empty',
+            'label' => 'Photo to uploader'
+        ], 
+        false,  
+        function() { // if the filter is active
+            $this->crud->query = $this->crud->query->where('photo_tuber_shoot', null);
+        } );
+        
+        $this->crud->removeFilter('photo_empty');
+        // select2 filter
+        $this->crud->addFilter([
+            'name'  => 'variedad_code',
+            'type'  => 'text',
+            'label' => 'Variedad Code'
+        ],
+        false,
+        function ($value) { // if the filter is active
+            $this->crud->addClause('where', 'variety_id', $value);
+        });
         CRUD::setFromDb(); // columns
 
         /**
@@ -58,13 +82,17 @@ class SproutCrudController extends CrudController
     {
         CRUD::setValidation(SproutRequest::class);
 
-        CRUD::setFromDb(); // fields
+        // CRUD::setFromDb(); // fields
 
-        /**
-         * Fields can be defined using the fluent syntax or array syntax:
-         * - CRUD::field('price')->type('number');
-         * - CRUD::addField(['name' => 'price', 'type' => 'number'])); 
-         */
+        CRUD::addField(
+            [   // Upload
+                'name'      => 'photo_tuber_shoot',
+                'label'     => 'Upload the tuber shoot pictures',
+                'type'      => 'upload',
+                'upload'    => true,
+                'disk'      => 'uploads',
+            ]
+        );
     }
 
     /**

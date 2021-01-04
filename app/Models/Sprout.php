@@ -56,4 +56,12 @@ class Sprout extends Model
     | MUTATORS
     |--------------------------------------------------------------------------
     */
+    public function setPhotoTuberShootAttribute($value)
+    {
+        $attribute_name = "photo_tuber_shoot";
+        $disk = "public";
+        $destination_path = "sprouts";
+
+        $this->uploadFileToDisk($value, $attribute_name, $disk, $destination_path);
+    }
 }

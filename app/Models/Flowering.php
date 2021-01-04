@@ -23,9 +23,7 @@ class Flowering extends Model
     // protected $hidden = [];
     // protected $dates = [];
     protected $casts = [
-        'photos' => 'array',
-        'photo_flower' => 'array',
-        'photo_plant' => 'array',
+        'photos' => 'array'
     ];
 
     /*
@@ -77,7 +75,7 @@ class Flowering extends Model
         $disk = "public";
         $destination_path = "flowering";
 
-        $this->uploadMultipleFilesToDisk($value, $attribute_name, $disk, $destination_path);
+        $this->uploadFileToDisk($value, $attribute_name, $disk, $destination_path);
     }
 
     public function setPhotoPlantAttribute($value)
@@ -86,6 +84,6 @@ class Flowering extends Model
         $disk = "public";
         $destination_path = "flowering";
 
-        $this->uploadMultipleFilesToDisk($value, $attribute_name, $disk, $destination_path);
+        $this->uploadFileToDisk($value, $attribute_name, $disk, $destination_path);
     }
 }

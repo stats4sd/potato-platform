@@ -22,6 +22,7 @@ class TubersAtHarvest extends Model
     // protected $fillable = [];
     // protected $hidden = [];
     // protected $dates = [];
+   
 
     /*
     |--------------------------------------------------------------------------
@@ -56,4 +57,12 @@ class TubersAtHarvest extends Model
     | MUTATORS
     |--------------------------------------------------------------------------
     */
+    public function setPhotoTuberAttribute($value)
+    {
+        $attribute_name = "photo_tuber";
+        $disk = "public";
+        $destination_path = "tubers_at_harvest";
+
+        $this->uploadFileToDisk($value, $attribute_name, $disk, $destination_path);
+    }
 }

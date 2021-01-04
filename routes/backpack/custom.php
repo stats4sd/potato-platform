@@ -27,7 +27,7 @@ Route::group([
     Route::crud('farmerorganisation', 'FarmerOrganisationCrudController');
     Route::crud('flowering', 'FloweringCrudController');
     Route::crud('fructification', 'FructificationCrudController');
-    Route::crud('tubersatharvest', 'TubersAtHarvestCrudController');
+    Route::crud('tubers_at_harvest', 'TubersAtHarvestCrudController');
     Route::crud('sprout', 'SproutCrudController');
     Route::crud('farmerssale', 'FarmersSaleCrudController');
     Route::crud('plot', 'PlotCrudController');

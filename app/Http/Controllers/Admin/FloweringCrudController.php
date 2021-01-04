@@ -39,14 +39,17 @@ class FloweringCrudController extends CrudController
      */
     protected function setupListOperation()
     {
+        $this->crud->denyAccess('create');
+        $this->crud->denyAccess('delete');
+
         $this->crud->addFilter([
             'type'  => 'simple',
             'name'  => 'photo_empty',
             'label' => 'Photo to uploader'
         ], 
-        false, 
+        false,  
         function() { // if the filter is active
-            $this->crud->addClause('where', 'photos', null); 
+            $this->crud->query = $this->crud->query->where('photos', null)->orWhere('photo_flower', null)->orWhere('photo_plant', null);
         } );
         
         $this->crud->removeFilter('photo_empty');
@@ -80,17 +83,29 @@ class FloweringCrudController extends CrudController
     {
         CRUD::setValidation(FloweringRequest::class);
 
-        CRUD::addField(
-            [   // Upload
+        CRUD::addFields([
+            [
                 'name'      => 'photos',
-                'label'     => 'Upload the berry pictures',
+                'label'     => 'Upload the pictures',
                 'type'      => 'upload_multiple',
                 'upload'    => true,
-                'disk'      => 'uploads', // if you store files in the /public folder, please omit this; if you store them in /storage or S3, please specify it;
-                // optional:
-                // 'temporary' => 10 // if using a service, such as S3, that requires you to make temporary URLs this will make a URL that is valid for the number of minutes specified
-            ]
-        );
+                'disk'      => 'uploads',
+            ],
+            [  
+                'name'      => 'photo_flower',
+                'label'     => 'Upload the flower pictures',
+                'type'      => 'upload',
+                'upload'    => true,
+                'disk'      => 'uploads',
+            ],
+            [  
+                'name'      => 'photo_plant',
+                'label'     => 'Upload the plant pictures',
+                'type'      => 'upload',
+                'upload'    => true,
+                'disk'      => 'uploads',
+            ],
+        ]);
     }
 
     /**

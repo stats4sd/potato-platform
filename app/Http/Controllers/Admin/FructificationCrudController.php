@@ -40,6 +40,9 @@ class FructificationCrudController extends CrudController
      */
     protected function setupListOperation()
     {
+        $this->crud->denyAccess('create');
+        $this->crud->denyAccess('delete');
+
         $this->crud->addFilter([
             'type'  => 'simple',
             'name'  => 'photo_empty',
@@ -85,8 +88,8 @@ class FructificationCrudController extends CrudController
         CRUD::addField(
             [   // Upload
                 'name'      => 'photo_berry',
-                'label'     => 'Upload the berry pictures',
-                'type'      => 'upload_multiple',
+                'label'     => 'Upload the berry picture',
+                'type'      => 'upload',
                 'upload'    => true,
                 'disk'      => 'uploads', // if you store files in the /public folder, please omit this; if you store them in /storage or S3, please specify it;
                 // optional:

@@ -32,6 +32,7 @@ class CreateCosechaTable extends Migration
             $table->string('level_tolerance_frost')->nullable();
             $table->string('level_tolerance_drought')->nullable();
             $table->string('photo_tuber')->nullable();
+            $table->foreignId('submission_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

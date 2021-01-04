@@ -27,8 +27,8 @@ class TubersAtHarvestCrudController extends CrudController
     public function setup()
     {
         CRUD::setModel(\App\Models\TubersAtHarvest::class);
-        CRUD::setRoute(config('backpack.base.route_prefix') . '/tubersatharvest');
-        CRUD::setEntityNameStrings('tubersatharvest', 'tubers_at_harvests');
+        CRUD::setRoute(config('backpack.base.route_prefix') . '/tubers_at_harvest');
+        CRUD::setEntityNameStrings('tubers_at_harvest', 'tubers at harvests');
     }
 
     /**
@@ -39,6 +39,31 @@ class TubersAtHarvestCrudController extends CrudController
      */
     protected function setupListOperation()
     {
+        $this->crud->denyAccess('create');
+        $this->crud->denyAccess('delete');
+
+        $this->crud->addFilter([
+            'type'  => 'simple',
+            'name'  => 'photo_empty',
+            'label' => 'Photo to uploader'
+        ], 
+        false,  
+        function() { // if the filter is active
+            $this->crud->query = $this->crud->query->where('photo_tuber', null);
+        } );
+        
+        $this->crud->removeFilter('photo_empty');
+        // select2 filter
+        $this->crud->addFilter([
+            'name'  => 'variedad_code',
+            'type'  => 'text',
+            'label' => 'Variedad Code'
+        ],
+        false,
+        function ($value) { // if the filter is active
+            $this->crud->addClause('where', 'variety_id', $value);
+        });
+
         CRUD::setFromDb(); // columns
 
         /**
@@ -58,13 +83,15 @@ class TubersAtHarvestCrudController extends CrudController
     {
         CRUD::setValidation(TubersAtHarvestRequest::class);
 
-        CRUD::setFromDb(); // fields
-
-        /**
-         * Fields can be defined using the fluent syntax or array syntax:
-         * - CRUD::field('price')->type('number');
-         * - CRUD::addField(['name' => 'price', 'type' => 'number'])); 
-         */
+        CRUD::addField(
+            [
+                'name'      => 'photo_tuber',
+                'label'     => 'Upload the tuber pictures',
+                'type'      => 'upload',
+                'upload'    => true,
+                'disk'      => 'uploads',
+            ]
+        );
     }
 
     /**

@@ -27,7 +27,7 @@ Route::get('/variedades', function () {
 });
 
 Route::get('/fotos', function () {
-    return view('fotos');
+    return redirect('/admin/fructification?photo_empty=true');
 });
 
 Route::get('/agronomic_data', function () {
