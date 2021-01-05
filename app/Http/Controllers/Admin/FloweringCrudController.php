@@ -45,14 +45,13 @@ class FloweringCrudController extends CrudController
         $this->crud->addFilter([
             'type'  => 'simple',
             'name'  => 'photo_empty',
-            'label' => 'Photo to uploader'
+            'label' => 'Missing photos'
         ], 
         false,  
         function() { // if the filter is active
             $this->crud->query = $this->crud->query->where('photos', null)->orWhere('photo_flower', null)->orWhere('photo_plant', null);
         } );
         
-        $this->crud->removeFilter('photo_empty');
         // select2 filter
         $this->crud->addFilter([
             'name'  => 'variedad_code',
@@ -64,8 +63,59 @@ class FloweringCrudController extends CrudController
             $this->crud->addClause('where', 'variety_id', $value);
         });
 
-        CRUD::setFromDb(); // columns
-
+        CRUD::addColumns([
+            [  
+                'name'      => 'variety_id',
+                'label'     => 'Variety Code',
+                'type'     => 'closure',
+                'function' => function($entry) {
+                    return "<h6><b>". $entry->variety_id . "</b></h6>";
+                }
+            ],
+            [  
+                'name'      => 'photos_missing',
+                'label'     => 'Upload Photos',
+                'type'     => 'closure',
+                'function' => function($entry) {
+                   if(!empty($entry->photos) && !empty($entry->photo_flower) && !empty($entry->photo_plant))
+                   {
+                       return '<h6 style="color:green;">Completed</h6>';
+                   } else {
+                    return '<h6 style="color:red;">Incompleted</h6>';
+                   } 
+                }
+            ],
+            [
+                'name'      => 'photos',
+                'label'     => 'Upload the pictures',
+                'type'     => 'closure',
+                'function' => function($entry) {
+                    $img = "";
+                    foreach ( (array) $entry->photos as $photo) {
+                       $img = $img . "<a href='/storage/".$photo."'><img src='/storage/".$photo."'  width='128' height='128'  style='float: left; padding-right: 5px;'></a>";
+                    }
+                    return $img;
+                }
+            ],
+            [  
+                'name'      => 'photo_flower',
+                'label'     => 'Upload the flower pictures',
+                'type'     => 'image',
+                'prefix' => 'storage/',
+                'height' => '128px',
+                'width'  => '128px',
+            ],
+            [  
+                'name'      => 'photo_plant',
+                'label'     => 'Upload the plant pictures',
+                'type'     => 'image',
+                'prefix' => 'storage/',
+                'height' => '128px',
+                'width'  => '128px',
+             
+            ],
+        ]);
+        
         /**
          * Columns can be defined using the fluent syntax or array syntax:
          * - CRUD::column('price')->type('number');
