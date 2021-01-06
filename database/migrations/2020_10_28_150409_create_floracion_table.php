@@ -13,35 +13,34 @@ class CreateFloracionTable extends Migration
      */
     public function up()
     {
-        Schema::create('floracion', function (Blueprint $table) {
+        Schema::create('flowering', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('variety_id');
-            $table->string('crecimiento')->nullable();
-            $table->string('diseccion')->nullable();
-            $table->string('foliolos')->nullable();
-            $table->string('interhojuelas')->nullable();
-            $table->string('interhojuelas_peciolulo')->nullable();
-            $table->string('color_tallo')->nullable();
-            $table->string('forma_alas_tallo')->nullable();
-            $table->string('grado_floracion')->nullable();
-            $table->string('forma_corola')->nullable();
-            $table->string('color_flor')->nullable();
-            $table->string('intensidad_predominante')->nullable();
-            $table->string('color_flor_2')->nullable();
-            $table->string('distribucion_secundario')->nullable();
-            $table->string('pigmentacion_anteras')->nullable();
-            $table->string('pigmentacion_pistilo')->nullable();
-            $table->string('color_caliz')->nullable();
-            $table->string('color_pedicelo')->nullable();
-            $table->string('codigo_foto_1')->nullable();
-            $table->string('codigo_foto_2')->nullable();
-            $table->string('codigo_foto_3')->nullable();
-            $table->string('codigo_flor')->nullable();
-            $table->string('codigo_planta')->nullable();
-            $table->string('tolerencia_rancha')->nullable();
-            $table->string('tolerencia_granizada')->nullable();
-            $table->string('tolerencia_helada')->nullable();
-            $table->string('tolerencia_sequia')->nullable();
+            $table->string('variety_id');
+            $table->string('plant_growth')->nullable();
+            $table->string('leaf_dissection')->nullable();
+            $table->string('number_lateral_leaflets')->nullable();
+            $table->string('number_intermediate_leaflets')->nullable();
+            $table->string('number_leaflets_on_petioles')->nullable();
+            $table->string('color_stem')->nullable();
+            $table->string('shape_stem_wings')->nullable();
+            $table->string('degree_flowering_plant')->nullable();
+            $table->string('shape_corolla')->nullable();
+            $table->string('color_predominant_flower')->nullable();
+            $table->string('intensity_color_predominant_flower')->nullable();
+            $table->string('color_secondary_flower')->nullable();
+            $table->string('distribution_color_secodary_flower')->nullable();
+            $table->string('pigmentation_anthers')->nullable();
+            $table->string('pigmentation_pistil')->nullable();
+            $table->string('color_chalice')->nullable();
+            $table->string('color_pedicel')->nullable();
+            $table->json('photos')->nullable();
+            $table->string('photo_flower')->nullable();
+            $table->string('photo_plant')->nullable();
+            $table->string('level_tolerance_late_blight')->nullable();
+            $table->string('level_tolerance_hailstorms')->nullable();
+            $table->string('level_tolerance_frost')->nullable();
+            $table->string('level_tolerance_drought')->nullable();
+            $table->foreignId('submission_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -53,6 +52,6 @@ class CreateFloracionTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('floracion');
+        Schema::dropIfExists('flowering');
     }
 }

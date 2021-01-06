@@ -39,24 +39,24 @@ class Variety extends Model
         return $this->belongsTo(Farmer::class);
     }
 
-    public function floracion()
+    public function flowerings()
     {
-        return $this->hasMany(Floracion::class);
+        return $this->hasMany(Flowering::class);
     }
 
-    public function fructificacion()
+    public function fructifications()
     {
-        return $this->hasMany(Fructificacion::class);
+        return $this->hasMany(Fructification::class);
     }
 
-    public function cosecha()
+    public function tubers_at_harvests()
     {
-        return $this->hasMany(Cosecha::class);
+        return $this->hasMany(TubersAtHarvest::class);
     }
 
-    public function brotamiento()
+    public function sprouts()
     {
-        return $this->hasMany(Brotamiento::class);
+        return $this->hasMany(Sprout::class);
     }
 
     /*
