@@ -54,9 +54,9 @@ class FloweringCrudController extends CrudController
         
         // select2 filter
         $this->crud->addFilter([
-            'name'  => 'variedad_code',
+            'name'  => 'variety_code',
             'type'  => 'text',
-            'label' => 'Variedad Code'
+            'label' => 'Variety Code'
         ],
         false,
         function ($value) { // if the filter is active
@@ -79,15 +79,15 @@ class FloweringCrudController extends CrudController
                 'function' => function($entry) {
                    if(!empty($entry->photos) && !empty($entry->photo_flower) && !empty($entry->photo_plant))
                    {
-                       return '<h6 style="color:green;">Completed</h6>';
+                       return '<h6 style="color:green;">Complete</h6>';
                    } else {
-                    return '<h6 style="color:red;">Incompleted</h6>';
+                    return '<h6 style="color:red;">Incomplete</h6>';
                    } 
                 }
             ],
             [
                 'name'      => 'photos',
-                'label'     => 'Upload the pictures',
+                'label'     => 'Photos',
                 'type'     => 'closure',
                 'function' => function($entry) {
                     $img = "";
@@ -99,7 +99,7 @@ class FloweringCrudController extends CrudController
             ],
             [  
                 'name'      => 'photo_flower',
-                'label'     => 'Upload the flower pictures',
+                'label'     => 'Photo of flower',
                 'type'     => 'image',
                 'prefix' => 'storage/',
                 'height' => '128px',
@@ -107,7 +107,7 @@ class FloweringCrudController extends CrudController
             ],
             [  
                 'name'      => 'photo_plant',
-                'label'     => 'Upload the plant pictures',
+                'label'     => 'Photo of plant',
                 'type'     => 'image',
                 'prefix' => 'storage/',
                 'height' => '128px',
@@ -139,21 +139,21 @@ class FloweringCrudController extends CrudController
                 'label'     => 'Upload the pictures',
                 'type'      => 'upload_multiple',
                 'upload'    => true,
-                'disk'      => 'uploads',
+                'disk'      => 'public',
             ],
             [  
                 'name'      => 'photo_flower',
                 'label'     => 'Upload the flower pictures',
                 'type'      => 'upload',
                 'upload'    => true,
-                'disk'      => 'uploads',
+                'disk'      => 'public',
             ],
             [  
                 'name'      => 'photo_plant',
                 'label'     => 'Upload the plant pictures',
                 'type'      => 'upload',
                 'upload'    => true,
-                'disk'      => 'uploads',
+                'disk'      => 'public',
             ],
         ]);
     }

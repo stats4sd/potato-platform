@@ -4,10 +4,10 @@
 <li class='nav-item nav-dropdown'>
     <a class='nav-link nav-dropdown-toggle' href="#"><i class="la la-file-image"></i>Image Uploader</a>
     <ul class="nav-dropdown-items">
-        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('fructification?photo_empty=true') }}'><i class=''></i> Fructifications</a></li>
-        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('flowering?photo_empty=true') }}'><i class=''></i> Flowerings</a></li>
-        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('tubers_at_harvest?photo_empty=true') }}'><i class=''></i> Tubers A tHarvests</a></li>
-        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('sprout?photo_empty=true') }}'><i class=''></i> Sprouts</a></li>
+        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('fructification') }}'><i class=''></i> Fructifications</a></li>
+        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('flowering') }}'><i class=''></i> Flowerings</a></li>
+        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('tubers_at_harvest') }}'><i class=''></i> Tubers A tHarvests</a></li>
+        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('sprout') }}'><i class=''></i> Sprouts</a></li>
     </ul>
 </li>
 

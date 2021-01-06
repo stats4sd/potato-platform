@@ -45,32 +45,56 @@ class TubersAtHarvestCrudController extends CrudController
         $this->crud->addFilter([
             'type'  => 'simple',
             'name'  => 'photo_empty',
-            'label' => 'Photo to uploader'
+            'label' => 'Missing photos'
         ], 
         false,  
         function() { // if the filter is active
             $this->crud->query = $this->crud->query->where('photo_tuber', null);
         } );
         
-        $this->crud->removeFilter('photo_empty');
         // select2 filter
         $this->crud->addFilter([
-            'name'  => 'variedad_code',
+            'name'  => 'variety_code',
             'type'  => 'text',
-            'label' => 'Variedad Code'
+            'label' => 'Variety Code'
         ],
         false,
         function ($value) { // if the filter is active
             $this->crud->addClause('where', 'variety_id', $value);
         });
 
-        CRUD::setFromDb(); // columns
+        CRUD::addColumns([
+            [  
+                'name'      => 'variety_id',
+                'label'     => 'Variety Code',
+                'type'     => 'closure',
+                'function' => function($entry) {
+                    return "<h6><b>". $entry->variety_id . "</b></h6>";
+                }
+            ],
+            [  
+                'name'      => 'photos_missing',
+                'label'     => 'Upload Photos',
+                'type'     => 'closure',
+                'function' => function($entry) {
+                   if(!empty($entry->photo_tuber))
+                   {
+                       return '<h6 style="color:green;">Complete</h6>';
+                   } else {
+                    return '<h6 style="color:red;">Incomplete</h6>';
+                   } 
+                }
+            ],
+            [
+                'name'      => 'photo_tuber',
+                'label'     => 'Photo of the Tuber',
+                'type'     => 'image',
+                'prefix' => 'storage/',
+                'height' => '128px',
+                'width'  => '128px',
+            ],
+        ]);
 
-        /**
-         * Columns can be defined using the fluent syntax or array syntax:
-         * - CRUD::column('price')->type('number');
-         * - CRUD::addColumn(['name' => 'price', 'type' => 'number']); 
-         */
     }
 
     /**
@@ -89,7 +113,7 @@ class TubersAtHarvestCrudController extends CrudController
                 'label'     => 'Upload the tuber pictures',
                 'type'      => 'upload',
                 'upload'    => true,
-                'disk'      => 'uploads',
+                'disk'      => 'public',
             ]
         );
     }
