@@ -39,6 +39,7 @@ class FloweringCrudController extends CrudController
      */
     protected function setupListOperation()
     {
+        $this->crud->query =  $this->crud->query->orderByRaw('((photos is NULL) + (photo_flower is NULL) + (photo_plant is NULL)) desc');
         $this->crud->denyAccess('create');
         $this->crud->denyAccess('delete');
 
@@ -81,9 +82,14 @@ class FloweringCrudController extends CrudController
                    {
                        return '<h6 style="color:green;">Complete</h6>';
                    } else {
-                    return '<h6 style="color:red;">Incomplete</h6>';
+                        return '<h6 style="color:red;">Incomplete</h6>';
                    } 
-                }
+                },
+                'orderable'  => true,
+                'orderLogic' => function ($query, $column, $columnDirection) {
+                  
+                        return $query->orderByRaw('((photos is NULL) + (photo_flower is NULL) + (photo_plant is NULL)) ' . $columnDirection);
+                    }
             ],
             [
                 'name'      => 'photos',

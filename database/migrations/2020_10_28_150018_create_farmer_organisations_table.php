@@ -15,7 +15,7 @@ class CreateFarmerOrganisationsTable extends Migration
     {
         Schema::create('farmer_organisations', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->foreignId('farmer_id')->constrained()->onDelete('cascade');
+            $table->string('farmer_id');
             $table->string('name')->nullable();
             $table->year('year')->nullable();
             $table->timestamps();

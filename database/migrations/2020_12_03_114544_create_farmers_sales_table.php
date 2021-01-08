@@ -15,7 +15,7 @@ class CreateFarmersSalesTable extends Migration
     {
         Schema::create('farmers_sales', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('farmer_id')->constrained()->onDelete('cascade');
+            $table->string('farmer_id');
             $table->string('quantity_sold')->nullable();
             $table->json('place_sale')->nullable();
             $table->string('location_place')->nullable();

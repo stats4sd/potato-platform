@@ -27,9 +27,11 @@ Route::get('/variedades', function () {
 });
 
 Route::get('/fotos', function () {
-    return redirect('/admin/fructification?photo_empty=true');
+    return redirect('/admin/fructification');
 });
 
 Route::get('/agronomic_data', function () {
     return view('agronomic_data');
 });
+
+Route::get('xlsforms/{xlsform}/downloadsubmissions', 'SubmissionController@download')->name('xlsforms.downloadsubmissions');

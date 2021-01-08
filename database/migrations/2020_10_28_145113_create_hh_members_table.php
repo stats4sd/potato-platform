@@ -15,7 +15,7 @@ class CreateHhMembersTable extends Migration
     {
         Schema::create('hh_members', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->foreignId('farmer_id')->constrained()->onDelete('cascade');
+            $table->string('farmer_id');
             $table->string('name')->nullable();
             $table->string('relationship')->nullable();
             $table->string('gender')->nullable();

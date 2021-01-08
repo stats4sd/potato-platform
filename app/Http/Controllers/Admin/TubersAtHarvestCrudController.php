@@ -39,6 +39,7 @@ class TubersAtHarvestCrudController extends CrudController
      */
     protected function setupListOperation()
     {
+        $this->crud->query =  $this->crud->query->orderByRaw('(photo_tuber is NULL) desc');
         $this->crud->denyAccess('create');
         $this->crud->denyAccess('delete');
 
@@ -83,7 +84,12 @@ class TubersAtHarvestCrudController extends CrudController
                    } else {
                     return '<h6 style="color:red;">Incomplete</h6>';
                    } 
-                }
+                },
+                'orderable'  => true,
+                'orderLogic' => function ($query, $column, $columnDirection) {
+                  
+                        return $query->orderByRaw('(photo_tuber is NULL) ' . $columnDirection);
+                    }
             ],
             [
                 'name'      => 'photo_tuber',

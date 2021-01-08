@@ -15,7 +15,7 @@ class CreateProductionSystemsTable extends Migration
     {
         Schema::create('production_systems', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('farmer_id')->constrained()->onDelete('cascade');
+            $table->string('farmer_id');
             $table->integer('varieties_harinosa')->nullable();
             $table->integer('varieties_amarga')->nullable();
             $table->integer('varieties_mejorada')->nullable();
