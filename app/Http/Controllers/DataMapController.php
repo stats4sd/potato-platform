@@ -14,41 +14,40 @@ class DataMapController extends Controller
 {
     public static function newRecord(DataMap $dataMap, array $data)
     {
-        dd($dataMap);//one to many
-
-       
-        
-
-        
+        $variables = $dataMap->variables->toArray();
+        $newItem = DataMapController::makeNewRecord($variables, $data);
+        return $newItem;
+    
     }
 
-    public static function makeNewRecord(DataMap $dataMap, array $data)
+    public static function makeNewRecord(array $variables, array $data)
     {
-        $newModel = DataMapController::createNewModel($dataMap, $data);
-        $class = 'App\\Models\\'.$dataMap->model;
+        $newModel = DataMapController::createNewModel($variables, $data);
+        $class = 'App\\Models\\'.$variables[0]['model'];
         $newItem = new $class();
         $newItem->fill($newModel);
+
         $newItem->save();
         return $newItem;
     }
 
     //update exists plot
-    public static function updateRecord(DataMap $dataMap, array $data, $id)
+    public static function updateRecord(array $variables, array $data, $id)
     {
-        $model = DataMapController::createNewModel($dataMap, $data);
-        $class = 'App\\Models\\'.$dataMap->model;
+        $model = DataMapController::createNewModel($variables, $data);
+        $class = 'App\\Models\\'.$variables[0]['model'];
         $class::where('id', $id)->update($model);
         return $model;
     }
 
-    public static function createNewModel(DataMap $dataMap, array $data)
+    public static function createNewModel(array $variables, array $data)
     {
-
         //add the submission_id
-       
         $newModel = [
             "submission_id" => $data['_id']
         ];
+
+        $dataMap = DataMap::find($variables[0]['data_map_id']);
 
         // split the gps coordinates into longitude, latitude, altitude and accuracy
         if ($dataMap->location && isset($data['gps']) && $data['gps']) {
@@ -59,7 +58,7 @@ class DataMapController extends Controller
             $newModel["accuracy"] = isset($location[3]) ? $location[3] : null;
         }
 
-        foreach ($dataMap->variables as $variable) {
+        foreach ($variables as $variable) {
             // if the variable is new (i.e. hasn't been manually added to the database)
             if ($variable['in_db'] == 0) {
                 //don't actually process it (as the SQL Insert will fail)
@@ -68,7 +67,7 @@ class DataMapController extends Controller
                 continue;
             }
 
-            $variableName = $variable['name'];
+            $variableName = $variable['xlsform_varname'];
             $value = null;
 
             switch ($variable['type']) {
@@ -128,7 +127,8 @@ class DataMapController extends Controller
 
             if (!is_null($value)) {
                 //look the column name that matches to the variable name from the survey
-                $newModel[$variable['column_name']] = $value;
+                $newModel[$variable['db_varname']] = $value;
+                $newModel['model'] = $variable['model'];
             }
         }
 

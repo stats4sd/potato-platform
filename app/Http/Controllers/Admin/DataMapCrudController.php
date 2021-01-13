@@ -18,7 +18,7 @@ class DataMapCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation  { store as traitStore; }
+    use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation  { store as traitStore;  update as traitUpdate; }
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
 
@@ -179,6 +179,34 @@ class DataMapCrudController extends CrudController
         }
         return $response;
     }
+
+    protected function update(DataMapRequest $request)
+    {
+        $response = $this->traitUpdate();
+        // do something after save
+        $datamap = $this->crud->getCurrentEntry();
+
+       $variables = json_decode($request->variables);
+
+        foreach ($variables as  $variable) {
+            if (!empty($variable)) {
+                Variable::create(
+                    [
+                        'data_map_id' => $datamap->id,
+                        'xlsform_varname' => $variable->xlsform_varname,
+                        'db_varname' => $variable->db_varname,
+                        'in_db' => $variable->in_db,
+                        'type' => $variable->type,
+                        'model' => $variable->model,
+                        'json' => $variable->json,
+                        'linked_other' => $variable->linked_other,
+                    ]
+                );
+            }
+        }
+        return $response;
+    }
+
 
     protected function setupUpdateOperation()
     {

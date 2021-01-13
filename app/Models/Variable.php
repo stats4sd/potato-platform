@@ -18,7 +18,7 @@ class Variable extends Model
     protected $table = 'variables';
     // protected $primaryKey = 'id';
     // public $timestamps = false;
-    protected $guarded = ['id'];
+    protected $guarded = [];
     // protected $fillable = [];
     // protected $hidden = [];
     // protected $dates = [];
@@ -34,6 +34,10 @@ class Variable extends Model
     | RELATIONS
     |--------------------------------------------------------------------------
     */
+    public function data_map()
+    {
+        return $this->belongsTo(DataMap::class);
+    }
 
     /*
     |--------------------------------------------------------------------------

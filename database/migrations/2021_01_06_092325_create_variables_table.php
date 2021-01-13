@@ -22,7 +22,7 @@ class CreateVariablesTable extends Migration
             $table->string('type')->comment('variable type');
             $table->string('model')->comment('The Laravel model to use');
             $table->boolean('json')->comment('Is the variable stored as json in the database?');
-            $table->string('linked_other')->comment('the variable name that contains the "other" answer');
+            $table->string('linked_other')->comment('the variable name that contains the "other" answer')->nullable();
             $table->timestamps();
         });
     }
