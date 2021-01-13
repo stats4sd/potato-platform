@@ -14,7 +14,7 @@ class CreateFarmersTable extends Migration
     public function up()
     {
         Schema::create('farmers', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->string('id')->unique();
             $table->foreignId('community_id')->constrained()->onDelete('cascade');
             $table->string('farmhouse')->nullable();
             $table->decimal('latitude', 9,6);

@@ -15,7 +15,7 @@ class CreateLinkFarmersFarmerOrganisationsTable extends Migration
     {
         Schema::create('_farmers_farmer_organisations', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('farmer_id')->constrained('farmers')->onDelete('cascade');
+            $table->string('farmer_id');
             $table->foreignId('farmer_organisation_id')->constrained('farmer_organisations')->onDelete('cascade');
             $table->timestamps();
         });

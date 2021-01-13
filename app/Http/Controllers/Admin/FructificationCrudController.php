@@ -40,6 +40,7 @@ class FructificationCrudController extends CrudController
      */
     protected function setupListOperation()
     {
+        $this->crud->query =  $this->crud->query->orderByRaw('(photo_berry is NULL) desc');
         $this->crud->denyAccess('create');
         $this->crud->denyAccess('delete');
 
@@ -84,7 +85,12 @@ class FructificationCrudController extends CrudController
                    } else {
                     return '<h6 style="color:red;">Incomplete</h6>';
                    } 
-                }
+                },
+                'orderable'  => true,
+                'orderLogic' => function ($query, $column, $columnDirection) {
+                  
+                        return $query->orderByRaw('(photo_berry is NULL) ' . $columnDirection);
+                    }
             ],
             [
                 'name'      => 'photo_berry',

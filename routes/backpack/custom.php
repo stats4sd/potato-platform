@@ -20,8 +20,6 @@ Route::group([
     Route::crud('farmer', 'FarmerCrudController');
     Route::crud('community', 'CommunityCrudController');
     Route::crud('variety', 'VarietyCrudController');
-    Route::crud('xlsform', 'XlsformCrudController');
-    Route::crud('submission', 'SubmissionCrudController');
     Route::crud('hhmember', 'HhMemberCrudController');
     Route::crud('productionsystem', 'ProductionSystemCrudController');
     Route::crud('farmerorganisation', 'FarmerOrganisationCrudController');
@@ -31,4 +29,14 @@ Route::group([
     Route::crud('sprout', 'SproutCrudController');
     Route::crud('farmerssale', 'FarmersSaleCrudController');
     Route::crud('plot', 'PlotCrudController');
+    Route::crud('xlsform', 'XlsformCrudController');
+    Route::crud('submission', 'SubmissionCrudController');
+    Route::crud('variable', 'VariableCrudController');
+    Route::crud('datamap', 'DataMapCrudController');
+    //KoboToolBox API
+    Route::post('xlsform/{xlsform}/deploytokobo', 'XlsformCrudController@deployToKobo');
+    Route::post('xlsform/{xlsform}/syncdata', 'XlsformCrudController@syncData');
+    Route::post('xlsform/{xlsform}/archive', 'XlsformCrudController@archiveOnKobo');
+    Route::post('xlsform/{xlsform}/csvgenerate', 'XlsformCrudController@regenerateCsvFileAttachments');
+
 }); // this should be the absolute last line of this file

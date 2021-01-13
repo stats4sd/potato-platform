@@ -15,14 +15,14 @@ class CreateVariablesTable extends Migration
     {
         Schema::create('variables', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('data_map_id')->constrained('data_maps')->onDelete('cascade');
+            $table->string('data_map_id');
             $table->string('xlsform_varname')->comment('name of variable in XLSform');
             $table->string('db_varname')->comment('name of field in database');
             $table->boolean('in_db')->comment('Does the variables exist in the database?');
             $table->string('type')->comment('variable type');
             $table->string('model')->comment('The Laravel model to use');
             $table->boolean('json')->comment('Is the variable stored as json in the database?');
-            $table->string('linked_other')->comment('the variable name that contains the "other" answer');
+            $table->string('linked_other')->comment('the variable name that contains the "other" answer')->nullable();
             $table->timestamps();
         });
     }
