@@ -34,10 +34,9 @@ class NewVariableSpottedEmail extends Mailable
      */
     public function build()
     {
-        dd('email');
         return $this->from("no-reply@stats4sd.org")
         ->subject('Yanapai Platform: New Variable Spotted!!')
-            ->markdown('emails.new_variable');
+            ->markdown('emails.new_variable'); //view email
    
     }
 }

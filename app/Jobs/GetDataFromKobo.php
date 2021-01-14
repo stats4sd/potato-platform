@@ -71,26 +71,27 @@ class GetDataFromKobo implements ShouldQueue
                     'date_time' => $newSubmission['_submission_time'],
                 ]);
 
-            }
-          
-            $variety = Variety::updateOrCreate([   
+                $variety = Variety::updateOrCreate([   
                     'id' =>  $newSubmission['codigo_variedad']
                 ],
                 [
                     'name' => $newSubmission['variedad'],
                     'farmer_id' => $newSubmission['codigo_agricultor'],
                 ]
-            );
+                );
 
-            $newSubmission['variety_id'] = $variety->id;
+                $newSubmission['variety_id'] = $variety->id;
 
-            $newSubmission = $this->deleteGroupName($newSubmission);
-            $newSubmission['modulos'] = explode(' ', $newSubmission['modulos']);
+                $newSubmission = $this->deleteGroupName($newSubmission);
+                $newSubmission['modulos'] = explode(' ', $newSubmission['modulos']);
 
-            foreach ($newSubmission['modulos'] as $modulo) {
-                $dataMap = DataMap::findOrfail($modulo);
-                DataMapController::newRecord($dataMap, $newSubmission);
+                foreach ($newSubmission['modulos'] as $modulo) {
+                    $dataMap = DataMap::findOrfail($modulo);
+                    DataMapController::newRecord($dataMap, $newSubmission);
+                }
             }
+          
+            
 
         } // end foreach record
     } // end handle method
