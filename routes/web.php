@@ -17,9 +17,15 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 Route::middleware(['auth'])->group(function() {
+
 Route::get('/', function () {
     return view('home');
 });
+
+Route::get('admin/logout', function () {
+    return redirect('/home');
+});
+
 
 Route::get('/home', function () {
     return view('home');

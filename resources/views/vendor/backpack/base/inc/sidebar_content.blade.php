@@ -1,9 +1,9 @@
 <!-- This file is used to store sidebar items, starting with Backpack\Base 0.9.0 -->
 
 <!-- <li class="nav-item"><a class="nav-link" href="{{ backpack_url('dashboard') }}"><i class="nav-icon fa fa-dashboard"></i> {{ trans('backpack::base.dashboard') }}</a></li> -->
-
 <h4 class='nav-item nav-link text-white mt-3'>Platform Management</h4>
 
+@if(Auth::user()->permission==2)
 <li class='nav-item'><a class='nav-link' href="{{ backpack_url('user') }}"><i class="nav-icon fa fa-users"></i> Users</a></li>
 
 <li class='nav-item nav-dropdown'>
@@ -25,6 +25,7 @@
         <li class='nav-item'><a class='nav-link' href='{{ backpack_url('submission') }}'><i class=''></i> Submissions</a></li>
     </ul>
 </li>
+@endif
 <li class='nav-item nav-dropdown'>
     <a class='nav-link nav-dropdown-toggle' href="#"><i class="la la-file-image"></i>Image Uploader</a>
     <ul class="nav-dropdown-items">
@@ -35,6 +36,7 @@
     </ul>
 </li>
 
+@if(Auth::user()->permission==2)
 <h4 class='nav-item nav-link text-white mt-3'>Agronomic Data</h4>
 
 <li class='nav-item nav-dropdown'>
@@ -69,3 +71,6 @@
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('tubersatharvest') }}'><i class='nav-icon la la-question'></i> TubersAtHarvests</a></li>
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('sprout') }}'><i class='nav-icon la la-question'></i> Sprouts</a></li>
 
+
+<li class='nav-item'><a class='nav-link' href='{{ backpack_url('user') }}'><i class='nav-icon la la-question'></i> Users</a></li>
+@endif

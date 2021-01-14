@@ -14,6 +14,7 @@ Route::group([
     ),
     'namespace'  => 'App\Http\Controllers\Admin',
 ], function () { // custom admin routes
+
     Route::crud('region', 'RegionCrudController');
     Route::crud('district', 'DistrictCrudController');
     Route::crud('province', 'ProvinceCrudController');
@@ -39,4 +40,5 @@ Route::group([
     Route::post('xlsform/{xlsform}/archive', 'XlsformCrudController@archiveOnKobo');
     Route::post('xlsform/{xlsform}/csvgenerate', 'XlsformCrudController@regenerateCsvFileAttachments');
 
+    Route::crud('user', 'UserCrudController');
 }); // this should be the absolute last line of this file
