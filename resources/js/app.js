@@ -11,6 +11,7 @@ Vue.use(IconsPlugin);
 
 Vue.component('v-select', vSelect);
 Vue.component('variety-catalog', require('./components/VarietyCatalog.vue').default);
+Vue.component('variety_table', require('./components/variety_table.vue').default);
 
 const app = new Vue({
     el: '#app' 
