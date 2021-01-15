@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CatalogueController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +23,10 @@ Route::get('/home', function () {
     return view('home');
 });
 
+Route::get('/catalogo', function () {
+    return view('catalogo');
+});
+
 Route::get('/variedades', function () {
     return view('variedades');
 });
@@ -35,3 +40,6 @@ Route::get('/agronomic_data', function () {
 });
 
 Route::get('xlsforms/{xlsform}/downloadsubmissions', 'SubmissionController@download')->name('xlsforms.downloadsubmissions');
+
+Route::post('/variety-details', 'App\Http\Controllers\CatalogueController@getVarietyDetails');
+

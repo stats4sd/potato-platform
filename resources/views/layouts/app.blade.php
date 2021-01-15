@@ -34,9 +34,8 @@
         <b-collapse id="nav-collapse" is-nav>
             <b-navbar-nav>
                 <b-nav-item href="/home">Inicio</b-nav-item>
-                <b-nav-item href="/variedades">Catálogo de Variedades</b-nav-item>
+                <b-nav-item href="/catalogo">Catálogo de Variedades</b-nav-item>
                 <b-nav-item href="/fotos">Subir Fotos</b-nav-item>
-                <b-nav-item href="/agronomic_data">Datos Agronómicos</b-nav-item>
             </b-navbar-nav>
         </b-collapse>
         </b-navbar>
