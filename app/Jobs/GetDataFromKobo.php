@@ -70,24 +70,37 @@ class GetDataFromKobo implements ShouldQueue
                     'content' => json_encode($newSubmission),
                     'date_time' => $newSubmission['_submission_time'],
                 ]);
+                if(array_key_exists('codigo_variedad', $newSubmission)){
 
-                $variety = Variety::updateOrCreate([   
-                    'id' =>  $newSubmission['codigo_variedad']
-                ],
-                [
-                    'name' => $newSubmission['variedad'],
-                    'farmer_id' => $newSubmission['codigo_agricultor'],
-                ]
-                );
-
-                $newSubmission['variety_id'] = $variety->id;
-
+                    $variety = Variety::updateOrCreate([   
+                        'id' =>  $newSubmission['codigo_variedad']
+                    ],
+                    [
+                        'name' => $newSubmission['variedad'],
+                        'farmer_id' => $newSubmission['codigo_agricultor'],
+                    ]
+                    );
+    
+                    $newSubmission['variety_id'] = $variety->id;
+                
+                }
                 $newSubmission = $this->deleteGroupName($newSubmission);
-                $newSubmission['modulos'] = explode(' ', $newSubmission['modulos']);
 
-                foreach ($newSubmission['modulos'] as $modulo) {
-                    $dataMap = DataMap::findOrfail($modulo);
+                $xls_form = Xlsform::findOrfail($this->form->id);
+
+                foreach ($xls_form->datamaps as $dataMap) {
+                    
                     DataMapController::newRecord($dataMap, $newSubmission);
+                    
+                }
+                if(array_key_exists('modulos', $newSubmission)){
+
+                    $newSubmission['modulos'] = explode(' ', $newSubmission['modulos']);
+    
+                    foreach ($newSubmission['modulos'] as $modulo) {
+                        $dataMap = DataMap::findOrfail($modulo);
+                        DataMapController::newRecord($dataMap, $newSubmission);
+                    }
                 }
             }
           

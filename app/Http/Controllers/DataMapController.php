@@ -23,6 +23,7 @@ class DataMapController extends Controller
     public static function makeNewRecord(array $variables, array $data)
     {
         $newModel = DataMapController::createNewModel($variables, $data);
+      
         $class = 'App\\Models\\'.$variables[0]['model'];
         $newItem = new $class();
         $newItem->fill($newModel);
@@ -128,7 +129,7 @@ class DataMapController extends Controller
             if (!is_null($value)) {
                 //look the column name that matches to the variable name from the survey
                 $newModel[$variable['db_varname']] = $value;
-                $newModel['model'] = $variable['model'];
+                // $newModel['model'] = $variable['model'];
             }
         }
 
