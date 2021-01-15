@@ -15,7 +15,7 @@
                     <b-input-group-prepend is-text>
                         <b-icon icon="image-fill"></b-icon>
                     </b-input-group-prepend>
-                    <b-form-file id="form-image" :disabled="busy" accept="image/*"></b-form-file>
+                    <b-form-file id="form-image" :disabled="busy" accept="image/*"  placeholder="Ningún archivo elegido" browse-text="Navegar"></b-form-file>
                     </b-input-group>
                 </b-form-group>
                 <div class="d-flex justify-content-center">
