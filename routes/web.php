@@ -41,5 +41,5 @@ Route::get('/agronomic_data', function () {
 
 Route::get('xlsforms/{xlsform}/downloadsubmissions', 'SubmissionController@download')->name('xlsforms.downloadsubmissions');
 
-Route::post('/variety-details', 'App\Http\Controllers\CatalogueController@getVarietyDetails');
+Route::post('/variety-details', 'CatalogueController@getVarietyDetails');
 
