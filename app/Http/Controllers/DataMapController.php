@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\DataMap;
-use App\Models\Parcela;
-use App\Models\Comunidad;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use App\Events\NewDataVariableSpotted;

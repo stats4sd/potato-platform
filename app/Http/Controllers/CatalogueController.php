@@ -16,13 +16,12 @@ class CatalogueController extends Controller
     public function getVarietyDetails(Request $request)
     {
         $fructification =  DB::table('fructification')->where('variety_id','=',$request->variety_id['variedad'])->get();
-
         $flowering =  DB::table('flowering')->where('variety_id','=',$request->variety_id['variedad'])->get();
 
         $sprouts =  DB::table('sprouts')->where('variety_id','=',$request->variety_id['variedad'])->get();
 
         $tubers_at_harvest =  DB::table('tubers_at_harvest')->where('variety_id','=',$request->variety_id['variedad'])->get();
-
+       
         return response()->json([
             'fructification'=> $fructification,
             'flowering' => $flowering,

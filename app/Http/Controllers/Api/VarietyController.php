@@ -19,7 +19,6 @@ class VarietyController extends Controller
                         ->join('provinces', 'districts.province_id', '=', 'provinces.id')
                         ->join('regions', 'provinces.region_id', '=', 'regions.id')
                         ->get();
-
        
         return $varieties->toJson();
     }
