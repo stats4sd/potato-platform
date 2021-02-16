@@ -127,7 +127,8 @@ class DataMapCrudController extends CrudController
                         'wrapper' => ['class' => 'form-group col-md-4'],
                         'options' => [
                             'boolean' => 'Boolean (select_one with yes/no or 1/0 options)',
-                            'text' => 'text / select_one',
+                            'select_one' => 'select_one',
+                            'text' => 'text',
                             'integer' => 'integer',
                             'decimal' => 'decimal',
                             'select_multiple' => 'select_multiple',

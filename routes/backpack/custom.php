@@ -41,4 +41,5 @@ Route::group([
     Route::post('xlsform/{xlsform}/csvgenerate', 'XlsformCrudController@regenerateCsvFileAttachments');
 
     Route::crud('user', 'UserCrudController');
+    Route::crud('choice', 'ChoiceCrudController');
 }); // this should be the absolute last line of this file

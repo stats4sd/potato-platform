@@ -20,8 +20,9 @@
     <a class='nav-link nav-dropdown-toggle' href="#"> Kobo System</a>
     <ul class="nav-dropdown-items">
         <li class='nav-item'><a class='nav-link' href='{{ backpack_url('xlsform') }}'> Xlsforms</a></li>
-        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('datamap') }}'> DataMaps</a></li>
+        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('datamap') }}'> Data Maps</a></li>
         <li class='nav-item'><a class='nav-link' href='{{ backpack_url('variable') }}'> Variables</a></li>
+        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('choice') }}'>Choices</a></li>
         <li class='nav-item'><a class='nav-link' href='{{ backpack_url('submission') }}'> Submissions</a></li>
     </ul>
 </li>
@@ -31,7 +32,7 @@
     <ul class="nav-dropdown-items">
         <li class='nav-item'><a class='nav-link' href='{{ backpack_url('fructification') }}'> Fructifications</a></li>
         <li class='nav-item'><a class='nav-link' href='{{ backpack_url('flowering') }}'> Flowerings</a></li>
-        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('tubers_at_harvest') }}'> Tubers A tHarvests</a></li>
+        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('tubers_at_harvest') }}'> Tubers At Harvests</a></li>
         <li class='nav-item'><a class='nav-link' href='{{ backpack_url('sprout') }}'> Sprouts</a></li>
     </ul>
 </li>
@@ -43,8 +44,8 @@
     <a class='nav-link nav-dropdown-toggle' href="#"><i class="nav-icon fa fa-newspaper-o"></i>Farmer Data</a>
     <ul class="nav-dropdown-items">
         <li class='nav-item'><a class='nav-link' href='{{ backpack_url('farmer') }}'> Farmers</a></li>
-        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('hhmember') }}'> HhMembers</a></li>
-        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('farmerorganisation') }}'> FarmerOrganisations</a></li>
+        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('hhmember') }}'> HH Members</a></li>
+        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('farmerorganisation') }}'> Farmers Organisations</a></li>
     </ul>
 </li>
 
@@ -59,7 +60,7 @@
 <li class='nav-item nav-dropdown'>
     <a class='nav-link nav-dropdown-toggle' href="#"><i class="nav-icon fa fa-newspaper-o"></i>Markets</a>
     <ul class="nav-dropdown-items">
-        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('farmerssale') }}'> FarmersSales</a></li>
+        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('farmerssale') }}'> Farmers Sales</a></li>
     </ul>
 </li>
 
@@ -68,7 +69,7 @@
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('variety') }}'> Varieties</a></li>
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('fructification') }}'> Fructifications</a></li>
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('flowering') }}'> Flowerings</a></li>
-<li class='nav-item'><a class='nav-link' href='{{ backpack_url('tubersatharvest') }}'>TubersAtHarvests</a></li>
+<li class='nav-item'><a class='nav-link' href='{{ backpack_url('tubersatharvest') }}'>Tubers At Harvests</a></li>
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('sprout') }}'>Sprouts</a></li>
 
 @endif
