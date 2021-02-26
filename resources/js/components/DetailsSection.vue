@@ -7,7 +7,8 @@
                 class="text-white w-100 px-4"
                 :class="expanded ? 'not-collapsed' : 'collapsed'"
                 :aria-expanded="expanded ? 'true' : 'false'"
-                :aria-controls="'collapse-'+id"
+                :aria-controls="'collapse'+id"
+                @click="expanded = !expanded"
             >
                 <h5 class="d-flex justify-content-between m-0 align-items-center">
                     <span>{{ title }}</span>
@@ -19,17 +20,15 @@
             </b-button>
         </h5>
         <b-collapse
-            :id="'collapse-'+id"
+            :id="'collapse'+id"
             v-model="expanded"
-            :aria-labelledby="'collapse-heading-'+id"
+            :aria-labelledby="'collapse-heading'"
         >
             <div class="card-body">
                 <sub-section
-                    v-for="(subSection, subtitle) in subSections"
-                    :key="subtitle"
-                    :subtitle="subtitle"
+                    v-for="(subSection, index) in subSections"
+                    :key="index"
                     :data="subSection"
-                    :cover-image="subSection.coverImage"
                 />
             </div>
         </b-collapse>
@@ -41,6 +40,10 @@
     export default {
         components: { SubSection },
         props: {
+            id: {
+                type: String,
+                default: '',
+            },
             title: {
                 type: String,
                 default: 'New Section',
@@ -56,10 +59,5 @@
                 'expanded': true,
             }
         },
-
-        mounted() {
-            console.log('details Mounted')
-            console.log('subsections', this.subSections);
-        }
     }
 </script>

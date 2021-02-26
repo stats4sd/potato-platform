@@ -1,24 +1,25 @@
 <template>
-    <div class="d-flex">
-        <div class="image col-12 col-lg-6 col-xl-4">
+    <div class="d-flex flex-wrap">
+        <div class="image col-12 col-md-6 col-xl-4">
             <img
-                src="coverImage"
-                width="100%"
+                :src="data.image ? data.image : 'https://via.placeholder.com/300' "
             >
         </div>
-        <div class="col-12 col-lg-6 col-xl-8">
-            <h4 v-if="subTitle">
-                {{ subTitle }}
+        <div class="col-12 col-md-6 col-xl-8">
+            <h4 v-if="data.title && data.title.length > 0">
+                {{ data.title }}
             </h4>
 
             <ul class="list-group list-group-flush">
                 <li
-                    v-for="(value, label) in data"
-                    :key="label"
+                    v-for="variable in data.variables"
+                    :key="variable.name"
                     class="list-group-item d-flex justify-content-between"
                 >
-                    <div>{{ label }}</div>
-                    <div>{{ value }}</div>
+                    <div>
+                        {{ variable.label }}
+                    </div>
+                    <div>{{ variable.value }}</div>
                 </li>
             </ul>
         </div>
@@ -28,17 +29,9 @@
 <script>
     export default {
         props: {
-            subTitle: {
-                type: String,
-                default: null,
-            },
             data: {
                 type: Object,
                 default: () => {},
-            },
-            coverImage: {
-                type: String,
-                default: '',
             },
         }
     }
