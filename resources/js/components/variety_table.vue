@@ -242,7 +242,20 @@
     export default {
         data() {
             return {
-                fields: ['variedad', 'agricultor', 'región'],
+                fields: [
+                    {
+                        key: 'name',
+                        label: 'variedad',
+                    },
+                    {
+                        key: 'farmer.name',
+                        label: 'agricultor',
+                    },
+                    {
+                        key: 'farmer.community.district.province.region.name',
+                        label: 'región',
+                    }
+                ],
                 varieties: [],
                 selected: [],
                 fructification:[],
@@ -266,7 +279,7 @@
                     method: 'post',
                     url: "/variety-details",
                     data: {
-                        variety_id: this.selected,
+                        variety_id: this.selected.id,
                     }
                 })
                     .then((result) => {
