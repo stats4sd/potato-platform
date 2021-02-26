@@ -16,10 +16,13 @@ class CatalogueController extends Controller
     {
         $variety = Variety::findOrFail($request->variety_id);
 
-        $fructification = $variety->fructifications;
-        $flowering =  $variety->flowerings;
-        $sprouts =  $variety->sprouts;
-        $tubers_at_harvest =  $variety->TubersAtHarvests;
+
+        // EVENTUALLY, we will have to reconcile the possibility of having multiple subtable records for a single variety. For now, just take the first entry...
+        $fructification = $variety->fructifications->first();
+        $flowering =  $variety->flowerings->first();
+        $sprouts =  $variety->sprouts->first();
+        $tubers_at_harvest =  $variety->TubersAtHarvests->first();
+
 
         return response()->json([
             'fructification'=> $fructification,

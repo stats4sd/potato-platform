@@ -104,10 +104,13 @@
                     }
                 })
                     .then((result) => {
-                        this.fructification = result.data.fructification[0];
-                        this.flowering = result.data.flowering[0];
-                        this.tubersAtHarvest = result.data.tubers_at_harvest[0];
-                        this.sprouts = result.data.sprouts[0];
+
+                        console.log('result', result.data);
+
+                        this.fructification = result.data.fructification;
+                        this.flowering = result.data.flowering;
+                        this.tubersAtHarvest = result.data.tubers_at_harvest;
+                        this.sprouts = result.data.sprouts;
                         this.floweringPhotos =  JSON.parse(this.flowering.photos);
 
                     }, (error) => {
