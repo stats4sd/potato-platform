@@ -1,6 +1,7 @@
 <template>
     <div class="container">
         <b-table
+            id="variety-teble"
             ref="selectableTable"
             responsive="sm"
             striped
@@ -10,10 +11,18 @@
             primary-key="variedad"
             select-mode="single"
             selectable
+            :per-page="perPage"
+            :current-page="currentPage"
             @row-selected="onRowSelected"
         >
             <template #cell(selected)="{ rowSelected }" />
         </b-table>
+        <b-pagination
+            v-model="currentPage"
+            :total-rows="varieties.length"
+            :per-page="perPage"
+            aria-controls="variety-table"
+        />
         <div
             v-if="selected.length!=0"
             class="container py-4"
@@ -263,6 +272,8 @@
                 tubers_at_harvest:[],
                 sprouts:[],
                 flowering_photos:[],
+                currentPage: 1,
+                perPage: 15,
             }
         },
         mounted () {
