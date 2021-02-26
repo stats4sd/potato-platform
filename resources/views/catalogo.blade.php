@@ -10,7 +10,7 @@
     </div>
 </div>
 
-<variety_table></variety_table>
+<variety-table></variety-table>
 
 
 @endsection
