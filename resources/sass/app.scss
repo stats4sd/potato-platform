@@ -1,5 +1,6 @@
 // Fonts
 @import url("https://fonts.googleapis.com/css?family=Ubuntu");
+@import url("https://use.fontawesome.com/releases/v5.7.0/css/all.css");
 
 // Variables
 @import "variables";
@@ -7,3 +8,21 @@
 @import "~bootstrap";
 @import '~bootstrap-vue';
 
+body {
+    font-family: $font-family-sans-serif;
+}
+
+
+h2 {
+    font-family: 'Ubuntu',sans-serif;
+    font-weight: normal;
+}
+
+// variety table
+.bottom-shadow {
+    box-shadow: 0px 10px 10px -10px grey;
+}
+
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+  background-color: $light-grey;
+}
