@@ -35,7 +35,7 @@ class DataMap extends Model
     | RELATIONS
     |--------------------------------------------------------------------------
     */
-    
+
     public function variables()
     {
         return $this->hasMany(Variable::class);

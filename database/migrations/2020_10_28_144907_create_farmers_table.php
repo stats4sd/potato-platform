@@ -17,9 +17,9 @@ class CreateFarmersTable extends Migration
             $table->string('id')->unique();
             $table->foreignId('community_id')->constrained()->onDelete('cascade');
             $table->string('farmhouse')->nullable();
-            $table->decimal('latitude', 9,6);
-            $table->decimal('longitude', 9,6);
-            $table->decimal('altitude', 9,6);
+            $table->decimal('latitude', 9, 6);
+            $table->decimal('longitude', 9, 6);
+            $table->decimal('altitude', 8, 2);
             $table->string('name')->nullable();
             $table->string('DNI')->nullable();
             $table->date('birth_date')->nullable();
