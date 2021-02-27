@@ -1,6 +1,8 @@
 <template>
     <div>
-        <h2>Variedad {{ variety.name }}</h2>
+        <h2 class="mb-4">
+            Variedad {{ variety.name }}
+        </h2>
         <details-section
             id="flowering"
             title="Floración"

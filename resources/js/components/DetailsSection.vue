@@ -1,10 +1,10 @@
 <template>
-    <div class="card">
+    <div class="card mb-4 border-0">
         <h5 class="card-header bg-info text-light p-0 rounded">
             <b-button
                 :id="'collapse-heading'+id"
                 variant="link"
-                class="text-white w-100 px-4"
+                class="text-white w-100 px-4 py-3"
                 :class="expanded ? 'not-collapsed' : 'collapsed'"
                 :aria-expanded="expanded ? 'true' : 'false'"
                 :aria-controls="'collapse'+id"
@@ -15,7 +15,6 @@
                     <i
                         :class="expanded ? 'fa fa-caret-down' : 'fa fa-caret-right'"
                     />
-                    </i>
                 </h5>
             </b-button>
         </h5>
@@ -24,7 +23,7 @@
             v-model="expanded"
             :aria-labelledby="'collapse-heading'"
         >
-            <div class="card-body">
+            <div class="card-body mt-2">
                 <sub-section
                     v-for="(subSection, index) in subSections"
                     :key="index"
