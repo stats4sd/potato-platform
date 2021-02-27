@@ -55,7 +55,6 @@ class CatalogueController extends Controller
             'color_berries' => 'Color de las baya',
             'shape_berry' => 'Forma de la baya',
             'maturity_variety' => 'La madurez',
-            'color_predominant_tuber' => 'Color predominante',
         ];
 
         $sproutsLabels = [

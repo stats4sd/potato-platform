@@ -49,7 +49,7 @@
 
                 return [
                     {
-                        variables: Object.keys(this.values.fruits).map((key) => {
+                        variables: Object.keys(this.labels.fruits).map((key) => {
                             console.log('key', key)
                             return {
                                 name: key,
@@ -65,7 +65,7 @@
                 if(!this.labels) return null
                 return [
                     {
-                        variables: Object.keys(this.values.sprouts).map((key) => {
+                        variables: Object.keys(this.labels.sprouts).map((key) => {
                             return {
                                 name: key,
                                 label: this.labels.sprouts[key],
