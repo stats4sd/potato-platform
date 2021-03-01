@@ -14327,3 +14327,28 @@ h2 {
   background-color: #f3f5f5;
 }
 
+.image-sq {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.sq-outer {
+  display: inline-block;
+  position: relative;
+  width: 100%;
+}
+
+.sq-dummy {
+  margin-top: 100%;
+}
+
+.sq {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+

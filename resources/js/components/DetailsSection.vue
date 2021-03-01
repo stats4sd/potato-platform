@@ -27,7 +27,9 @@
                 <sub-section
                     v-for="(subSection, index) in subSections"
                     :key="index"
-                    :data="subSection"
+                    :cover-image="subSection.coverImage ? subSection.coverImage : null"
+                    :title="subSection.title ? subSection.title : null"
+                    :variables="subSection.variables"
                 />
             </div>
         </b-collapse>

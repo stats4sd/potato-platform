@@ -51,6 +51,7 @@
 
                 return [
                     {
+                        coverImage: this.values.fruits.photo_berry,
                         variables: Object.keys(this.labels.fruits).map((key) => {
                             console.log('key', key)
                             return {
@@ -67,6 +68,7 @@
                 if(!this.labels) return null
                 return [
                     {
+                        coverImage: this.values.sprouts.photo_tuber_shoot,
                         variables: Object.keys(this.labels.sprouts).map((key) => {
                             return {
                                 name: key,
@@ -113,6 +115,7 @@
                 return [
                     {
                         title: "La Planta",
+                        coverImage: this.values.flowering.photo_plant,
                         variables: laPlanta.map((key) => {
                             return {
                                 name: key,
@@ -123,6 +126,7 @@
                     },
                     {
                         title: "La Flor",
+                        coverImage: this.values.flowering.photo_flower,
                         variables: laFlor.map((key) => {
                             return {
                                 name: key,
@@ -170,6 +174,7 @@
                 return [
                     {
                         title: '',
+                        coverImage: this.values.tubersAtHarvest.photo_tuber,
                         variables: tubersAtHarvestMain.map((key) => {
                             return {
                                 name: key,
