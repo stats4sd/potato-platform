@@ -14,6 +14,28 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    
+    <style>
+    .text-block {
+    position: absolute;
+    top: 400px;
+    color: white;
+    padding-bottom: 50px;
+    font-weight: 700;
+    text-align: center;
+    font-size: 55px;
+    padding-left: 5%;
+    padding-right: 5%;
+    line-height: 1.2;
+    width: 100%;
+    }
+    
+    #image_home_page{
+    width:100%;  
+    object-fit:cover; 
+    height:500px;
+    }
+    </style>
 
 
 
@@ -28,11 +50,16 @@
             <b-navbar-nav>
                 <b-nav-item href="/home">Inicio</b-nav-item>
                 <b-nav-item href="/catalogo">Catálogo de Variedades</b-nav-item>
-                <b-nav-item href="/fotos">Subir Fotos</b-nav-item>
+                @if(Auth::check())
+                    @if(Auth::user()->permission)
+                    <b-nav-item href="/fotos">Subir Fotos</b-nav-item>
+                    @endif
+                    <b-nav-item active style=" position: absolute; right: 15px;"> Welcome {{ Auth::user()->name }} </b-nav-item>
+                @endif
             </b-navbar-nav>
         </b-collapse>
         </b-navbar>
-        <main class="py-4">
+        <main>
             @yield('content')
         </main>
     </div>

@@ -5,7 +5,7 @@ namespace App\Models;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
 
-class Variable extends Model
+class Choice extends Model
 {
     use CrudTrait;
 
@@ -15,10 +15,10 @@ class Variable extends Model
     |--------------------------------------------------------------------------
     */
 
-    protected $table = 'variables';
+    protected $table = 'choices';
     // protected $primaryKey = 'id';
     // public $timestamps = false;
-    protected $guarded = [];
+    protected $guarded = ['id'];
     // protected $fillable = [];
     // protected $hidden = [];
     // protected $dates = [];
@@ -34,14 +34,9 @@ class Variable extends Model
     | RELATIONS
     |--------------------------------------------------------------------------
     */
-    public function data_map()
+    public function variables()
     {
-        return $this->belongsTo(DataMap::class);
-    }
-
-    public function choices()
-    {
-        return $this->belongsToMany(Choice::class, '_link_variables_choices');
+        return $this->belongsToMany(Variable::class, '_link_variables_choices');
     }
 
     /*

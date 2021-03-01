@@ -2,6 +2,7 @@
 
 namespace App\Listeners;
 
+use Illuminate\Support\Facades\Mail;
 use App\Mail\NewVariableSpottedEmail;
 use App\Events\NewDataVariableSpotted;
 use Illuminate\Queue\InteractsWithQueue;

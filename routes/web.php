@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CatalogueController;
 
@@ -15,31 +16,41 @@ use App\Http\Controllers\CatalogueController;
 */
 
 
-Route::get('/', function () {
-    return view('home');
+Auth::routes();
+Route::middleware(['auth'])->group(function() {
+
+    Route::get('/', function () {
+        return view('home');
+    });
+
+    Route::get('admin/logout', function () {
+        return redirect('/home');
+    });
+
+
+    Route::get('/home', function () {
+        return view('home');
+    });
+
+    Route::get('/catalogo', function () {
+        return view('catalogo');
+    });
+
+    Route::get('/variedades', function () {
+        return view('variedades');
+    });
+
+    Route::get('/fotos', function () {
+        return redirect('/admin/fructification');
+    });
+
+    Route::get('/agronomic_data', function () {
+        return view('agronomic_data');
+    });
+
+    Route::get('xlsforms/{xlsform}/downloadsubmissions', 'SubmissionController@download')->name('xlsforms.downloadsubmissions');
+
+    Route::post('/variety-details', 'CatalogueController@getVarietyDetails');
 });
 
-Route::get('/home', function () {
-    return view('home');
-});
-
-Route::get('/catalogo', function () {
-    return view('catalogo');
-});
-
-Route::get('/variedades', function () {
-    return view('variedades');
-});
-
-Route::get('/fotos', function () {
-    return redirect('/admin/fructification');
-});
-
-Route::get('/agronomic_data', function () {
-    return view('agronomic_data');
-});
-
-Route::get('xlsforms/{xlsform}/downloadsubmissions', 'SubmissionController@download')->name('xlsforms.downloadsubmissions');
-
-Route::post('/variety-details', 'CatalogueController@getVarietyDetails');
 

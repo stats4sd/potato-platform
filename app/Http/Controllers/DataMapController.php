@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\DataMap;
-use App\Models\Parcela;
-use App\Models\Comunidad;
+use App\Models\Variable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use App\Events\NewDataVariableSpotted;
@@ -115,7 +114,20 @@ class DataMapController extends Controller
                     }
                 break;
 
-                case 'select_multiple':
+                case 'select_one':
+                    $variables_choices = Variable::where('xlsform_varname',$variableName)->first();
+                    $choice = $variables_choices->choices->where('value', $data[$variableName])->first();
+                    if (!empty($choice->label_spanish)){
+                        
+                        $value = isset($choice->label_spanish) ? $choice->label_spanish : null;
+                        
+                    } else {
+
+                        $value = $data[$variableName];
+                    }
+                   
+                break;
+
                 case 'geopoint':
                     $value = null;
                 break;
@@ -128,7 +140,8 @@ class DataMapController extends Controller
             if (!is_null($value)) {
                 //look the column name that matches to the variable name from the survey
                 $newModel[$variable['db_varname']] = $value;
-                $newModel['model'] = $variable['model'];
+        
+                // $newModel['model'] = $variable['model'];
             }
         }
 

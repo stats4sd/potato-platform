@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\VariableRequest;
+use App\Http\Requests\ChoiceRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
 /**
- * Class VariableCrudController
+ * Class ChoiceCrudController
  * @package App\Http\Controllers\Admin
  * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
  */
-class VariableCrudController extends CrudController
+class ChoiceCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
@@ -26,9 +26,9 @@ class VariableCrudController extends CrudController
      */
     public function setup()
     {
-        CRUD::setModel(\App\Models\Variable::class);
-        CRUD::setRoute(config('backpack.base.route_prefix') . '/variable');
-        CRUD::setEntityNameStrings('variable', 'variables');
+        CRUD::setModel(\App\Models\Choice::class);
+        CRUD::setRoute(config('backpack.base.route_prefix') . '/choice');
+        CRUD::setEntityNameStrings('choice', 'choices');
     }
 
     /**
@@ -39,14 +39,16 @@ class VariableCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::addColumn(['name' => 'choices', 'type' => 'relationship']); 
+        CRUD::addColumn(['name' => 'variables', 'type' => 'relationship']); 
+        
         CRUD::setFromDb(); // columns
-
+        
         /**
          * Columns can be defined using the fluent syntax or array syntax:
          * - CRUD::column('price')->type('number');
          * - CRUD::addColumn(['name' => 'price', 'type' => 'number']); 
          */
+        
     }
 
     /**
@@ -57,11 +59,12 @@ class VariableCrudController extends CrudController
      */
     protected function setupCreateOperation()
     {
-        CRUD::setValidation(VariableRequest::class);
+        CRUD::setValidation(ChoiceRequest::class);
 
-        CRUD::addField(['name' => 'choices', 'type' => 'relationship']); 
-        
+        CRUD::addField(['name' => 'variables', 'type' => 'relationship']); 
+
         CRUD::setFromDb(); // fields
+
 
         /**
          * Fields can be defined using the fluent syntax or array syntax:

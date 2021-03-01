@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\VariableRequest;
+use App\Http\Requests\UserRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
 /**
- * Class VariableCrudController
+ * Class UserCrudController
  * @package App\Http\Controllers\Admin
  * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
  */
-class VariableCrudController extends CrudController
+class UserCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
@@ -26,9 +26,9 @@ class VariableCrudController extends CrudController
      */
     public function setup()
     {
-        CRUD::setModel(\App\Models\Variable::class);
-        CRUD::setRoute(config('backpack.base.route_prefix') . '/variable');
-        CRUD::setEntityNameStrings('variable', 'variables');
+        CRUD::setModel(\App\Models\User::class);
+        CRUD::setRoute(config('backpack.base.route_prefix') . '/user');
+        CRUD::setEntityNameStrings('user', 'users');
     }
 
     /**
@@ -39,8 +39,20 @@ class VariableCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::addColumn(['name' => 'choices', 'type' => 'relationship']); 
-        CRUD::setFromDb(); // columns
+        CRUD::column('name');
+        CRUD::column('email');
+        // CRUD::column('email_verified_at');
+        // CRUD::column('password');
+        // CRUD::column('remember_token');
+        CRUD::addColumn([
+            // select_from_array
+            'name'        => 'permission',
+            'label'       => "Permission",
+            'type'        => 'select_from_array',
+            'options'     => ['0'=>'Visitor','1' => 'Enumerator', '2' => 'Admin'],
+        ]);
+        CRUD::column('created_at');
+        CRUD::column('updated_at');
 
         /**
          * Columns can be defined using the fluent syntax or array syntax:
@@ -57,11 +69,19 @@ class VariableCrudController extends CrudController
      */
     protected function setupCreateOperation()
     {
-        CRUD::setValidation(VariableRequest::class);
+        CRUD::setValidation(UserRequest::class);
 
-        CRUD::addField(['name' => 'choices', 'type' => 'relationship']); 
-        
-        CRUD::setFromDb(); // fields
+        CRUD::field('name');
+        CRUD::field('email');
+        // CRUD::field('email_verified_at');
+        // CRUD::field('password');
+        // CRUD::field('remember_token');
+        CRUD::addField([
+            'name'        => 'permission',
+            'label'       => "Permission",
+            'type'        => 'select_from_array',
+            'options'     => ['0'=>'Visitor','1' => 'Enumerator', '2' => 'Admin'],
+        ]);
 
         /**
          * Fields can be defined using the fluent syntax or array syntax:

@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
-use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Storage;
+use Backpack\CRUD\app\Models\Traits\CrudTrait;
 
 class Xlsform extends Model
 {
@@ -36,6 +38,11 @@ class Xlsform extends Model
     public function submissions()
     {
         return $this->hasMany(Submission::class);
+    }
+
+    public function datamaps()
+    {
+        return $this->belongsToMany(DataMap::class, '_link_xlsforms_data_maps');
     }
 
     public function setXlsfileAttribute($value)

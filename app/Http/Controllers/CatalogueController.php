@@ -14,6 +14,7 @@ class CatalogueController extends Controller
 
     public function getVarietyDetails(Request $request)
     {
+<<<<<<< HEAD
         $variety = Variety::findOrFail($request->variety_id);
 
 
@@ -85,9 +86,18 @@ class CatalogueController extends Controller
 
 
 
+=======
+        $fructification =  DB::table('fructification')->where('variety_id','=',$request->variety_id['variedad'])->get();
+        $flowering =  DB::table('flowering')->where('variety_id','=',$request->variety_id['variedad'])->get();
+>>>>>>> dev
 
 
+<<<<<<< HEAD
 
+=======
+        $tubers_at_harvest =  DB::table('tubers_at_harvest')->where('variety_id','=',$request->variety_id['variedad'])->get();
+       
+>>>>>>> dev
         return response()->json([
             'values' => [
                 'fruits'=> $fruits,

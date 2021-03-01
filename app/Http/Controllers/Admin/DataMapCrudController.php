@@ -50,6 +50,10 @@ class DataMapCrudController extends CrudController
                 'name' => 'repeat_group',
                 'label' => 'Repeat Group Name'
             ],
+            [
+                'type' => "relationship",
+                'name' => 'xlsforms',
+            ]
         ]);
     }
 
@@ -67,6 +71,10 @@ class DataMapCrudController extends CrudController
                             <li>Each module of the ODK form must have a data map, which corresponds to a single MySQL table.</li>
                             <li>All variables to be stored in the table should be listed below.</li>
                             </ul>',
+            ],
+            [
+                'type' => "relationship",
+                'name' => 'xlsforms',
             ],
             [
                 'name' => 'id',
@@ -119,7 +127,8 @@ class DataMapCrudController extends CrudController
                         'wrapper' => ['class' => 'form-group col-md-4'],
                         'options' => [
                             'boolean' => 'Boolean (select_one with yes/no or 1/0 options)',
-                            'text' => 'text / select_one',
+                            'select_one' => 'select_one',
+                            'text' => 'text',
                             'integer' => 'integer',
                             'decimal' => 'decimal',
                             'select_multiple' => 'select_multiple',

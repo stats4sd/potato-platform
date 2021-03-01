@@ -40,6 +40,11 @@ class DataMap extends Model
     {
         return $this->hasMany(Variable::class);
     }
+
+    public function xlsforms()
+    {
+        return $this->belongsToMany(Xlsform::class, '_link_xlsforms_data_maps');
+    }
     /*
     |--------------------------------------------------------------------------
     | SCOPES
