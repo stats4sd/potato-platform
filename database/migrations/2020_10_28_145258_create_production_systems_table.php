@@ -39,9 +39,10 @@ class CreateProductionSystemsTable extends Migration
             $table->tinyInteger('labor_shortages_bitter')->nullable();
             $table->tinyInteger('labor_shortage_improved')->nullable();
             $table->tinyInteger('labour_hired')->nullable();
-            $table->json('activities_labour_hired')->nullable();
             $table->decimal('salary_labour_male')->nullable();
+            $table->string('salary_labour_male_unit')->nullable();
             $table->decimal('salary_labour_female')->nullable();
+            $table->string('salary_labour_female_unit')->nullable();
             $table->json('activities_ayni')->nullable();
             $table->json('pests')->nullable();
             $table->text('pests_control_before')->nullable();
@@ -78,8 +79,13 @@ class CreateProductionSystemsTable extends Migration
             $table->decimal('quantity_sold')->nullable();
             $table->string('quantity_sold_unity')->nullable();
             $table->string('quantity_sold_normal')->nullable();
-            $table->foreignId('submission_id')->constrained()->onDelete('cascade');
+            $table->string('campana')->nullable();
+            $table->unsignedBigInteger('submission_id')->nullable();
             $table->timestamps();
+        });
+
+        Schema::table('production_systems', function(Blueprint $table) {
+            $table->foreign('submission_id')->references('id')->on('submissions')->onDelete('restrict');
         });
     }
 

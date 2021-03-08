@@ -26,13 +26,12 @@ class CreateFarmersTable extends Migration
             $table->string('gender')->nullable();
             $table->string('education')->nullable();
             $table->tinyInteger('read_write')->nullable();
-            $table->string('languages')->nullable();
+            $table->string('language')->nullable();
             $table->string('language_prefered')->nullable();
             $table->string('marital_status')->nullable();
             $table->string('phone')->nullable();
             $table->string('email')->nullable();
-            $table->tinyInteger('whatsapp')->nullable();
-            $table->string('phone_other')->nullable();
+            $table->string('whatsapp')->nullable();
             $table->year('aguapan_year')->nullable();
             $table->json('economic_activity')->nullable();
             $table->string('main_activity')->nullable();
@@ -50,8 +49,12 @@ class CreateFarmersTable extends Migration
             $table->tinyInteger('water')->nullable();
             $table->tinyInteger('drainage')->nullable();
             $table->tinyInteger('phone_signal')->nullable();
-            $table->foreignId('submission_id')->constrained()->onDelete('cascade');
+            $table->unsignedBigInteger('submission_id')->nullable();
             $table->timestamps();
+        });
+
+        Schema::table('farmers', function(Blueprint $table) {
+            $table->foreign('submission_id')->references('id')->on('submissions')->onDelete('restrict');
         });
     }
 

@@ -40,8 +40,13 @@ class CreateFloracionTable extends Migration
             $table->string('level_tolerance_hailstorms')->nullable();
             $table->string('level_tolerance_frost')->nullable();
             $table->string('level_tolerance_drought')->nullable();
-            $table->foreignId('submission_id')->constrained()->onDelete('cascade');
+            $table->string('campana')->nullable();
+            $table->unsignedBigInteger('submission_id')->nullable();
             $table->timestamps();
+        });
+
+        Schema::table('flowering', function(Blueprint $table) {
+            $table->foreign('submission_id')->references('id')->on('submissions')->onDelete('restrict');
         });
     }
 

@@ -20,7 +20,6 @@ class CreateHhMembersTable extends Migration
             $table->string('relationship')->nullable();
             $table->string('gender')->nullable();
             $table->date('birth_date')->nullable();
-            $table->integer('age')->nullable();
             $table->string('education')->nullable();
             $table->tinyInteger('helps_farm')->nullable();
             $table->decimal('months')->nullable();
@@ -28,7 +27,12 @@ class CreateHhMembersTable extends Migration
             $table->decimal('hours')->nullable();
             $table->string('main_job')->nullable();
             $table->tinyInteger('is_payed')->nullable();
+            $table->unsignedBigInteger('submission_id')->nullable();
             $table->timestamps();
+        });
+
+        Schema::table('hh_members', function(Blueprint $table) {
+            $table->foreign('submission_id')->references('id')->on('submissions')->onDelete('restrict');
         });
     }
 

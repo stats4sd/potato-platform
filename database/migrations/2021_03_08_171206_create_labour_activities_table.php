@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePlotsTable extends Migration
+class CreateLabourActivitiesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,11 @@ class CreatePlotsTable extends Migration
      */
     public function up()
     {
-        Schema::create('plots', function (Blueprint $table) {
+        Schema::create('labour_activities', function (Blueprint $table) {
             $table->id();
             $table->foreignId('production_system_id')->constrained()->onDelete('cascade');
-            $table->string('type')->nullable();
-            $table->decimal('latitude')->nullable();
-            $table->decimal('longitude')->nullable();
-            $table->decimal('altitude')->nullable();
-            $table->string('tillage')->nullable();
-            $table->string('land_preparation')->nullable();
+            $table->string('activity');
+            $table->string('total_or_partial');
             $table->timestamps();
         });
     }
@@ -33,6 +29,6 @@ class CreatePlotsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('plots');
+        Schema::dropIfExists('labour_activities');
     }
 }
