@@ -13,6 +13,8 @@ import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
+Vue.use(BootstrapVue);
+Vue.use(IconsPlugin);
 
 Vue.component('VSelect', vSelect);
 Vue.component('VarietyTable', require('./components/VarietyTable.vue').default);
