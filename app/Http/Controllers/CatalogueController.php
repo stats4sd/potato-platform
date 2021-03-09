@@ -83,10 +83,6 @@ class CatalogueController extends Controller
 
         ];
 
-
-
-
-
         return response()->json([
             'values' => [
                 'fruits'=> $fruits,
