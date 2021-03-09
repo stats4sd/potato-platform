@@ -10,6 +10,8 @@ import vSelect from 'vue-select'
 import Vue from 'vue'
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 
+Vue.use(BootstrapVue);
+Vue.use(IconsPlugin);
 
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
