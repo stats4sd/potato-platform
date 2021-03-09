@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
-use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
+use Backpack\CRUD\app\Models\Traits\CrudTrait;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Variety extends Model
 {
-    use CrudTrait;
+    use CrudTrait, HasFactory;
 
     /*
     |--------------------------------------------------------------------------
@@ -50,7 +51,7 @@ class Variety extends Model
         return $this->hasMany(Fructification::class);
     }
 
-    public function tubers_at_harvests()
+    public function TubersAtHarvests()
     {
         return $this->hasMany(TubersAtHarvest::class);
     }

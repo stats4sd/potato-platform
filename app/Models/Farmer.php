@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
-use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
+use Backpack\CRUD\app\Models\Traits\CrudTrait;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Farmer extends Model
 {
-    use CrudTrait;
+    use CrudTrait, HasFactory;
 
     /*
     |--------------------------------------------------------------------------
@@ -16,12 +17,8 @@ class Farmer extends Model
     */
 
     protected $table = 'farmers';
-    // protected $primaryKey = 'id';
-    // public $timestamps = false;
     protected $guarded = [];
-    // protected $fillable = [];
-    // protected $hidden = [];
-    // protected $dates = [];
+    public $incrementing = false;
 
     /*
     |--------------------------------------------------------------------------
@@ -48,7 +45,7 @@ class Farmer extends Model
     {
         return $this->hasMany(Variety::class);
     }
-    
+
     public function hh_members()
     {
         return $this->hasMany(HhMember::class);

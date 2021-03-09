@@ -1,19 +1,23 @@
 // Body
-$body-bg: #f8fafc;
+$body-bg: #fdfefe;
+$light-grey: #f3f5f5;
+$alt-info: #029DA5;
+
 
 // Typography
-$font-family-sans-serif: 'Nunito', sans-serif;
+$font-family-sans-serif: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
 $font-size-base: 0.9rem;
 $line-height-base: 1.6;
 
-// Colors
-$blue: #3490dc;
-$indigo: #6574cd;
-$purple: #9561e2;
-$pink: #f66d9b;
-$red: #e3342f;
-$orange: #f6993f;
-$yellow: #ffed4a;
-$green: #38c172;
-$teal: #4dc0b5;
-$cyan: #6cb2eb;
+// // Overriding backpack variables
+// $primary: #ff223a;
+$secondary: #b0b4b5;
+// $success: #00b388;
+// $info: #7d55c7;
+// $warning: #f3d03e;
+// $danger: #ed5656;
+// $light: #dbe2e9;
+// $dark: #222222;
+// $default: #ffffff;
+// $notice: #f3d03e;
+// $error: #ed5656;
