@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Flowering;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Variety;
@@ -97,5 +98,15 @@ class CatalogueController extends Controller
                 'tubersAtHarvest' => $tubersAtHarvestLabels,
             ],
         ]);
+    }
+
+    public function getVarietyFilter(Request $request){
+
+        //  dd($request->valueSelected);
+        foreach ($request->valueSelected as $key => $value) {
+            $flowering_id =  Flowering::with('variety')->whereIn($key,$value)->pluck('id');
+            $varieties =  Variety::with('farmer.community.district.province.region')->whereIn('id',$flowering_id)->get();
+        }
+        return $request->toJson();
     }
 }

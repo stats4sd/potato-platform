@@ -51,6 +51,8 @@ Route::middleware(['auth'])->group(function() {
     Route::get('xlsforms/{xlsform}/downloadsubmissions', 'SubmissionController@download')->name('xlsforms.downloadsubmissions');
 
     Route::post('/variety-details', 'CatalogueController@getVarietyDetails');
+
+    Route::post('/varieties-filter', 'CatalogueController@getVarietyFilter');
 });
 
 

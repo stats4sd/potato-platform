@@ -19,6 +19,13 @@
                 </template>
             </b-input-group>
         </div>
+        <div v-for="parameter in parameters" :key="parameter.value">
+            <variety-filter
+            :parameter="parameter"
+            v-model="parameter.value"
+            :filter_name="parameter.value"
+            ></variety-filter>
+        </div>
         <b-table
             id="variety-teble"
             ref="selectableTable"
@@ -55,9 +62,10 @@
 
 <script>
     import VarietyDetails from "./VarietyDetails.vue";
+import VarietyFilter from './VarietyFilter.vue';
 
     export default {
-        components: { VarietyDetails },
+        components: { VarietyDetails, VarietyFilter },
         data() {
             return {
                 fields: [
@@ -80,8 +88,9 @@
                 selectedLabels: null,
                 floweringPhotos: [],
                 currentPage: 1,
-                perPage: 15,
-                tableFilter: ""
+                perPage: 5,
+                tableFilter: "",
+                parameters:[],
             };
         },
         mounted() {
@@ -89,6 +98,10 @@
                 console.log(response.data);
                 this.varieties = response.data;
             });
+            axios.get("api/parameter-filters").then(response => {
+                console.log(response.data);
+                this.parameters = response.data;
+            });  
         },
         methods: {
             onRowSelected(items) {
@@ -111,6 +124,26 @@
                     },
                     error => {
                         console.log(error);
+                    }
+                );
+            },
+            
+            filterVariety: function(){
+                console.log(this.plant_growth);
+                axios({
+                    method: "post",
+                    url: "/varieties-filter",
+                    data: {
+                            parameterValueSelected: this.parameterValueSelected,
+                        },
+                    
+                }).then(
+                    result => {
+                        console.log("result filter", result.data);
+                        this.varieties = result.data
+                    },
+                    error => {
+                        console.log("error filter", error);
                     }
                 );
             }
