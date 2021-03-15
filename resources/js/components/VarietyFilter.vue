@@ -19,8 +19,7 @@
                 :options="parameter.options"
                 stacked
                 class="px-4 py-2 padded-checkbox-group"
-                v-model="parameterValueSelected"
-                @change="filter_name=parameterValueSelected"
+                @input="updateInput"
             />
         </b-collapse>
     </li>
@@ -38,11 +37,11 @@
                 parameterValueSelected:[],
             }
         },
-        mounted() {
-        },
-        watch: {
-            
-        },
-
+        
+        methods: {
+            updateInput(value) {
+               this.$emit('input', value)
+            }
+        }
     }
 </script>

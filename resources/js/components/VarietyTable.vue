@@ -22,8 +22,8 @@
         <div v-for="parameter in parameters" :key="parameter.value">
             <variety-filter
             :parameter="parameter"
-            v-model="parameter.value"
-            :filter_name="parameter.value"
+            v-model="selectedFilters[parameter.value]"
+            v-on:click.native="filterVariety"
             ></variety-filter>
         </div>
         <b-table
@@ -91,6 +91,7 @@ import VarietyFilter from './VarietyFilter.vue';
                 perPage: 5,
                 tableFilter: "",
                 parameters:[],
+                selectedFilters: {},
             };
         },
         mounted() {
@@ -101,6 +102,9 @@ import VarietyFilter from './VarietyFilter.vue';
             axios.get("api/parameter-filters").then(response => {
                 console.log(response.data);
                 this.parameters = response.data;
+                this.parameters.forEach(parameter => {
+                    this.selectedFilters[parameter.value] = [];
+                });
             });  
         },
         methods: {
@@ -128,18 +132,18 @@ import VarietyFilter from './VarietyFilter.vue';
                 );
             },
             
-            filterVariety: function(){
-                console.log(this.plant_growth);
+            filterVariety(){
+               
                 axios({
                     method: "post",
                     url: "/varieties-filter",
                     data: {
-                            parameterValueSelected: this.parameterValueSelected,
+                            selectedFilters: this.selectedFilters,
                         },
                     
                 }).then(
                     result => {
-                        console.log("result filter", result.data);
+                        console.log("result filter", result);
                         this.varieties = result.data
                     },
                     error => {

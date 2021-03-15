@@ -102,11 +102,10 @@ class CatalogueController extends Controller
 
     public function getVarietyFilter(Request $request){
 
-        //  dd($request->valueSelected);
-        foreach ($request->valueSelected as $key => $value) {
-            $flowering_id =  Flowering::with('variety')->whereIn($key,$value)->pluck('id');
+        foreach ($request->selectedFilters as $key => $value) {
+            $flowering_id =  Flowering::with('variety')->whereIn($key,$value)->pluck('variety_id');
             $varieties =  Variety::with('farmer.community.district.province.region')->whereIn('id',$flowering_id)->get();
         }
-        return $request->toJson();
+        return $varieties->toJson();
     }
 }
