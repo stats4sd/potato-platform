@@ -26,26 +26,42 @@
        
     </div>
     <div class="row">
-        <div class="col-2">
+        <div class="col-4">
             <div class="d-md-flex d-block px-4">
             <div class="full-height sidebar shadow">
                 <div class="sidebar-header bg-info p-4 mb-0 text-white">
-                    <h2 class="p-0 m-0">
+                    <h4 class="p-0 m-0">
                         Filters
                         <span
                             class="sidebar-icon"
                         ><i
                             class="las la-filter"
                         /></span>
-                    </h2>
+                    </h4>
                 </div>
                 <div class="d-flex flex-column">
-                    <div v-for="parameter in parameters" :key="parameter.value">
-                        <variety-filter
-                        :parameter="parameter"
-                        v-model="selectedFilters[parameter.value]"
-                        v-on:click.native="filterVariety"
-                        ></variety-filter>
+                    <div v-for="(parameter, index) in parameters" :key="index">
+                        <b-button
+                            v-b-toggle="'collapse-'+index.substring(0,4)"
+                            class="bg-info text-white w-100 px-4"
+                        >
+                            <div>{{ index }}</div>
+                            <i class="las la-plus" />
+                        </b-button>
+                        <b-collapse
+                            :id="'collapse-'+index.substring(0,4)"
+                            class="bg-light"
+                        >
+                            <div v-for="param in parameter" :key="param.value">
+                            <variety-filter
+                            :parameter="param"
+                            v-model="selectedFilters[param.value]"
+                            v-on:click.native="filterVariety"
+                            ></variety-filter>
+
+                            </div>
+                        </b-collapse>
+
                     </div>
                 </div>
             </div>

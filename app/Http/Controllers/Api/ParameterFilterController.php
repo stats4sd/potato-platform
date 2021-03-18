@@ -73,17 +73,21 @@ class ParameterFilterController extends Controller
         
         $model_flowering = 'App\\Models\\Flowering';
         $array_flowering = $this->generateArrayOptions($columns_flowering, $model_flowering);
+        $options['Floración'] =  $array_flowering;
 
         $model_fructification = 'App\\Models\\Fructification';
         $array_fructification = $this->generateArrayOptions($columns_fructification, $model_fructification);
+        $options['Fructificación'] =  $array_fructification;
 
         $model_tubers_at_harvest = 'App\\Models\\TubersAtHarvest'; 
         $array_tubers_at_harvest = $this->generateArrayOptions($columns_tubers_at_harvest, $model_tubers_at_harvest);
+        $options['Tubérculos a la Cosecha'] =  $array_tubers_at_harvest;
 
         $model_sprouts = 'App\\Models\\Sprout';
         $array_sprouts = $this->generateArrayOptions($columns_sprouts, $model_sprouts);
+        $options['Brotamiento'] =  $array_sprouts;
 
-        return array_merge($array_flowering, $array_fructification, $array_tubers_at_harvest, $array_sprouts);
+        return $options;
         
     }
 
