@@ -143,7 +143,7 @@ import VarietyFilter from './VarietyFilter.vue';
                     
                 }).then(
                     result => {
-                        console.log("result filter", result);
+                        console.log("result filter", result.data);
                         this.varieties = result.data
                     },
                     error => {

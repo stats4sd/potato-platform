@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Choice;
+use App\Models\Variety;
 use App\Models\Flowering;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Models\Variety;
 
 class CatalogueController extends Controller
 {
@@ -102,10 +103,25 @@ class CatalogueController extends Controller
 
     public function getVarietyFilter(Request $request){
 
-        foreach ($request->selectedFilters as $key => $value) {
-            $flowering_id =  Flowering::with('variety')->whereIn($key,$value)->pluck('variety_id');
-            $varieties =  Variety::with('farmer.community.district.province.region')->whereIn('id',$flowering_id)->get();
+        $varieties_array = array();
+        foreach ($request->selectedFilters as $key => $optionsSelected) {
+            foreach ($optionsSelected as $optionKey => $optionvalue) {
+                
+                $choice = Choice::where('label_spanish', $optionvalue)->first();
+                if($choice){
+                    $flowering_id =  Flowering::with('variety')->where($key, $choice->id)->pluck('variety_id');
+                    $varieties =  Variety::with('farmer.community.district.province.region')->where('id', $flowering_id)->get()->toArray();
+                    $varieties_array = array_merge($varieties_array,$varieties);
+        
+                } else {
+                    $flowering_id =  Flowering::with('variety')->where($key, $optionvalue)->pluck('variety_id');
+                    $varieties =  Variety::with('farmer.community.district.province.region')->where('id', $flowering_id)->get()->toArray();
+                    $varieties_array = array_merge($varieties_array,$varieties);
+                }
+            }
+        
         }
-        return $varieties->toJson();
+      
+        return $varieties_array;
     }
 }
