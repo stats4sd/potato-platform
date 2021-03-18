@@ -5,7 +5,7 @@
         <b-button
             v-b-toggle="'collapse-'+parameter.value"
             variant="white"
-            class="btn-flush d-flex justify-content-between align-items-center w-100 px-4 py-4"
+            class="btn-flush d-flex justify-content-between align-items-center w-100 px-4"
             @click="parameterSelected=parameter.value"
         >
             <div>{{ parameter.label }}</div>
