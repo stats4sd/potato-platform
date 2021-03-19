@@ -21,3 +21,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::apiResource('regions', "App\Http\Controllers\Api\RegionController");
 Route::apiResource('farmers', "App\Http\Controllers\Api\FarmerController");
 Route::apiResource('varieties', "Api\VarietyController");
+Route::apiResource('parameter-filters', "Api\ParameterFilterController");

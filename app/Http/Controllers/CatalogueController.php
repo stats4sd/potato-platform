@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Choice;
+use App\Models\Variety;
+use App\Models\Flowering;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Models\Variety;
 
 class CatalogueController extends Controller
 {
@@ -97,5 +99,39 @@ class CatalogueController extends Controller
                 'tubersAtHarvest' => $tubersAtHarvestLabels,
             ],
         ]);
+    }
+
+    public function getVarietyFilter(Request $request){
+
+        $variety_flowering = $this->getVarietyWhereOptions($request->selectedFiltersFlowering, 'App\\Models\\Flowering');
+        $variety_fructation = $this->getVarietyWhereOptions($request->selectedFiltersFructification, 'App\\Models\\Fructification');
+        $variety_tubers_at_harvest = $this->getVarietyWhereOptions($request->selectedFiltersTubersAtHarvest, 'App\\Models\\TubersAtHarvest');
+        $variety_sprout = $this->getVarietyWhereOptions($request->selectedFiltersSprout, 'App\\Models\\Sprout');
+      
+        return array_merge($variety_flowering, $variety_fructation, $variety_tubers_at_harvest, $variety_sprout);
+    }
+
+    public function getVarietyWhereOptions(Array $options, $model)
+    {
+        $varieties_array = array();
+        foreach ($options as $key => $optionsSelected) {
+            foreach ($optionsSelected as $optionKey => $optionvalue) {
+                
+                $choice = Choice::where('label_spanish', $optionvalue)->first();
+                if($choice){
+                    $variety_ids =  $model::with('variety')->where($key, $choice->id)->pluck('variety_id');
+                    $varieties =  Variety::with('farmer.community.district.province.region')->where('id', $variety_ids)->get()->toArray();
+                    $varieties_array = array_merge($varieties_array,$varieties);
+        
+                } else {
+                    $variety_ids =  $model::with('variety')->where($key, $optionvalue)->pluck('variety_id');
+                    $varieties =  Variety::with('farmer.community.district.province.region')->where('id', $variety_ids)->get()->toArray();
+                    $varieties_array = array_merge($varieties_array,$varieties);
+                }
+            }
+        
+        }
+      
+        return $varieties_array;
     }
 }
