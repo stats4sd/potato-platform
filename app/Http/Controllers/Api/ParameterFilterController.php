@@ -17,58 +17,58 @@ class ParameterFilterController extends Controller
     { 
         //Flowering
         $columns_flowering = array(
-            'Plant growth'=>'plant_growth', 'Leaf dissection'=>'leaf_dissection', 
-            'Number lateral leaflets'=>'number_lateral_leaflets', 
-            'Number intermediate leaflets'=>'number_intermediate_leaflets', 
-            'Number leaflets on petioles'=>'number_leaflets_on_petioles',
-            'Color stem'=>'color_stem',
-            'Shape stem wings' => 'shape_stem_wings',
+            'Habito de crecimiento de la planta'=>'plant_growth', 'Tipo de la disección de la hoja'=>'leaf_dissection', 
+            'Número de foliolos laterales de la hoja'=>'number_lateral_leaflets', 
+            'Número de inter-hojuelas entre foliolos laterales'=>'number_intermediate_leaflets', 
+            'Número de inter-hojuelas sobre peciolulos'=>'number_leaflets_on_petioles',
+            'Color de tallo de esta planta'=>'color_stem',
+            'Forma de las alas del tallo' => 'shape_stem_wings',
             'Degree flowering plant' => 'degree_flowering_plant',
             'Shape corolla' => 'shape_corolla',
             'Color predominant flower' => 'color_predominant_flower',
-            'Intensity color predominant flower' => 'intensity_color_predominant_flower',
-            'Color secondary flower' => 'color_secondary_flower',
-            'Distribution color secodary flower' => 'distribution_color_secodary_flower',
-            'Pigmentation anthers' => 'pigmentation_anthers',
-            'Pigmentation pistil' => 'pigmentation_pistil',
-            'Color chalice' => 'color_chalice',
-            'Color pedicel' => 'color_pedicel',
-            'Level tolerance late blight' => 'level_tolerance_late_blight',
-            'Level tolerance hailstorms' => 'level_tolerance_hailstorms',
-            'Level tolerance frost' => 'level_tolerance_frost',
-            'Level tolerance drought' => 'level_tolerance_drought'
+            'Grado de floracion de esta planta' => 'intensity_color_predominant_flower',
+            'Color secundario de la flor' => 'color_secondary_flower',
+            'Distribución del color secundario de la flor' => 'distribution_color_secodary_flower',
+            'Pigmentación de las anteras' => 'pigmentation_anthers',
+            'Pigmentación en el pistilo' => 'pigmentation_pistil',
+            'Color del cáliz' => 'color_chalice',
+            'Color del pedicelo' => 'color_pedicel',
+            'Nivel de tolerancia a la rancha' => 'level_tolerance_late_blight',
+            'Nivel de tolerancia a la granizada' => 'level_tolerance_hailstorms',
+            'Nivel de tolerancia a la helada' => 'level_tolerance_frost',
+            'Nivel de tolerancia a la sequía' => 'level_tolerance_drought'
         );
 
         //Fructification
         $columns_fructification= array(
-            'Color berries' => 'color_berries',
-            'Shape berry' => 'shape_berry',
-            'Maturity variety' => 'maturity_variety'
+            'Color de las baya' => 'color_berries',
+            'Forma de la baya' => 'shape_berry',
+            'La madurez' => 'maturity_variety'
         );
 
         //TubersAtHarvest
         $columns_tubers_at_harvest= array(
-            'Color predominant tuber' => 'color_predominant_tuber',
-            'Intensity color predominant tuber' => 'intensity_color_predominant_tuber',
-            'Color secondary tuber' => 'color_secondary_tuber',
-            'Distribution color secodary tuber' => 'distribution_color_secodary_tuber',
-            'Shape tuber' => 'shape_tuber',
-            'Variant shape tuber' => 'variant_shape_tuber',
-            'Depth tuber eyes' => 'depth_tuber_eyes',
-            'Color predominant tuber pulp' => 'color_predominant_tuber_pulp',
-            'Color secondary tuber pulp' => 'color_secondary_tuber_pulp',
-            'Distribution color secodary tuber pulp' => 'distribution_color_secodary_tuber_pulp',
-            'Level tolerance late blight' => 'level_tolerance_late_blight',
-            'Level tolerance weevil' => 'level_tolerance_weevil',
-            'Level tolerance hailstorms' => 'level_tolerance_hailstorms',
-            'Level tolerance frost' => 'level_tolerance_frost',
-            'Level tolerance drought' => 'level_tolerance_drought'
+            'Color predominante' => 'color_predominant_tuber',
+            'Intensidad del color predominante' => 'intensity_color_predominant_tuber',
+            'Color secundario' => 'color_secondary_tuber',
+            'Distribución del color secundario' => 'distribution_color_secodary_tuber',
+            'Forma general' => 'shape_tuber',
+            'Variante de forma' => 'variant_shape_tuber',
+            'Profundidad de los ojos' => 'depth_tuber_eyes',
+            'Color predominante de la pulpa' => 'color_predominant_tuber_pulp',
+            'Color secundario' => 'color_secondary_tuber_pulp',
+            'Distribución del color secundario' => 'distribution_color_secodary_tuber_pulp',
+            'Nivel de tolerancia a la rancha' => 'level_tolerance_late_blight',
+            'Nivel de tolerancia al gorgojo de los andes' => 'level_tolerance_weevil',
+            'Nivel de tolerancia a la granizada' => 'level_tolerance_hailstorms',
+            'Nivel de tolerancia a la helada' => 'level_tolerance_frost',
+            'Nivel de tolerancia a la sequía' => 'level_tolerance_drought'
         );
         //Sprouts
         $columns_sprouts= array(
-            'Color predominant tuber shoot' => 'color_predominant_tuber_shoot',
-            'Color secondary tuber shoot' => 'color_secondary_tuber_shoot',
-            'Distribution color secodary tuber shoot' => 'distribution_color_secodary_tuber_shoot',
+            'Color predominante' => 'color_predominant_tuber_shoot',
+            'Color secundario' => 'color_secondary_tuber_shoot',
+            'Distribución del color secundario' => 'distribution_color_secodary_tuber_shoot',
         );
         
         $model_flowering = 'App\\Models\\Flowering';

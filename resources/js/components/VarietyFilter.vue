@@ -30,7 +30,7 @@
 
 <script>
     export default {
-        props:['parameter', 'filter_name'],
+        props:['parameter'],
         data() {
             return {
                 parameterSelected:null,

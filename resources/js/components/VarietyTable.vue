@@ -20,14 +20,24 @@
                 </template>
             </b-input-group>
         </div>
-        <div v-for="(parameter, index) in badgeFilter" :key="parameter.index">     
+
+        <div v-for="(parameter, index) in badgeFilterFlowering" :key="parameter.index">     
+            <h4><b-badge v-if="parameter.length" href="#" class="bg-info text-white">{{ index }} : {{ parameter.join(', ') }}</b-badge></h4>
+        </div>
+        <div v-for="(parameter, index) in badgeFilterFructification" :key="parameter.index">     
+            <h4><b-badge v-if="parameter.length" href="#" class="bg-info text-white">{{ index }} : {{ parameter.join(', ') }}</b-badge></h4>
+        </div>
+        <div v-for="(parameter, index) in badgeFilterTubersAtHarvest" :key="parameter.index">     
+            <h4><b-badge v-if="parameter.length" href="#" class="bg-info text-white">{{ index }} : {{ parameter.join(', ') }}</b-badge></h4>
+        </div>
+        <div v-for="(parameter, index) in badgeFilterSprout" :key="parameter.index">     
             <h4><b-badge v-if="parameter.length" href="#" class="bg-info text-white">{{ index }} : {{ parameter.join(', ') }}</b-badge></h4>
         </div>
        
     </div>
     <div class="row">
-        <div class="col-4">
-            <div class="d-md-flex d-block px-4">
+        <div class="col-2">
+            <div class="ml-3">
             <div class="full-height sidebar shadow">
                 <div class="sidebar-header bg-info p-4 mb-0 text-white">
                     <h4 class="p-0 m-0">
@@ -40,29 +50,86 @@
                     </h4>
                 </div>
                 <div class="d-flex flex-column">
-                    <div v-for="(parameter, index) in parameters" :key="index">
-                        <b-button
-                            v-b-toggle="'collapse-'+index.substring(0,4)"
-                            class="bg-info text-white w-100 px-4"
-                        >
-                            <div>{{ index }}</div>
-                            <i class="las la-plus" />
-                        </b-button>
-                        <b-collapse
-                            :id="'collapse-'+index.substring(0,4)"
-                            class="bg-light"
-                        >
-                            <div v-for="param in parameter" :key="param.value">
-                            <variety-filter
-                            :parameter="param"
-                            v-model="selectedFilters[param.value]"
-                            v-on:click.native="filterVariety"
-                            ></variety-filter>
+                    <b-button
+                        v-b-toggle="'collapse-flowering'"
+                        class="bg-info text-white w-100 px-4"
+                    >
+                        <div> Floración </div>
+                        <i class="las la-plus" />
+                    </b-button>
+                    <b-collapse
+                        :id="'collapse-flowering'"
+                        class="bg-light"
+                    >
+                        <div v-for="param in flowering" :key="param.value">
+                        <variety-filter
+                        :parameter="param"
+                        v-model="selectedFiltersFlowering[param.value]"
+                        v-on:click.native="filterVariety"
+                        ></variety-filter>
 
-                            </div>
-                        </b-collapse>
+                        </div>
+                    </b-collapse>
+                     <b-button
+                        v-b-toggle="'collapse-fructification'"
+                        class="bg-info text-white w-100 px-4"
+                    >
+                        <div> Fructificación </div>
+                        <i class="las la-plus" />
+                    </b-button>
+                    <b-collapse
+                        :id="'collapse-fructification'"
+                        class="bg-light"
+                    >
+                        <div v-for="param in fructification" :key="param.value">
+                        <variety-filter
+                        :parameter="param"
+                        v-model="selectedFiltersFructification[param.value]"
+                        v-on:click.native="filterVariety"
+                        ></variety-filter>
 
-                    </div>
+                        </div>
+                    </b-collapse>
+                     <b-button
+                        v-b-toggle="'collapse-tubers-at-harvest'"
+                        class="bg-info text-white w-100 px-4"
+                    >
+                        <div> Tubérculos a la Cosecha </div>
+                        <i class="las la-plus" />
+                    </b-button>
+                    <b-collapse
+                        :id="'collapse-tubers-at-harvest'"
+                        class="bg-light"
+                    >
+                        <div v-for="param in tubersAtHarvest" :key="param.value">
+                        <variety-filter
+                        :parameter="param"
+                        v-model="selectedFiltersTubersAtHarvest[param.value]"
+                        v-on:click.native="filterVariety"
+                        ></variety-filter>
+
+                        </div>
+                    </b-collapse>
+                     <b-button
+                        v-b-toggle="'collapse-sprout'"
+                        class="bg-info text-white w-100 px-4"
+                    >
+                        <div> Brotamiento </div>
+                        <i class="las la-plus" />
+                    </b-button>
+                    <b-collapse
+                        :id="'collapse-sprout'"
+                        class="bg-light"
+                    >
+                        <div v-for="param in sprout" :key="param.value">
+                        <variety-filter
+                        :parameter="param"
+                        v-model="selectedFiltersSprout[param.value]"
+                        v-on:click.native="filterVariety"
+                        ></variety-filter>
+
+                        </div>
+                    </b-collapse>
                 </div>
             </div>
             </div>
@@ -137,8 +204,19 @@ import VarietyFilter from './VarietyFilter.vue';
                 perPage: 5,
                 tableFilter: "",
                 parameters:[],
-                selectedFilters: {},
-                badgeFilter:{},
+                flowering:[],
+                fructification:[],
+                tubersAtHarvest:[],
+                sprout:[],
+
+                selectedFiltersFlowering: {},
+                selectedFiltersFructification: {},
+                selectedFiltersTubersAtHarvest: {},
+                selectedFiltersSprout: {},
+                badgeFilterFlowering: {},
+                badgeFilterFructification: {},
+                badgeFilterTubersAtHarvest: {},
+                badgeFilterSprout: {},
             };
         },
         mounted() {
@@ -149,9 +227,40 @@ import VarietyFilter from './VarietyFilter.vue';
             axios.get("api/parameter-filters").then(response => {
                 console.log(response.data);
                 this.parameters = response.data;
-                this.parameters.forEach(parameter => {
-                    this.selectedFilters[parameter.value] = [];
-                    this.badgeFilter[parameter.label] = [];
+                this.flowering =  this.parameters['Floración'];
+
+                this.flowering.forEach(parameter => {
+          
+                    this.selectedFiltersFlowering[parameter.value] = [];
+                    this.badgeFilterFlowering[parameter.label] = [];
+
+                });
+
+                this.fructification =  this.parameters['Fructificación'];
+
+                this.fructification.forEach(parameter => {
+                    
+                    this.selectedFiltersFructification[parameter.value] = [];
+                    this.badgeFilterFructification[parameter.label] = [];
+
+                });
+
+                this.tubersAtHarvest =  this.parameters['Tubérculos a la Cosecha'];
+
+                this.tubersAtHarvest.forEach(parameter => {
+                    
+                    this.selectedFiltersTubersAtHarvest[parameter.value] = [];
+                    this.badgeFilterTubersAtHarvest[parameter.label] = [];
+
+                });
+
+                this.sprout =  this.parameters['Brotamiento'];
+
+                this.sprout.forEach(parameter => {
+                    
+                    this.selectedFiltersSprout[parameter.value] = [];
+                    this.badgeFilterSprout[parameter.label] = [];
+
                 });
             });  
         },
@@ -182,14 +291,30 @@ import VarietyFilter from './VarietyFilter.vue';
             
             filterVariety(){
 
-                this.parameters.forEach(parameter => {
-                    this.badgeFilter[parameter.label] = this.selectedFilters[parameter.value];
+                this.flowering.forEach(parameter => {
+                    this.badgeFilterFlowering[parameter.label] = this.selectedFiltersFlowering[parameter.value];
                 });
+
+                this.fructification.forEach(parameter => {
+                    this.badgeFilterFructification[parameter.label] = this.selectedFiltersFructification[parameter.value];
+                });
+
+                this.tubersAtHarvest.forEach(parameter => {
+                    this.badgeFilterTubersAtHarvest[parameter.label] = this.selectedFiltersTubersAtHarvest[parameter.value];
+                });
+
+                 this.sprout.forEach(parameter => {
+                    this.badgeFilterSprout[parameter.label] = this.selectedFiltersSprout[parameter.value];
+                });
+
                 axios({
                     method: "post",
                     url: "/varieties-filter",
                     data: {
-                            selectedFilters: this.selectedFilters,
+                            selectedFiltersFlowering: this.selectedFiltersFlowering,
+                            selectedFiltersFructification: this.selectedFiltersFructification,
+                            selectedFiltersTubersAtHarvest: this.selectedFiltersTubersAtHarvest,
+                            selectedFiltersSprout: this.selectedFiltersSprout,
                         },
                     
                 }).then(
