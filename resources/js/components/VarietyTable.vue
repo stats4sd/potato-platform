@@ -65,7 +65,7 @@
                         <variety-filter
                         :parameter="param"
                         v-model="selectedFiltersFlowering[param.value]"
-                        v-on:click.native="filterVariety"
+                        @updateFilter="filterVariety"
                         ></variety-filter>
 
                         </div>
@@ -85,7 +85,7 @@
                         <variety-filter
                         :parameter="param"
                         v-model="selectedFiltersFructification[param.value]"
-                        v-on:click.native="filterVariety"
+                        @updateFilter="filterVariety"
                         ></variety-filter>
 
                         </div>
@@ -105,7 +105,7 @@
                         <variety-filter
                         :parameter="param"
                         v-model="selectedFiltersTubersAtHarvest[param.value]"
-                        v-on:click.native="filterVariety"
+                        @updateFilter="filterVariety"
                         ></variety-filter>
 
                         </div>
@@ -125,7 +125,7 @@
                         <variety-filter
                         :parameter="param"
                         v-model="selectedFiltersSprout[param.value]"
-                        v-on:click.native="filterVariety"
+                        @updateFilter="filterVariety"
                         ></variety-filter>
 
                         </div>

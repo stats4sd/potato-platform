@@ -41,6 +41,7 @@
         methods: {
             updateInput(value) {
                this.$emit('input', value)
+               this.$emit('updateFilter')
             }
         }
     }
