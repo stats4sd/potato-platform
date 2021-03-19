@@ -117,9 +117,9 @@ class DataMapController extends Controller
                 case 'select_one':
                     $variables_choices = Variable::where('xlsform_varname',$variableName)->first();
                     $choice = $variables_choices->choices->where('value', $data[$variableName])->first();
-                    if (!empty($choice->label_spanish)){
+                    if (!empty($choice->id)){
                         
-                        $value = isset($choice->label_spanish) ? $choice->label_spanish : null;
+                        $value = isset($choice->id) ? $choice->id : null;
                         
                     } else {
 
