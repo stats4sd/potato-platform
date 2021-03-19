@@ -24,7 +24,9 @@ class CatalogueController extends Controller
         $flowering =  $variety->flowerings->first();
         $sprouts =  $variety->sprouts->first();
         $tubersAtHarvest =  $variety->TubersAtHarvests->first();
-
+        $column_data=[];
+       
+       
 
         //Could refactor this to hold variable names and labels in a database table...
         $floweringLabels = [
@@ -85,6 +87,11 @@ class CatalogueController extends Controller
 
         ];
 
+        $flowering = $this->getChoiceLabel($floweringLabels, $flowering);
+        $fruits = $this->getChoiceLabel($fruitsLabels, $fruits);
+        $sprouts = $this->getChoiceLabel($sproutsLabels, $sprouts);
+        $tubersAtHarvestLabels = $this->getChoiceLabel($tubersAtHarvestLabels, $tubersAtHarvest);
+
         return response()->json([
             'values' => [
                 'fruits'=> $fruits,
@@ -133,5 +140,16 @@ class CatalogueController extends Controller
         }
       
         return $varieties_array;
+    }
+
+    public function getChoiceLabel(Array $labels, $columns)
+    {
+        foreach ($labels as $key => $value) {
+            $choice = Choice::find($columns[$key]);
+            if($choice){
+                $columns[$key]= $choice->label_spanish;
+            }
+        }
+        return $columns;
     }
 }
