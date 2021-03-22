@@ -2,18 +2,20 @@
 
 namespace Database\Seeders;
 
+use App\Models\User;
 use App\Models\Farmer;
 use App\Models\Region;
+use App\Models\Sprout;
+use App\Models\Variety;
 use App\Models\Xlsform;
 use App\Models\District;
 use App\Models\Province;
 use App\Models\Community;
 use App\Models\Flowering;
 use App\Models\Fructification;
-use App\Models\Sprout;
 use App\Models\TubersAtHarvest;
-use App\Models\Variety;
 use Illuminate\Database\Seeder;
+use Database\Seeders\ChoicesSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -53,5 +55,9 @@ class DatabaseSeeder extends Seeder
                 )
             )
             ->create();
+
+        if (config('app.env') === 'local') {
+            User::factory(['email' => 'test@example.com'])->create();
+        }
     }
 }
