@@ -81,10 +81,10 @@ print(cursor.fetchall())
 sql_select_variables_choices = "SELECT choice_id FROM _link_variables_choices WHERE variable_id='1';"
 cursor.execute(sql_select_variables_choices)
 print(cursor.fetchall())
-choices_ids = list(cursor.fetchall())
+choices_ids = tuple(cursor.fetchall())
 # get data from choices 
 sql_select_choices = "SELECT * FROM choices WHERE id IN "+choices_ids+";"
-print(sql_select_choices)
+print(choices_ids)
 cursor.execute(sql_select_choices)
 print(cursor.fetchall())
 
