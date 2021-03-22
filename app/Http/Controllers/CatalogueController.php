@@ -127,12 +127,12 @@ class CatalogueController extends Controller
                 $choice = Choice::where('label_spanish', $optionvalue)->first();
                 if($choice){
                     $variety_ids =  $model::with('variety')->where($key, $choice->id)->pluck('variety_id');
-                    $varieties =  Variety::with('farmer.community.district.province.region')->where('id', $variety_ids)->get()->toArray();
+                    $varieties =  Variety::with('farmer.community.district.province.region')->whereIn('id', $variety_ids)->get()->toArray();
                     $varieties_array = array_merge($varieties_array,$varieties);
         
                 } else {
                     $variety_ids =  $model::with('variety')->where($key, $optionvalue)->pluck('variety_id');
-                    $varieties =  Variety::with('farmer.community.district.province.region')->where('id', $variety_ids)->get()->toArray();
+                    $varieties =  Variety::with('farmer.community.district.province.region')->whereIn('id', $variety_ids)->get()->toArray();
                     $varieties_array = array_merge($varieties_array,$varieties);
                 }
             }

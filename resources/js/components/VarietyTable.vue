@@ -45,17 +45,16 @@
                         <span
                             class="sidebar-icon"
                         ><i
-                            class="las la-filter"
+                            class="fas fa-filter"
                         /></span>
                     </h4>
                 </div>
                 <div class="d-flex flex-column">
                     <b-button
                         v-b-toggle="'collapse-flowering'"
-                        class="bg-info text-white w-100 px-4"
+                        class="bg-info text-left text-white w-100 px-4"
                     >
                         <div> Floración </div>
-                        <i class="las la-plus" />
                     </b-button>
                     <b-collapse
                         :id="'collapse-flowering'"
@@ -72,7 +71,7 @@
                     </b-collapse>
                      <b-button
                         v-b-toggle="'collapse-fructification'"
-                        class="bg-info text-white w-100 px-4"
+                        class="bg-info text-left text-white w-100 px-4"
                     >
                         <div> Fructificación </div>
                         <i class="las la-plus" />
@@ -92,9 +91,9 @@
                     </b-collapse>
                      <b-button
                         v-b-toggle="'collapse-tubers-at-harvest'"
-                        class="bg-info text-white w-100 px-4"
+                        class="bg-info text-left text-white w-100 px-4"
                     >
-                        <div> Tubérculos a la Cosecha </div>
+                        <div>Tubérculos a la Cosecha </div>
                         <i class="las la-plus" />
                     </b-button>
                     <b-collapse
@@ -112,9 +111,9 @@
                     </b-collapse>
                      <b-button
                         v-b-toggle="'collapse-sprout'"
-                        class="bg-info text-white w-100 px-4"
+                        class="bg-info text-left text-white w-100 px-4"
                     >
-                        <div> Brotamiento </div>
+                        <div>Brotamiento </div>
                         <i class="las la-plus" />
                     </b-button>
                     <b-collapse
