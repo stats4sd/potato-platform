@@ -94,14 +94,17 @@ class ParameterFilterController extends Controller
     public function generateArrayOptions(Array $columns, $model)
     {
         $data=[];
+        $choices_all = Choice::all();
+        $model_all = $model::all();
+
         foreach ($columns as $key_column => $column) {
-            $flowering =  $model::all()->pluck($column)->unique();
+            $flowering =   $model_all->pluck($column)->unique();
             $column_data['label']= $key_column;
             $column_data['value']= $column;
             $column_data['options'] = $flowering;
         
             foreach ($column_data['options'] as $key => $value) {
-                $choice = Choice::find($value);
+                $choice =  $choices_all->where('id', $value)->first();
                 if($choice){
                     $column_data['options'][$key]= $choice->label_spanish;
                 } else {
