@@ -24,6 +24,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        $this->call(
+            ChoicesSeeder::class,
+        );
+
         // create a single xlsform for the farmer submissions to be linked to...
         $xlsform = Xlsform::factory()->create();
 
@@ -38,7 +42,7 @@ class DatabaseSeeder extends Seeder
                         ->has(
                             Farmer::factory()->count(3)
                             ->has(
-                                Variety::factory()->count(2)
+                                Variety::factory()->count(20)
                                 ->has(Flowering::factory())
                                 ->has(Fructification::factory())
                                 ->has(TubersAtHarvest::factory())
