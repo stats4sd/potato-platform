@@ -72,6 +72,40 @@ tuberculos = tuberculos.where((pd.notnull(tuberculos)), None)
 conn = MySQLConnection.connect(**config.dbConfig)
 cursor = conn.cursor()
 
+# get data from variables 
+sql_select_id_variables = "SELECT id FROM variables WHERE xlsform_varname='crecimiento';"
+cursor.execute(sql_select_id_variables)
+print(cursor.fetchall())
+
+# get data from variables_choices 
+sql_select_variables_choices = "SELECT choice_id FROM _link_variables_choices WHERE variable_id='1';"
+cursor.execute(sql_select_variables_choices)
+print(cursor.fetchall())
+choices_ids = list(cursor.fetchall())
+# get data from choices 
+sql_select_choices = "SELECT * FROM choices WHERE id IN "+choices_ids+";"
+print(sql_select_choices)
+cursor.execute(sql_select_choices)
+print(cursor.fetchall())
+
+
+# get all records
+# variables =pd.DataFrame(cursor.fetchall())
+# variables.columns = cursor.column_names
+
+# print("variables: ", variables)
+
+# get data from choices 
+sql_select_choices = "select * from choices;"
+cursor.execute(sql_select_choices)
+# get all records
+choices =pd.DataFrame(cursor.fetchall())
+choices.columns = cursor.column_names
+
+
+
+print("choices: ", choices)
+
 dataframes = [variedad, floracion, fructificacion, brotamiento, tuberculos]
 tables = ['`varieties`', '`flowering`', '`fructification`', '`sprouts`', '`tubers_at_harvest`']
 
