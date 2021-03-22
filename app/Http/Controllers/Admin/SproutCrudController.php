@@ -118,7 +118,7 @@ class SproutCrudController extends CrudController
         CRUD::addField(
             [   // Upload
                 'name'      => 'photo_tuber_shoot',
-                'label'     => 'Upload the tuber shoot pictures',
+                'label'     => 'Suba la foto del brote',
                 'type'      => 'upload',
                 'upload'    => true,
                 'disk'      => 'public',

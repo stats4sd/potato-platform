@@ -4,7 +4,7 @@
 
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md">
+        <div class="col-md mt-4">
             <h2>Catálogo de Variedades de Papa Nativa</h2>
         </div>
     </div>

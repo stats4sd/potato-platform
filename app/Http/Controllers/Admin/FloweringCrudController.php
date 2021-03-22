@@ -142,21 +142,23 @@ class FloweringCrudController extends CrudController
         CRUD::addFields([
             [
                 'name'      => 'photos',
-                'label'     => 'Upload the pictures',
+                'label'     => 'Primera foto de la hoja,
+                                Segunda foto de la hoja y
+                                Tercera foto de la hoja',
                 'type'      => 'upload_multiple',
                 'upload'    => true,
                 'disk'      => 'public',
             ],
             [  
                 'name'      => 'photo_flower',
-                'label'     => 'Upload the flower pictures',
+                'label'     => 'Foto de la flor',
                 'type'      => 'upload',
                 'upload'    => true,
                 'disk'      => 'public',
             ],
             [  
                 'name'      => 'photo_plant',
-                'label'     => 'Upload the plant pictures',
+                'label'     => 'Foto de la planta entera',
                 'type'      => 'upload',
                 'upload'    => true,
                 'disk'      => 'public',

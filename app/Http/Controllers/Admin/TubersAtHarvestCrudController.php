@@ -116,7 +116,7 @@ class TubersAtHarvestCrudController extends CrudController
         CRUD::addField(
             [
                 'name'      => 'photo_tuber',
-                'label'     => 'Upload the tuber pictures',
+                'label'     => 'Suba la foto del turbérculo',
                 'type'      => 'upload',
                 'upload'    => true,
                 'disk'      => 'public',

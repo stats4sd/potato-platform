@@ -1,0 +1,38 @@
+Adminstración de la plataforma
+Usuario
+Localidades
+
+Sistema Kobo
+
+Subir imagenes
+
+
+Fructificación
+Floración
+
+
+Tubérculos a la cosecha
+Brotamiento
+Datos agronómicos
+Datos del agricultor
+Sistema de producci{on
+
+Mercados
+
+Variedades
+
+Suba la imagen aquí
+Primera foto de la hoja
+Segunda foto de la hoja
+Tercera foto de la hoja
+
+Foto de la flor
+Foto de la planta entera
+Suba la foto del turbérculo
+Suba la foto del brote
+
+$nombre comun "'- en mezcla
+
+Papa Chata Blanca - en mezcla
+
+Esta página presenta información sobre las variedades que figuran actualmente en la base de datos. Seleccione una variedad en la tabla de abajo para ver información detallada y fotos. Utilice los filtros de la columna de la izquierda para ver variedades por sus características.

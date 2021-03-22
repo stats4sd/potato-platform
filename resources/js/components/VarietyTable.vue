@@ -2,9 +2,9 @@
 <div>
     <div class="container">
         <p>
-            This page presents the varieties currently listed in the database.
-            Select a variety in the table to see detailed information and
-            photos. Use the search field to filter the results.
+            Esta página presenta información sobre las variedades que figuran actualmente en la base de datos. 
+            Seleccione una variedad en la tabla de abajo para ver información detallada y fotos. 
+            Utilice los filtros de la columna de la izquierda para ver variedades por sus características.
         </p>
         <div class="d-flex justify-content-end mb-4">
             <b-input-group class="col-12 col-md-8 col-lg-6 col-xl-4">
@@ -41,7 +41,7 @@
             <div class="full-height sidebar shadow">
                 <div class="sidebar-header bg-info p-4 mb-0 text-white">
                     <h4 class="p-0 m-0">
-                        Filters
+                        Filtros
                         <span
                             class="sidebar-icon"
                         ><i
