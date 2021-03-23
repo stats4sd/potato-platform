@@ -156,7 +156,8 @@ class CatalogueController extends Controller
     public function getChoiceLabel(array $labels, $columns)
     {
         foreach ($labels as $key => $value) {
-            $choice = Choice::find($columns[$key]);
+            $choice = Choice::where('list_name', $key)->where('value', $columns[$key])->first();
+        
             if ($choice) {
                 $columns[$key]= $choice->label_spanish;
             }
