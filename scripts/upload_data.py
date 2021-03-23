@@ -114,8 +114,8 @@ def get_choice_id(db_column, value):
 
 
 # print(floracion)
-dataframes = [brotamiento]
-tables = ['`sprouts`']
+dataframes = [variedad, floracion, fructificacion, brotamiento, tuberculos]
+tables = ['`varieties`','`flowering`', '`fructification`','`sprouts`','`tubers_at_harvest`', ]
 
 for d,t in zip(dataframes, tables): 
     try:
