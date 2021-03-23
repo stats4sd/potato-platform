@@ -2,9 +2,10 @@
 
 namespace Database\Factories;
 
+use App\Models\Choice;
 use App\Models\Sprout;
-use App\Models\Submission;
 use App\Models\Variety;
+use App\Models\Submission;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class SproutFactory extends Factory
@@ -26,11 +27,15 @@ class SproutFactory extends Factory
         return [
             'variety_id' => Variety::factory(),
             'submission_id' => Submission::factory(),
-            'color_predominant_tuber_shoot' => $this->faker->sentence(2),
-            'color_secondary_tuber_shoot' => $this->faker->sentence(2),
-            'distribution_color_secodary_tuber_shoot' => $this->faker->sentence(2),
-            'photo_tuber_shoot' => $this->faker->sentence(2),
-
+            'color_predominant_tuber_shoot' => $this->getChoiceValue('color_predominant_tuber_shoot'),
+            'color_secondary_tuber_shoot' => $this->getChoiceValue('color_secondary_tuber_shoot'),
+            'distribution_color_secodary_tuber_shoot' => $this->getChoiceValue('distribution_color_secodary_tuber_shoot'),
+            'photo_tuber_shoot' => null,
         ];
+    }
+
+    public function getChoiceValue($listName)
+    {
+        return Choice::where('list_name', $listName)->get()->random()->value;
     }
 }

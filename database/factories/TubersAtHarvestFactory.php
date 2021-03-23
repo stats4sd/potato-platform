@@ -2,9 +2,10 @@
 
 namespace Database\Factories;
 
+use App\Models\Choice;
+use App\Models\Variety;
 use App\Models\Submission;
 use App\Models\TubersAtHarvest;
-use App\Models\Variety;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class TubersAtHarvestFactory extends Factory
@@ -26,22 +27,27 @@ class TubersAtHarvestFactory extends Factory
         return [
             'variety_id' => Variety::factory(),
             'submission_id' => Submission::factory(),
-            'color_predominant_tuber' => $this->faker->sentence(2),
-            'intensity_color_predominant_tuber' => $this->faker->sentence(2),
-            'color_secondary_tuber' => $this->faker->sentence(2),
-            'distribution_color_secodary_tuber' => $this->faker->sentence(2),
-            'shape_tuber' => $this->faker->sentence(2),
-            'variant_shape_tuber' => $this->faker->sentence(2),
-            'depth_tuber_eyes' => $this->faker->sentence(2),
-            'color_predominant_tuber_pulp' => $this->faker->sentence(2),
-            'color_secondary_tuber_pulp' => $this->faker->sentence(2),
-            'distribution_color_secodary_tuber_pulp' => $this->faker->sentence(2),
-            'level_tolerance_late_blight' => $this->faker->sentence(2),
-            'level_tolerance_weevil' => $this->faker->sentence(2),
-            'level_tolerance_hailstorms' => $this->faker->sentence(2),
-            'level_tolerance_frost' => $this->faker->sentence(2),
-            'level_tolerance_drought' => $this->faker->sentence(2),
-            'photo_tuber' => $this->faker->sentence(2),
+            'color_predominant_tuber' => $this->getChoiceValue('color_predominant_tuber'),
+            'intensity_color_predominant_tuber' => $this->getChoiceValue('intensity_color_predominant_tuber'),
+            'color_secondary_tuber' => $this->getChoiceValue('color_secodary_tuber'),
+            'distribution_color_secodary_tuber' => $this->getChoiceValue('distribution_color_secodary_tuber'),
+            'shape_tuber' => $this->getChoiceValue('shape_tuber'),
+            'variant_shape_tuber' => $this->getChoiceValue('variant_shape_tuber'),
+            'depth_tuber_eyes' => $this->getChoiceValue('depth_tuber_eyes'),
+            'color_predominant_tuber_pulp' => $this->getChoiceValue('color_predominant_tuber_pulp'),
+            'color_secondary_tuber_pulp' => $this->getChoiceValue('color_secondary_tuber_pulp'),
+            'distribution_color_secodary_tuber_pulp' => $this->getChoiceValue('distribution_color_secodary_tuber_pulp'),
+            'level_tolerance_late_blight' => $this->getChoiceValue('level_tolerance_late_blight'),
+            'level_tolerance_weevil' => $this->getChoiceValue('level_tolerance_weevil'),
+            'level_tolerance_hailstorms' => $this->getChoiceValue('level_tolerance_hailstorms'),
+            'level_tolerance_frost' => $this->getChoiceValue('level_tolerance_frost'),
+            'level_tolerance_drought' => $this->getChoiceValue('level_tolerance_drought'),
+            'photo_tuber' => null,
         ];
+    }
+
+    public function getChoiceValue($listName)
+    {
+        return Choice::where('list_name', $listName)->get()->random()->value;
     }
 }

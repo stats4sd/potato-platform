@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Choice;
 use App\Models\Variety;
 use App\Models\Submission;
 use App\Models\Fructification;
@@ -26,10 +27,15 @@ class FructificationFactory extends Factory
         return [
             'variety_id' => Variety::factory(),
             'submission_id' => Submission::factory(),
-            'color_berries' => $this->faker->sentence(2),
-            'shape_berry' => $this->faker->sentence(2),
-            'maturity_variety' => $this->faker->sentence(2),
-            'photo_berry' => $this->faker->sentence(2),
+            'color_berries' => $this->getChoiceValue('color_berries'),
+            'shape_berry' => $this->getChoiceValue('shape_berry'),
+            'maturity_variety' => $this->getChoiceValue('maturity_variety'),
+            'photo_berry' => null,
         ];
+    }
+
+    public function getChoiceValue($listName)
+    {
+        return Choice::where('list_name', $listName)->get()->random()->value;
     }
 }

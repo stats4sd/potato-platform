@@ -23,8 +23,6 @@ class CatalogueController extends Controller
         $flowering =  $variety->flowerings->first();
         $sprouts =  $variety->sprouts->first();
         $tubersAtHarvest =  $variety->TubersAtHarvests->first();
-       
-       
 
         //Could refactor this to hold variable names and labels in a database table...
         $floweringLabels = [
@@ -107,47 +105,72 @@ class CatalogueController extends Controller
         ]);
     }
 
-    public function getVarietyFilter(Request $request){
+    public function getVarietyFilter(Request $request)
+    {
+        $filterSet = false;
+        foreach (array_merge(
+            $request->selectedFiltersFlowering,
+            $request->selectedFiltersFructification,
+            $request->selectedFiltersTubersAtHarvest,
+            $request->selectedFiltersSprout
+        ) as $key => $value) {
+            if ($value !== []) {
+                $filterSet = true;
+            }
+        }
+        if ($filterSet) {
+            $variety_flowering = $this->getVarietyWhereOptions($request->selectedFiltersFlowering, 'App\\Models\\Flowering');
+            $variety_fructation = $this->getVarietyWhereOptions($request->selectedFiltersFructification, 'App\\Models\\Fructification');
+            $variety_tubers_at_harvest = $this->getVarietyWhereOptions($request->selectedFiltersTubersAtHarvest, 'App\\Models\\TubersAtHarvest');
+            $variety_sprout = $this->getVarietyWhereOptions($request->selectedFiltersSprout, 'App\\Models\\Sprout');
 
-        $variety_flowering = $this->getVarietyWhereOptions($request->selectedFiltersFlowering, 'App\\Models\\Flowering');
-        $variety_fructation = $this->getVarietyWhereOptions($request->selectedFiltersFructification, 'App\\Models\\Fructification');
-        $variety_tubers_at_harvest = $this->getVarietyWhereOptions($request->selectedFiltersTubersAtHarvest, 'App\\Models\\TubersAtHarvest');
-        $variety_sprout = $this->getVarietyWhereOptions($request->selectedFiltersSprout, 'App\\Models\\Sprout');
-      
-        return array_merge($variety_flowering, $variety_fructation, $variety_tubers_at_harvest, $variety_sprout);
+            return array_merge($variety_flowering, $variety_fructation, $variety_tubers_at_harvest, $variety_sprout);
+        }
+
+        return Variety::with('farmer.community.district.province.region')->get()->toArray();
     }
-
-    public function getVarietyWhereOptions(Array $options, $model)
+    public function getVarietyWhereOptions(array $options, $model)
     {
         $varieties_array = array();
         foreach ($options as $key => $optionsSelected) {
             foreach ($optionsSelected as $optionKey => $optionvalue) {
-                
                 $choice = Choice::where('label_spanish', $optionvalue)->first();
-        
+<<<<<<< HEAD
+                if ($choice) {
+                    $variety_ids =  $model::with('variety')->where($key, $choice->id)->pluck('variety_id');
+                    $varieties =  Variety::with('farmer.community.district.province.region')->whereIn('id', $variety_ids)->get()->toArray();
+                    $varieties_array = array_merge($varieties_array, $varieties);
+=======
+
                 if($choice){
                     $variety_ids =  $model::with('variety')->where($key, $choice->id)->pluck('variety_id');
                     $varieties =  Variety::with('farmer.community.district.province.region')->whereIn('id', $variety_ids)->get()->toArray();
                     $varieties_array = array_merge($varieties_array,$varieties);
-                    
+
+>>>>>>> dev
                 } else {
                     $variety_ids =  $model::with('variety')->where($key, $optionvalue)->pluck('variety_id');
-               
+
                     $varieties =  Variety::with('farmer.community.district.province.region')->whereIn('id', $variety_ids)->get()->toArray();
-                    $varieties_array = array_merge($varieties_array,$varieties);
+                    $varieties_array = array_merge($varieties_array, $varieties);
                 }
             }
-        
         }
-      
+
         return $varieties_array;
     }
 
-    public function getChoiceLabel(Array $labels, $columns)
+    public function getChoiceLabel(array $labels, $columns)
     {
         foreach ($labels as $key => $value) {
+<<<<<<< HEAD
+            $choice = Choice::where('list_name', $key)->where('value', $columns[$key])->first();
+
+            if ($choice) {
+=======
             $choice = Choice::find($columns[$key]);
             if(!empty($choice)){
+>>>>>>> dev
                 $columns[$key]= $choice->label_spanish;
             }
         }
