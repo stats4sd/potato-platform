@@ -15,9 +15,9 @@ class CreateFarmerOrganisationsTable extends Migration
     {
         Schema::create('farmer_organisations', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('farmer_id');
+            $table->string('farmer_id');
             $table->string('name')->nullable();
-            $table->integer('year')->nullable();
+            $table->year('year')->nullable();
             $table->timestamps();
         });
     }

@@ -13,14 +13,20 @@ class CreateBrotamientoTable extends Migration
      */
     public function up()
     {
-        Schema::create('brotamiento', function (Blueprint $table) {
+        Schema::create('sprouts', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('variety_id');
-            $table->string('brote_color')->nullable();
-            $table->string('brote_color_2')->nullable();
-            $table->string('brote_color_2_dist')->nullable();
-            $table->string('codigo_brote')->nullable();
+            $table->string('variety_id');
+            $table->string('color_predominant_tuber_shoot')->nullable();
+            $table->string('color_secondary_tuber_shoot')->nullable();
+            $table->string('distribution_color_secodary_tuber_shoot')->nullable();
+            $table->string('photo_tuber_shoot')->nullable();
+            $table->string('campagna')->nullable();
+            $table->unsignedBigInteger('submission_id')->nullable();
             $table->timestamps();
+        });
+
+        Schema::table('sprouts', function(Blueprint $table) {
+            $table->foreign('submission_id')->references('id')->on('submissions')->onDelete('restrict');
         });
     }
 
@@ -31,6 +37,6 @@ class CreateBrotamientoTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('brotamiento');
+        Schema::dropIfExists('sprouts');
     }
 }

@@ -14,20 +14,32 @@ Route::group([
     ),
     'namespace'  => 'App\Http\Controllers\Admin',
 ], function () { // custom admin routes
+
     Route::crud('region', 'RegionCrudController');
     Route::crud('district', 'DistrictCrudController');
     Route::crud('province', 'ProvinceCrudController');
     Route::crud('farmer', 'FarmerCrudController');
     Route::crud('community', 'CommunityCrudController');
     Route::crud('variety', 'VarietyCrudController');
-    Route::crud('farmer_organisation', 'Farmer_organisationCrudController');
+    Route::crud('hhmember', 'HhMemberCrudController');
+    Route::crud('productionsystem', 'ProductionSystemCrudController');
+    Route::crud('farmerorganisation', 'FarmerOrganisationCrudController');
+    Route::crud('flowering', 'FloweringCrudController');
+    Route::crud('fructification', 'FructificationCrudController');
+    Route::crud('tubers_at_harvest', 'TubersAtHarvestCrudController');
+    Route::crud('sprout', 'SproutCrudController');
+    Route::crud('farmerssale', 'FarmersSaleCrudController');
+    Route::crud('plot', 'PlotCrudController');
     Route::crud('xlsform', 'XlsformCrudController');
     Route::crud('submission', 'SubmissionCrudController');
-    Route::crud('production_system', 'Production_systemCrudController');
-    Route::crud('market_info', 'Market_infoCrudController');
-    Route::crud('hh_member', 'Hh_memberCrudController');
-    Route::crud('fructificacion', 'FructificacionCrudController');
-    Route::crud('floracion', 'FloracionCrudController');
-    Route::crud('cosehca', 'CosehcaCrudController');
-    Route::crud('brotamiento', 'BrotamientoCrudController');
+    Route::crud('variable', 'VariableCrudController');
+    Route::crud('datamap', 'DataMapCrudController');
+    //KoboToolBox API
+    Route::post('xlsform/{xlsform}/deploytokobo', 'XlsformCrudController@deployToKobo');
+    Route::post('xlsform/{xlsform}/syncdata', 'XlsformCrudController@syncData');
+    Route::post('xlsform/{xlsform}/archive', 'XlsformCrudController@archiveOnKobo');
+    Route::post('xlsform/{xlsform}/csvgenerate', 'XlsformCrudController@regenerateCsvFileAttachments');
+
+    Route::crud('user', 'UserCrudController');
+    Route::crud('choice', 'ChoiceCrudController');
 }); // this should be the absolute last line of this file

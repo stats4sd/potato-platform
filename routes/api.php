@@ -17,3 +17,8 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::apiResource('regions', "App\Http\Controllers\Api\RegionController");
+Route::apiResource('farmers', "App\Http\Controllers\Api\FarmerController");
+Route::apiResource('varieties', "Api\VarietyController");
+Route::apiResource('parameter-filters', "Api\ParameterFilterController");

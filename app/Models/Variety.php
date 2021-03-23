@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
-use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
+use Backpack\CRUD\app\Models\Traits\CrudTrait;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Variety extends Model
 {
-    use CrudTrait;
+    use CrudTrait, HasFactory;
 
     /*
     |--------------------------------------------------------------------------
@@ -18,10 +19,11 @@ class Variety extends Model
     protected $table = 'varieties';
     // protected $primaryKey = 'id';
     // public $timestamps = false;
-    protected $guarded = ['id'];
+    protected $guarded = [];
     // protected $fillable = [];
     // protected $hidden = [];
     // protected $dates = [];
+    public $incrementing = false;
 
     /*
     |--------------------------------------------------------------------------
@@ -39,24 +41,24 @@ class Variety extends Model
         return $this->belongsTo(Farmer::class);
     }
 
-    public function floracion()
+    public function flowerings()
     {
-        return $this->hasMany(Floracion::class);
+        return $this->hasMany(Flowering::class);
     }
 
-    public function fructificacion()
+    public function fructifications()
     {
-        return $this->hasMany(Fructificacion::class);
+        return $this->hasMany(Fructification::class);
     }
 
-    public function cosecha()
+    public function TubersAtHarvests()
     {
-        return $this->hasMany(Cosecha::class);
+        return $this->hasMany(TubersAtHarvest::class);
     }
 
-    public function brotamiento()
+    public function sprouts()
     {
-        return $this->hasMany(Brotamiento::class);
+        return $this->hasMany(Sprout::class);
     }
 
     /*

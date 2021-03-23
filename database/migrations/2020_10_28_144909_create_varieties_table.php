@@ -14,9 +14,12 @@ class CreateVarietiesTable extends Migration
     public function up()
     {
         Schema::create('varieties', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->string('id')->unique();
             $table->string('name')->nullable();
-            $table->unsignedBigInteger('farmer_id');
+            $table->string('common_name')->nullable();
+            $table->string('other_name')->nullable();
+            $table->tinyInteger('is_mixture')->nullable();
+            $table->string('farmer_id');
             $table->timestamps();
         });
     }
