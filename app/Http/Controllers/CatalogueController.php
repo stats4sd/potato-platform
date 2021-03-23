@@ -83,11 +83,23 @@ class CatalogueController extends Controller
 
         ];
 
-        $flowering = $this->getChoiceLabel($floweringLabels, $flowering);
+        if (!empty($flowering)) {
 
-        $fruits = $this->getChoiceLabel($fruitsLabels, $fruits);
-        $sprouts = $this->getChoiceLabel($sproutsLabels, $sprouts);
-        $tubersAtHarvestLabels = $this->getChoiceLabel($tubersAtHarvestLabels, $tubersAtHarvest);
+            $flowering = $this->getChoiceLabel($floweringLabels, $flowering);
+        }
+        if (!empty($fruits)) {
+
+            $fruits = $this->getChoiceLabel($fruitsLabels, $fruits);
+        }
+        if (!empty($sprouts)) {
+
+            $sprouts = $this->getChoiceLabel($sproutsLabels, $sprouts);
+        }
+        if (!empty($tubersAtHarvest)) {
+
+            $tubersAtHarvest = $this->getChoiceLabel($tubersAtHarvestLabels, $tubersAtHarvest);
+        }
+
 
         return response()->json([
             'values' => [
