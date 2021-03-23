@@ -26,9 +26,9 @@ for code in codes:
     variedad_name.append("".join(code))
 
 variedad['name']=variedad_name
-columns_name = {'codigo_agricultor':'farmer_id', 'codigo_variedad':'id', }
+columns_name = {'codigo_agricultor':'farmer_id', 'codigo_variedad':'id', 'nombre_comun':'common_name', 'otros_nombre':'other_name'}
 variedad = variedad.rename(columns=columns_name)
-
+variedad = variedad.where((pd.notnull(variedad)), None)
 ### brotamiento ###
 brotamiento=pd.read_excel(open(sys.argv[1], 'rb'),sheet_name='Brotamiento', skiprows=1)
 
@@ -49,7 +49,7 @@ fructificacion = fructificacion.rename(columns=columns_name)
 fructificacion = fructificacion.where((pd.notnull(fructificacion)), None)
 
 ### floracion ###
-floracion=pd.read_excel(open(sys.argv[1], 'rb'),sheet_name='Floración', skiprows=1, na_values=['_','-'])
+floracion=pd.read_excel(open(sys.argv[1], 'rb'),sheet_name='Floración', skiprows=1, na_values=['_', '-', '|'])
 
 columns_name = {'codigo_variedad':'variety_id','crecimiento':'plant_growth', 'diseccion':'leaf_dissection', 'foliolos':'number_lateral_leaflets', 'interhojuelas':'number_intermediate_leaflets', 'interhojuelas_peciolulo':'number_leaflets_on_petioles', 'color_tallo':'color_stem', 'forma_alas_tallo':'shape_stem_wings', 'grado_floracion':'degree_flowering_plant', 'forma_corola':'shape_corolla', 'color_flor':'color_predominant_flower', 'intensidad_predominante':'intensity_color_predominant_flower', 'color_flor_2':'color_secondary_flower', 'distribucion_secundario':'distribution_color_secodary_flower', 'pigmentacion_anteras':'pigmentation_anthers', 'pigmentacion_pistilo':'pigmentation_pistil', 'color_caliz':'color_chalice', 'color_pedicelo':'color_pedicel'}
 floracion = floracion.rename(columns=columns_name)
@@ -72,42 +72,50 @@ tuberculos = tuberculos.where((pd.notnull(tuberculos)), None)
 conn = MySQLConnection.connect(**config.dbConfig)
 cursor = conn.cursor()
 
-# get data from variables 
-sql_select_id_variables = "SELECT id FROM variables WHERE xlsform_varname='crecimiento';"
-cursor.execute(sql_select_id_variables)
-print(cursor.fetchall())
+# # get data from variables 
+def get_choice_id(db_column, value):
+    conn = MySQLConnection.connect(**config.dbConfig)
+    cursor = conn.cursor()
+    sql_select_id_variables = "SELECT variables.id AS variable_id, \
+    xlsform_varname,\
+    db_varname, \
+    _link_variables_choices.choice_id,\
+    choices.value \
+    FROM variables \
+    LEFT JOIN _link_variables_choices ON variable_id= variable_id \
+    LEFT JOIN choices ON _link_variables_choices.choice_id= choices.id \
+    WHERE db_varname=%s and VALUE=%s; "
+    cursor.execute(sql_select_id_variables, (db_column, value))
+    choices =pd.DataFrame(cursor.fetchall())
+    if len(choices)==1:
+        choices.columns = cursor.column_names
+        return int(choices['choice_id'])
+    else: 
+        return int(value) 
+   
+# dataframes = [floracion.drop(['variety_id'], axis=1)]
+# # print(floracion)
+# for table in  dataframes:
+#     for column in table.columns:
+#         value_in_column = floracion[column].unique()
+        
+#         value_in_column = filter(None, value_in_column)
+       
+#         value_in_column = sorted(value_in_column)
+#         for value in value_in_column:
+#             value = int(value)
+#             print(value)
+#             print(value)
+#             print(get_choice_id(column, value))
+#             choice_id = get_choice_id(column, value)
+        
+#             floracion[column].replace([value], choice_id, inplace=True)
+#             # print([value],choice_id)
 
-# get data from variables_choices 
-sql_select_variables_choices = "SELECT choice_id FROM _link_variables_choices WHERE variable_id='1';"
-cursor.execute(sql_select_variables_choices)
-print(cursor.fetchall())
-choices_ids = tuple(cursor.fetchall())
-# get data from choices 
-sql_select_choices = "SELECT * FROM choices WHERE id IN "+choices_ids+";"
-print(choices_ids)
-cursor.execute(sql_select_choices)
-print(cursor.fetchall())
 
-
-# get all records
-# variables =pd.DataFrame(cursor.fetchall())
-# variables.columns = cursor.column_names
-
-# print("variables: ", variables)
-
-# get data from choices 
-sql_select_choices = "select * from choices;"
-cursor.execute(sql_select_choices)
-# get all records
-choices =pd.DataFrame(cursor.fetchall())
-choices.columns = cursor.column_names
-
-
-
-print("choices: ", choices)
-
-dataframes = [variedad, floracion, fructificacion, brotamiento, tuberculos]
-tables = ['`varieties`', '`flowering`', '`fructification`', '`sprouts`', '`tubers_at_harvest`']
+# print(floracion)
+dataframes = [brotamiento]
+tables = ['`sprouts`']
 
 for d,t in zip(dataframes, tables): 
     try:

@@ -16,6 +16,9 @@ class CreateVarietiesTable extends Migration
         Schema::create('varieties', function (Blueprint $table) {
             $table->string('id')->unique();
             $table->string('name')->nullable();
+            $table->string('common_name')->nullable();
+            $table->string('other_name')->nullable();
+            $table->tinyInteger('is_mixture')->nullable();
             $table->string('farmer_id');
             $table->timestamps();
         });

@@ -18,15 +18,11 @@ class CatalogueController extends Controller
     {
         $variety = Variety::findOrFail($request->variety_id);
 
-
         // EVENTUALLY, we will have to reconcile the possibility of having multiple subtable records for a single variety. For now, just take the first entry...
         $fruits = $variety->fructifications->first();
         $flowering =  $variety->flowerings->first();
         $sprouts =  $variety->sprouts->first();
         $tubersAtHarvest =  $variety->TubersAtHarvests->first();
-        $column_data=[];
-
-
 
         //Could refactor this to hold variable names and labels in a database table...
         $floweringLabels = [
@@ -88,6 +84,7 @@ class CatalogueController extends Controller
         ];
 
         $flowering = $this->getChoiceLabel($floweringLabels, $flowering);
+
         $fruits = $this->getChoiceLabel($fruitsLabels, $fruits);
         $sprouts = $this->getChoiceLabel($sproutsLabels, $sprouts);
         $tubersAtHarvestLabels = $this->getChoiceLabel($tubersAtHarvestLabels, $tubersAtHarvest);
@@ -138,12 +135,22 @@ class CatalogueController extends Controller
         foreach ($options as $key => $optionsSelected) {
             foreach ($optionsSelected as $optionKey => $optionvalue) {
                 $choice = Choice::where('label_spanish', $optionvalue)->first();
+<<<<<<< HEAD
                 if ($choice) {
                     $variety_ids =  $model::with('variety')->where($key, $choice->id)->pluck('variety_id');
                     $varieties =  Variety::with('farmer.community.district.province.region')->whereIn('id', $variety_ids)->get()->toArray();
                     $varieties_array = array_merge($varieties_array, $varieties);
+=======
+
+                if($choice){
+                    $variety_ids =  $model::with('variety')->where($key, $choice->id)->pluck('variety_id');
+                    $varieties =  Variety::with('farmer.community.district.province.region')->whereIn('id', $variety_ids)->get()->toArray();
+                    $varieties_array = array_merge($varieties_array,$varieties);
+
+>>>>>>> dev
                 } else {
                     $variety_ids =  $model::with('variety')->where($key, $optionvalue)->pluck('variety_id');
+
                     $varieties =  Variety::with('farmer.community.district.province.region')->whereIn('id', $variety_ids)->get()->toArray();
                     $varieties_array = array_merge($varieties_array, $varieties);
                 }
@@ -156,9 +163,14 @@ class CatalogueController extends Controller
     public function getChoiceLabel(array $labels, $columns)
     {
         foreach ($labels as $key => $value) {
+<<<<<<< HEAD
             $choice = Choice::where('list_name', $key)->where('value', $columns[$key])->first();
-        
+
             if ($choice) {
+=======
+            $choice = Choice::find($columns[$key]);
+            if(!empty($choice)){
+>>>>>>> dev
                 $columns[$key]= $choice->label_spanish;
             }
         }

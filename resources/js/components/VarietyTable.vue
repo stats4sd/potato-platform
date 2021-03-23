@@ -181,12 +181,20 @@ import VarietyFilter from './VarietyFilter.vue';
         data() {
             return {
                 fields: [
-                    {
-                        key: "name",
-                        label: "Variedad"
+                     {
+                        key: "id",
+                        label: "Variedad Codigo"
                     },
                     {
-                        key: "farmer.name",
+                        key: "name",
+                        label: "Nombre"
+                    },
+                    {
+                        key: "common_name",
+                        label: "Nombre comun"
+                    },
+                    {
+                        key: "farmer_id",
                         label: "Agricultor"
                     },
                     {
