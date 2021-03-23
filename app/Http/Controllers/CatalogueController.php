@@ -18,13 +18,11 @@ class CatalogueController extends Controller
     {
         $variety = Variety::findOrFail($request->variety_id);
 
-
         // EVENTUALLY, we will have to reconcile the possibility of having multiple subtable records for a single variety. For now, just take the first entry...
         $fruits = $variety->fructifications->first();
         $flowering =  $variety->flowerings->first();
         $sprouts =  $variety->sprouts->first();
         $tubersAtHarvest =  $variety->TubersAtHarvests->first();
-        $column_data=[];
        
        
 
@@ -88,6 +86,7 @@ class CatalogueController extends Controller
         ];
 
         $flowering = $this->getChoiceLabel($floweringLabels, $flowering);
+
         $fruits = $this->getChoiceLabel($fruitsLabels, $fruits);
         $sprouts = $this->getChoiceLabel($sproutsLabels, $sprouts);
         $tubersAtHarvestLabels = $this->getChoiceLabel($tubersAtHarvestLabels, $tubersAtHarvest);
@@ -125,13 +124,15 @@ class CatalogueController extends Controller
             foreach ($optionsSelected as $optionKey => $optionvalue) {
                 
                 $choice = Choice::where('label_spanish', $optionvalue)->first();
+        
                 if($choice){
                     $variety_ids =  $model::with('variety')->where($key, $choice->id)->pluck('variety_id');
                     $varieties =  Variety::with('farmer.community.district.province.region')->whereIn('id', $variety_ids)->get()->toArray();
                     $varieties_array = array_merge($varieties_array,$varieties);
-        
+                    
                 } else {
                     $variety_ids =  $model::with('variety')->where($key, $optionvalue)->pluck('variety_id');
+               
                     $varieties =  Variety::with('farmer.community.district.province.region')->whereIn('id', $variety_ids)->get()->toArray();
                     $varieties_array = array_merge($varieties_array,$varieties);
                 }
@@ -146,7 +147,7 @@ class CatalogueController extends Controller
     {
         foreach ($labels as $key => $value) {
             $choice = Choice::find($columns[$key]);
-            if($choice){
+            if(!empty($choice)){
                 $columns[$key]= $choice->label_spanish;
             }
         }

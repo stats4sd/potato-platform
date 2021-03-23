@@ -34,6 +34,7 @@ class ParameterFilterController extends Controller
             'Color del cáliz' => 'color_chalice',
             'Color del pedicelo' => 'color_pedicel',
             'Nivel de tolerancia a la rancha' => 'level_tolerance_late_blight',
+            'Nivel de tolerancia al gorgojo de los andes' => 'level_tolerance_weevil',
             'Nivel de tolerancia a la granizada' => 'level_tolerance_hailstorms',
             'Nivel de tolerancia a la helada' => 'level_tolerance_frost',
             'Nivel de tolerancia a la sequía' => 'level_tolerance_drought'
