@@ -28,7 +28,7 @@ class SproutCrudController extends CrudController
     {
         CRUD::setModel(\App\Models\Sprout::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/sprout');
-        CRUD::setEntityNameStrings('sprout', 'sprouts');
+        CRUD::setEntityNameStrings('brotamiento', 'brotamiento');
     }
 
     /**

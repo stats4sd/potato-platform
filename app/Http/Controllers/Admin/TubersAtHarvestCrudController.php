@@ -28,7 +28,7 @@ class TubersAtHarvestCrudController extends CrudController
     {
         CRUD::setModel(\App\Models\TubersAtHarvest::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/tubers_at_harvest');
-        CRUD::setEntityNameStrings('tubers_at_harvest', 'tubers at harvests');
+        CRUD::setEntityNameStrings('tubérculos en la cosecha', 'tubérculos a la cosecha');
     }
 
     /**

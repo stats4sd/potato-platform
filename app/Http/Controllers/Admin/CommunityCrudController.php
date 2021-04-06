@@ -28,7 +28,7 @@ class CommunityCrudController extends CrudController
     {
         CRUD::setModel(\App\Models\Community::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/community');
-        CRUD::setEntityNameStrings('community', 'communities');
+        CRUD::setEntityNameStrings('comunidad', 'comunidades');
     }
 
     /**

@@ -28,7 +28,7 @@ class HhMemberCrudController extends CrudController
     {
         CRUD::setModel(\App\Models\HhMember::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/hhmember');
-        CRUD::setEntityNameStrings('hhmember', 'hh_members');
+        CRUD::setEntityNameStrings('miembro de la familia', 'miembros de la familia');
     }
 
     /**

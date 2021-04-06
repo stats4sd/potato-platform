@@ -29,7 +29,7 @@ class FructificationCrudController extends CrudController
     {
         CRUD::setModel(\App\Models\Fructification::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/fructification');
-        CRUD::setEntityNameStrings('fructification', 'fructifications');
+        CRUD::setEntityNameStrings('fructificación', 'fructificación');
     }
 
     /**

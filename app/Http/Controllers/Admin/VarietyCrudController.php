@@ -28,7 +28,7 @@ class VarietyCrudController extends CrudController
     {
         CRUD::setModel(\App\Models\Variety::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/variety');
-        CRUD::setEntityNameStrings('variety', 'varieties');
+        CRUD::setEntityNameStrings('variedad', 'variedades');
     }
 
     /**
