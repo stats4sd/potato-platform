@@ -10,7 +10,7 @@
             <b-input-group class="col-12 col-md-8 col-lg-6 col-xl-4">
                 <b-form-input
                     v-model="tableFilter"
-                    placeholder="Search varieties"
+                    placeholder="Buscar variedades"
                     class="bg-light border-right-0"
                 />
                 <template #append>
@@ -186,16 +186,12 @@ import VarietyFilter from './VarietyFilter.vue';
                         label: "Variedad Codigo"
                     },
                     {
-                        key: "name",
-                        label: "Nombre"
-                    },
-                    {
                         key: "common_name",
-                        label: "Nombre comun"
+                        label: "Nombre común"
                     },
                     {
                         key: "farmer_id",
-                        label: "Agricultor"
+                        label: "Agricultor(a)"
                     },
                     {
                         key: "farmer.community.district.province.region.name",
