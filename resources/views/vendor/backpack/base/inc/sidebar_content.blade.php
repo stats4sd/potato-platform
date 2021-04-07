@@ -7,7 +7,7 @@
 
 <li class='nav-item'><a class='nav-link' href="{{ backpack_url('user') }}"><i class="la la-user"></i> Usuarios</a></li>
 
-<li class='nav-item'><a class='nav-link' href="{{ backpack_url('mezcla') }}"><i class="la la-clone"></i> Mezclas</a></li>
+<li class='nav-item'><a class='nav-link' href="{{ backpack_url('variety') }}"><i class="la la-clone"></i> Mezclas</a></li>
 
 @endif
 
@@ -80,3 +80,5 @@
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('sprout') }}'>Brotamiento</a></li>
 
 @endif
+
+<li class='nav-item'><a class='nav-link' href='{{ backpack_url('mezcla') }}'><i class='nav-icon la la-question'></i> Mezclas</a></li>
