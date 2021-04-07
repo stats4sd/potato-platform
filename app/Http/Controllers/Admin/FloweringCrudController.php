@@ -46,7 +46,7 @@ class FloweringCrudController extends CrudController
         $this->crud->addFilter([
             'type'  => 'simple',
             'name'  => 'photo_empty',
-            'label' => 'Missing photos'
+            'label' => 'Fotos faltantes'
         ], 
         false,  
         function() { // if the filter is active
@@ -57,7 +57,7 @@ class FloweringCrudController extends CrudController
         $this->crud->addFilter([
             'name'  => 'variety_code',
             'type'  => 'text',
-            'label' => 'Variety Code'
+            'label' => 'Código Variedad'
         ],
         false,
         function ($value) { // if the filter is active
@@ -67,7 +67,7 @@ class FloweringCrudController extends CrudController
         CRUD::addColumns([
             [  
                 'name'      => 'variety_id',
-                'label'     => 'Variety Code',
+                'label'     => 'Código Variedad',
                 'type'     => 'closure',
                 'function' => function($entry) {
                     return "<h6><b>". $entry->variety_id . "</b></h6>";
@@ -80,9 +80,9 @@ class FloweringCrudController extends CrudController
                 'function' => function($entry) {
                    if(!empty($entry->photos) && !empty($entry->photo_flower) && !empty($entry->photo_plant))
                    {
-                       return '<h6 style="color:green;">Complete</h6>';
+                       return '<h6 style="color:green;">Completa</h6>';
                    } else {
-                        return '<h6 style="color:red;">Incomplete</h6>';
+                        return '<h6 style="color:red;">Incompleta</h6>';
                    } 
                 },
                 'orderable'  => true,
@@ -93,7 +93,7 @@ class FloweringCrudController extends CrudController
             ],
             [
                 'name'      => 'photos',
-                'label'     => 'Photos',
+                'label'     => 'Foto de la hoja',
                 'type'     => 'closure',
                 'function' => function($entry) {
                     $img = "";
@@ -105,7 +105,7 @@ class FloweringCrudController extends CrudController
             ],
             [  
                 'name'      => 'photo_flower',
-                'label'     => 'Photo of flower',
+                'label'     => 'Foto de la flor',
                 'type'     => 'image',
                 'prefix' => 'storage/',
                 'height' => '128px',
@@ -113,7 +113,7 @@ class FloweringCrudController extends CrudController
             ],
             [  
                 'name'      => 'photo_plant',
-                'label'     => 'Photo of plant',
+                'label'     => 'Foto de la planta entera',
                 'type'     => 'image',
                 'prefix' => 'storage/',
                 'height' => '128px',
@@ -142,23 +142,21 @@ class FloweringCrudController extends CrudController
         CRUD::addFields([
             [
                 'name'      => 'photos',
-                'label'     => 'Primera foto de la hoja,
-                                Segunda foto de la hoja y
-                                Tercera foto de la hoja',
-                'type'      => 'upload_multiple',
+                'label'     => 'Suba el foto de la hoja',
+                'type'      => 'upload',
                 'upload'    => true,
                 'disk'      => 'public',
             ],
             [  
                 'name'      => 'photo_flower',
-                'label'     => 'Foto de la flor',
+                'label'     => 'Suba el foto de la flor',
                 'type'      => 'upload',
                 'upload'    => true,
                 'disk'      => 'public',
             ],
             [  
                 'name'      => 'photo_plant',
-                'label'     => 'Foto de la planta entera',
+                'label'     => 'Suba el foto de la planta entera',
                 'type'      => 'upload',
                 'upload'    => true,
                 'disk'      => 'public',

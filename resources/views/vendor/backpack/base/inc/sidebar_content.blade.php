@@ -1,7 +1,7 @@
 <!-- This file is used to store sidebar items, starting with Backpack\Base 0.9.0 -->
 
 <!-- <li class="nav-item"><a class="nav-link" href="{{ backpack_url('dashboard') }}"><i class="nav-icon fa fa-dashboard"></i> {{ trans('backpack::base.dashboard') }}</a></li> -->
-<h4 class='nav-item nav-link text-white mt-3'>Adminstración de la plataforma</h4>
+<h4 class='nav-item nav-link text-white mt-3'>Administración de la plataforma</h4>
 
 @if(Auth::user()->permission==2)
 
@@ -57,9 +57,9 @@
 </li>
 
 <li class='nav-item nav-dropdown'>
-    <a class='nav-link nav-dropdown-toggle' href="#">Sistemas de produccion</a>
+    <a class='nav-link nav-dropdown-toggle' href="#">Sistemas de producción</a>
     <ul class="nav-dropdown-items">
-        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('productionsystem') }}'> Sistemas de produccion</a></li>
+        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('productionsystem') }}'> Sistemas de producción</a></li>
         <li class='nav-item'><a class='nav-link' href='{{ backpack_url('plot') }}'> Parcelas</a></li>
     </ul>
 </li>

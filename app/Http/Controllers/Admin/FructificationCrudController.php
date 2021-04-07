@@ -47,7 +47,7 @@ class FructificationCrudController extends CrudController
         $this->crud->addFilter([
             'type'  => 'simple',
             'name'  => 'photo_empty',
-            'label' => 'Missing photos'
+            'label' => 'Fotos faltantes'
         ], 
         false, 
         function() { // if the filter is active
@@ -58,7 +58,7 @@ class FructificationCrudController extends CrudController
         $this->crud->addFilter([
             'name'  => 'variety_code',
             'type'  => 'text',
-            'label' => 'Variety Code'
+            'label' => 'Código Variedad'
         ],
         false,
         function ($value) { // if the filter is active
@@ -68,7 +68,7 @@ class FructificationCrudController extends CrudController
         CRUD::addColumns([
             [  
                 'name'      => 'variety_id',
-                'label'     => 'Variety Code',
+                'label'     => 'Código Variedad',
                 'type'     => 'closure',
                 'function' => function($entry) {
                     return "<h6><b>". $entry->variety_id . "</b></h6>";
@@ -81,9 +81,9 @@ class FructificationCrudController extends CrudController
                 'function' => function($entry) {
                    if(!empty($entry->photo_berry))
                    {
-                       return '<h6 style="color:green;">Complete</h6>';
+                       return '<h6 style="color:green;">Completa</h6>';
                    } else {
-                    return '<h6 style="color:red;">Incomplete</h6>';
+                    return '<h6 style="color:red;">Incompleta</h6>';
                    } 
                 },
                 'orderable'  => true,
@@ -94,7 +94,7 @@ class FructificationCrudController extends CrudController
             ],
             [
                 'name'      => 'photo_berry',
-                'label'     => 'Photo of the berry',
+                'label'     => 'Foto de la baya',
                 'type'     => 'image',
                 'prefix' => 'storage/',
                 'height' => '128px',
@@ -118,7 +118,7 @@ class FructificationCrudController extends CrudController
         CRUD::addField(
             [   // Upload
                 'name'      => 'photo_berry',
-                'label'     => 'Upload the berry picture',
+                'label'     => 'Suba la foto de la baya',
                 'type'      => 'upload',
                 'upload'    => true,
                 'disk'      => 'public',

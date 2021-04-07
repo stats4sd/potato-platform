@@ -41,7 +41,7 @@ Route::middleware(['auth'])->group(function() {
     });
 
     Route::get('/fotos', function () {
-        return redirect('/admin/fructification');
+        return redirect('/admin');
     });
 
     Route::get('/agronomic_data', function () {
