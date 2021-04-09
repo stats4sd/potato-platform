@@ -30,11 +30,7 @@ class UpdatePhotosFloweringTable extends Migration
     public function down()
     {
         Schema::table('flowering', function (Blueprint $table) {
-        $table->renameColumn('photo_leaf', 'photos');
-        });
-
-        Schema::table('flowering', function (Blueprint $table) {
-        $table->json('photos')->change();
+        $table->string('photo_leaf');
         });
     }
 }
