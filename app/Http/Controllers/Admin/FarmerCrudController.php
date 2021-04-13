@@ -28,7 +28,7 @@ class FarmerCrudController extends CrudController
     {
         CRUD::setModel(\App\Models\Farmer::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/farmer');
-        CRUD::setEntityNameStrings('farmer', 'farmers');
+        CRUD::setEntityNameStrings('agricultor', 'agricultores');
     }
 
     /**

@@ -42,4 +42,5 @@ Route::group([
 
     Route::crud('user', 'UserCrudController');
     Route::crud('choice', 'ChoiceCrudController');
+    Route::crud('mezcla', 'MezclaCrudController');
 }); // this should be the absolute last line of this file

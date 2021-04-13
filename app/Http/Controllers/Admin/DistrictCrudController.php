@@ -28,7 +28,7 @@ class DistrictCrudController extends CrudController
     {
         CRUD::setModel(\App\Models\District::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/district');
-        CRUD::setEntityNameStrings('district', 'districts');
+        CRUD::setEntityNameStrings('districto', 'districtos');
     }
 
     /**

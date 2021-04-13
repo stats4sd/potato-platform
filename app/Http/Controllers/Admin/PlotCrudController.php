@@ -28,7 +28,7 @@ class PlotCrudController extends CrudController
     {
         CRUD::setModel(\App\Models\Plot::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/plot');
-        CRUD::setEntityNameStrings('plot', 'plots');
+        CRUD::setEntityNameStrings('parcela', 'parcelas');
     }
 
     /**

@@ -28,7 +28,7 @@ class TubersAtHarvestCrudController extends CrudController
     {
         CRUD::setModel(\App\Models\TubersAtHarvest::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/tubers_at_harvest');
-        CRUD::setEntityNameStrings('tubers_at_harvest', 'tubers at harvests');
+        CRUD::setEntityNameStrings('tubérculos en la cosecha', 'tubérculos a la cosecha');
     }
 
     /**
@@ -46,7 +46,7 @@ class TubersAtHarvestCrudController extends CrudController
         $this->crud->addFilter([
             'type'  => 'simple',
             'name'  => 'photo_empty',
-            'label' => 'Missing photos'
+            'label' => 'Fotos faltantes'
         ], 
         false,  
         function() { // if the filter is active
@@ -57,7 +57,7 @@ class TubersAtHarvestCrudController extends CrudController
         $this->crud->addFilter([
             'name'  => 'variety_code',
             'type'  => 'text',
-            'label' => 'Variety Code'
+            'label' => 'Código Variedad'
         ],
         false,
         function ($value) { // if the filter is active
@@ -67,7 +67,7 @@ class TubersAtHarvestCrudController extends CrudController
         CRUD::addColumns([
             [  
                 'name'      => 'variety_id',
-                'label'     => 'Variety Code',
+                'label'     => 'Código Variedad',
                 'type'     => 'closure',
                 'function' => function($entry) {
                     return "<h6><b>". $entry->variety_id . "</b></h6>";
@@ -80,9 +80,9 @@ class TubersAtHarvestCrudController extends CrudController
                 'function' => function($entry) {
                    if(!empty($entry->photo_tuber))
                    {
-                       return '<h6 style="color:green;">Complete</h6>';
+                       return '<h6 style="color:green;">Completa</h6>';
                    } else {
-                    return '<h6 style="color:red;">Incomplete</h6>';
+                    return '<h6 style="color:red;">Incompleta</h6>';
                    } 
                 },
                 'orderable'  => true,
@@ -93,7 +93,7 @@ class TubersAtHarvestCrudController extends CrudController
             ],
             [
                 'name'      => 'photo_tuber',
-                'label'     => 'Photo of the Tuber',
+                'label'     => 'Foto del tubérculo',
                 'type'     => 'image',
                 'prefix' => 'storage/',
                 'height' => '128px',

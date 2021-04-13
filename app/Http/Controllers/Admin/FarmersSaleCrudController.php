@@ -28,7 +28,7 @@ class FarmersSaleCrudController extends CrudController
     {
         CRUD::setModel(\App\Models\FarmersSale::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/farmerssale');
-        CRUD::setEntityNameStrings('farmerssale', 'farmers_sales');
+        CRUD::setEntityNameStrings('mercados', 'mercados');
     }
 
     /**

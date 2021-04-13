@@ -28,7 +28,7 @@ class ProductionSystemCrudController extends CrudController
     {
         CRUD::setModel(\App\Models\ProductionSystem::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/productionsystem');
-        CRUD::setEntityNameStrings('productionsystem', 'production_systems');
+        CRUD::setEntityNameStrings('sistemas de producción', 'sistemas de producción');
     }
 
     /**
