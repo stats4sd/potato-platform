@@ -111,7 +111,7 @@ class VarietyCrudController extends CrudController
 
     public function setupMezclaOperation()
     {
-        CRUD::setFromDb(); // fields
+        CRUD::setFromDb(); 
     }
 
     protected function setupMezclaDefaults()
@@ -125,7 +125,7 @@ class VarietyCrudController extends CrudController
 
             $this->crud->addButton('line', 'update', 'view', 'crud::buttons.update', 'end');
             $this->crud->addButton('line', 'delete', 'view', 'crud::buttons.delete', 'end');
-            });
+        });
        
     }
 

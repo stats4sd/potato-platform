@@ -56,13 +56,4 @@ Route::middleware(['auth'])->group(function() {
     Route::post('/varieties-filter', 'CatalogueController@getVarietyFilter');
 });
 
-Route::group([
-    'prefix' => config('backpack.base.route_prefix', 'admin'),
-    // 'namespace' => 'App\Http\Controllers\Admin',
-    'middleware' => ['web'],
-], function () {
-    Auth::routes();
-    Route::get('mezclas', [VarietyCrudController::class, 'showMezclas'])->middleware(['admin']);
-});
-
 
