@@ -6,6 +6,8 @@
 // This route file is loaded automatically by Backpack\Base.
 // Routes you generate using Backpack\Generators will be placed here.
 
+use App\Http\Controllers\Admin\VarietyCrudController;
+
 Route::group([
     'prefix'     => config('backpack.base.route_prefix', 'admin'),
     'middleware' => array_merge(
@@ -42,5 +44,5 @@ Route::group([
 
     Route::crud('user', 'UserCrudController');
     Route::crud('choice', 'ChoiceCrudController');
-    Route::crud('mezcla', 'MezclaCrudController');
+
 }); // this should be the absolute last line of this file

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\VarietyCrudController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CatalogueController;
@@ -53,6 +54,15 @@ Route::middleware(['auth'])->group(function() {
     Route::post('/variety-details', 'CatalogueController@getVarietyDetails');
 
     Route::post('/varieties-filter', 'CatalogueController@getVarietyFilter');
+});
+
+Route::group([
+    'prefix' => config('backpack.base.route_prefix', 'admin'),
+    // 'namespace' => 'App\Http\Controllers\Admin',
+    'middleware' => ['web'],
+], function () {
+    Auth::routes();
+    Route::get('mezclas', [VarietyCrudController::class, 'showMezclas'])->middleware(['admin']);
 });
 
 

@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\VarietyRequest;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Request;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
+use Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
 
 /**
  * Class VarietyCrudController
@@ -13,7 +16,7 @@ use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
  */
 class VarietyCrudController extends CrudController
 {
-    use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation {index as traitIndex;}
     use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
@@ -39,6 +42,7 @@ class VarietyCrudController extends CrudController
      */
     protected function setupListOperation()
     {
+        
         CRUD::setFromDb(); // columns
 
         /**
@@ -77,4 +81,52 @@ class VarietyCrudController extends CrudController
     {
         $this->setupCreateOperation();
     }
+
+    protected function setupMezclaRoutes($segment, $routeName, $controller)
+    {
+        Route::get($segment.'/mezcla', [
+            'as'        => $routeName.'.getMezcla',
+            'uses'      => $controller.'@getMezclaForm',
+            'operation' => 'mezcla',
+        ]);
+
+        Route::post($segment.'/search-mezcla', [
+            'as'        => $routeName.'.search',
+            'uses'      => $controller.'@search',
+            'operation' => 'mezcla',
+        ]);
+
+    }
+
+    public function getMezclaForm() 
+    {
+      
+        $this->crud->setPageLengthMenu([[10, 25, 50, 100, -1], [10, 25, 50, 100, 'backpack::crud.all']],);
+        $this->data['crud'] = $this->crud;
+    
+        // load the view from /resources/views/vendor/backpack/crud/ if it exists, otherwise load the one in the package
+        return view('vendor.backpack.crud.mezcla', $this->data);
+    
+    }
+
+    public function setupMezclaOperation()
+    {
+        CRUD::setFromDb(); // fields
+    }
+
+    protected function setupMezclaDefaults()
+    {
+        $this->crud->allowAccess('mezcla');
+
+        $this->crud->operation('mezcla', function () {
+            $this->crud->setCurrentOperation('list');
+            $this->crud->loadDefaultOperationSettingsFromConfig();
+            $this->crud->setCurrentOperation('mezcla');
+
+            $this->crud->addButton('line', 'update', 'view', 'crud::buttons.update', 'end');
+            $this->crud->addButton('line', 'delete', 'view', 'crud::buttons.delete', 'end');
+            });
+       
+    }
+
 }

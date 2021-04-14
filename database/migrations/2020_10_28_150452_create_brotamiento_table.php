@@ -20,7 +20,7 @@ class CreateBrotamientoTable extends Migration
             $table->string('color_secondary_tuber_shoot')->nullable();
             $table->string('distribution_color_secodary_tuber_shoot')->nullable();
             $table->string('photo_tuber_shoot')->nullable();
-            $table->string('campagna')->nullable();
+            $table->string('campana')->nullable();
             $table->unsignedBigInteger('submission_id')->nullable();
             $table->timestamps();
         });

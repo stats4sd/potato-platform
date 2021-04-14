@@ -80,4 +80,6 @@ class VariableCrudController extends CrudController
     {
         $this->setupCreateOperation();
     }
+
+
 }
