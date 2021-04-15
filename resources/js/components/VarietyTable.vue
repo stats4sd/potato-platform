@@ -224,11 +224,9 @@ import VarietyFilter from './VarietyFilter.vue';
         },
         mounted() {
             axios.get("api/varieties").then(response => {
-                console.log(response.data);
                 this.varieties = response.data;
             });
             axios.get("api/parameter-filters").then(response => {
-                console.log(response.data);
                 this.parameters = response.data;
                 this.flowering =  this.parameters['Floración'];
 
@@ -270,7 +268,7 @@ import VarietyFilter from './VarietyFilter.vue';
         methods: {
             onRowSelected(items) {
                 this.selected = items[items.length - 1];
-                console.log(this.selected);
+       
                 axios({
                     method: "post",
                     url: "/variety-details",
@@ -322,7 +320,6 @@ import VarietyFilter from './VarietyFilter.vue';
                     
                 }).then(
                     result => {
-                        console.log("result filter", result.data);
                         this.varieties = result.data
                     },
                     error => {
