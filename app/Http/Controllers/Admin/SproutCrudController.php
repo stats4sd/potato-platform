@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\SproutRequest;
+use Illuminate\Support\Facades\Route;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
@@ -135,5 +136,51 @@ class SproutCrudController extends CrudController
     protected function setupUpdateOperation()
     {
         $this->setupCreateOperation();
+    }
+
+    protected function setupUploadPhotoRoutes($segment, $routeName, $controller)
+    {
+        Route::get($segment.'/upload-photo', [
+            'as'        => $routeName.'.getUploadPhoto',
+            'uses'      => $controller.'@getUploadPhotoForm',
+            'operation' => 'UploadPhoto',
+        ]);
+
+        Route::post($segment.'/search-mezcla', [
+            'as'        => $routeName.'.search',
+            'uses'      => $controller.'@search',
+            'operation' => 'UploadPhoto',
+        ]);
+
+    }
+
+    public function getUploadPhotoForm() 
+    {
+      
+        $this->crud->setPageLengthMenu([[10, 25, 50, 100, -1], [10, 25, 50, 100, 'backpack::crud.all']],);
+        $this->data['crud'] = $this->crud;
+    
+        // load the view from /resources/views/vendor/backpack/crud/ if it exists, otherwise load the one in the package
+        return view('vendor.backpack.crud.upload_photo', $this->data);
+    
+    }
+
+    public function setupUploadPhotoOperation()
+    {
+        CRUD::setFromDb(); 
+    }
+
+    protected function setupUploadPhotoDefaults()
+    {
+        $this->crud->allowAccess('UploadPhoto');
+
+        $this->crud->operation('UploadPhoto', function () {
+            $this->crud->setCurrentOperation('list');
+            $this->crud->loadDefaultOperationSettingsFromConfig();
+            $this->crud->setCurrentOperation('UploadPhoto');
+
+            $this->crud->addButton('line', 'update', 'view', 'crud::buttons.update', 'end');
+            $this->crud->addButton('line', 'delete', 'view', 'crud::buttons.delete', 'end');
+        });
     }
 }
