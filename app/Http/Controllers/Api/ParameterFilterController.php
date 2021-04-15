@@ -41,19 +41,19 @@ class ParameterFilterController extends Controller
         $model_all = $model::all();
 
         foreach ($columns as $key_column => $column) {
-            $flowering =   $model_all->pluck($column)->unique();
+            $flowering = $model_all->pluck($column)->unique();
             $column_data['label']= $key_column;
             $column_data['value']= $column;
             $column_data['options'] = [];
 
             foreach ($flowering as $key => $value) {
                 $choice =  $choices_all->where('value', $value)->first();
-                if ($choice) {
+                if ($choice && $choice!=null) {
                     $column_data['options'][]= [
                         'text' => $choice->label_spanish,
                         'value' => $choice->value
                     ];
-                } else {
+                } else if($choice!=null){
                     $column_data['options'][]= $value;
                 }
             }
