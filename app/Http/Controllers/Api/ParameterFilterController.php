@@ -47,7 +47,7 @@ class ParameterFilterController extends Controller
             $column_data['options'] = [];
 
             foreach ($flowering as $key => $value) {
-                $choice =  $choices_all->where('value', $value)->first();
+                $choice =  $choices_all->where('value', $value)->where('list_name',$column)->first();
                 if ($choice && $choice!=null) {
                     $column_data['options'][]= [
                         'text' => $choice->label_spanish,

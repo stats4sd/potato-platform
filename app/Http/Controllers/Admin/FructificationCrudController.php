@@ -41,67 +41,7 @@ class FructificationCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        $this->crud->query =  $this->crud->query->orderByRaw('(photo_berry is NULL) desc');
-        $this->crud->denyAccess('create');
-        $this->crud->denyAccess('delete');
-
-        $this->crud->addFilter([
-            'type'  => 'simple',
-            'name'  => 'photo_empty',
-            'label' => 'Fotos faltantes'
-        ], 
-        false, 
-        function() { // if the filter is active
-            $this->crud->addClause('where', 'photo_berry', null); 
-        } );
- 
-        // select2 filter
-        $this->crud->addFilter([
-            'name'  => 'variety_code',
-            'type'  => 'text',
-            'label' => 'Código Variedad'
-        ],
-        false,
-        function ($value) { // if the filter is active
-            $this->crud->addClause('where', 'variety_id', $value);
-        });
-
-        CRUD::addColumns([
-            [  
-                'name'      => 'variety_id',
-                'label'     => 'Código Variedad',
-                'type'     => 'closure',
-                'function' => function($entry) {
-                    return "<h6><b>". $entry->variety_id . "</b></h6>";
-                }
-            ],
-            [  
-                'name'      => 'photos_missing',
-                'label'     => 'Upload Photos',
-                'type'     => 'closure',
-                'function' => function($entry) {
-                   if(!empty($entry->photo_berry))
-                   {
-                       return '<h6 style="color:green;">Completa</h6>';
-                   } else {
-                    return '<h6 style="color:red;">Incompleta</h6>';
-                   } 
-                },
-                'orderable'  => true,
-                'orderLogic' => function ($query, $column, $columnDirection) {
-                  
-                        return $query->orderByRaw('(photo_berry is NULL) ' . $columnDirection);
-                    }
-            ],
-            [
-                'name'      => 'photo_berry',
-                'label'     => 'Foto de la baya',
-                'type'     => 'image',
-                'prefix' => 'storage/',
-                'height' => '128px',
-                'width'  => '128px',
-            ],
-        ]);
+        CRUD::setFromDb(); 
 
     }
 
@@ -167,7 +107,67 @@ class FructificationCrudController extends CrudController
 
     public function setupUploadPhotoOperation()
     {
-        CRUD::setFromDb(); 
+        $this->crud->query =  $this->crud->query->orderByRaw('(photo_berry is NULL) desc');
+        $this->crud->denyAccess('create');
+        $this->crud->denyAccess('delete');
+
+        $this->crud->addFilter([
+            'type'  => 'simple',
+            'name'  => 'photo_empty',
+            'label' => 'Fotos faltantes'
+        ], 
+        false, 
+        function() { // if the filter is active
+            $this->crud->addClause('where', 'photo_berry', null); 
+        } );
+ 
+        // select2 filter
+        $this->crud->addFilter([
+            'name'  => 'variety_code',
+            'type'  => 'text',
+            'label' => 'Código Variedad'
+        ],
+        false,
+        function ($value) { // if the filter is active
+            $this->crud->addClause('where', 'variety_id', $value);
+        });
+
+        CRUD::addColumns([
+            [  
+                'name'      => 'variety_id',
+                'label'     => 'Código Variedad',
+                'type'     => 'closure',
+                'function' => function($entry) {
+                    return "<h6><b>". $entry->variety_id . "</b></h6>";
+                }
+            ],
+            [  
+                'name'      => 'photos_missing',
+                'label'     => 'Upload Photos',
+                'type'     => 'closure',
+                'function' => function($entry) {
+                   if(!empty($entry->photo_berry))
+                   {
+                       return '<h6 style="color:green;">Completa</h6>';
+                   } else {
+                    return '<h6 style="color:red;">Incompleta</h6>';
+                   } 
+                },
+                'orderable'  => true,
+                'orderLogic' => function ($query, $column, $columnDirection) {
+                  
+                        return $query->orderByRaw('(photo_berry is NULL) ' . $columnDirection);
+                    }
+            ],
+            [
+                'name'      => 'photo_berry',
+                'label'     => 'Foto de la baya',
+                'type'     => 'image',
+                'prefix' => 'storage/',
+                'height' => '128px',
+                'width'  => '128px',
+            ],
+        ]);
     }
 
     protected function setupUploadPhotoDefaults()
