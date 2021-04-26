@@ -143,14 +143,14 @@ class FructificationCrudController extends CrudController
             ],
             [  
                 'name'      => 'photos_missing',
-                'label'     => 'Upload Photos',
+                'label'     => 'Subir Fotos',
                 'type'     => 'closure',
                 'function' => function($entry) {
                    if(!empty($entry->photo_berry))
                    {
-                       return '<h6 style="color:green;">Completa</h6>';
+                       return '<h6 style="color:green;">Completo</h6>';
                    } else {
-                    return '<h6 style="color:red;">Incompleta</h6>';
+                    return '<h6 style="color:red;">Incompleto</h6>';
                    } 
                 },
                 'orderable'  => true,
