@@ -59,15 +59,17 @@ class FarmerCrudController extends CrudController
     {
         CRUD::setValidation(FarmerRequest::class);
 
-        CRUD::setFromDb(); // fields
-
-        /**
-         * Fields can be defined using the fluent syntax or array syntax:
-         * - CRUD::field('price')->type('number');
-         * - CRUD::addField(['name' => 'price', 'type' => 'number'])); 
-         */
+         // CRUD::setFromDb(); // fields
+         CRUD::addField(
+            [   // Upload
+                'name'      => 'photo',
+                'label'     => 'Suba la foto del agricultor',
+                'type'      => 'upload',
+                'upload'    => true,
+                'disk'      => 'public',
+            ]
+        );
     }
-
     /**
      * Define what happens when the Update operation is loaded.
      * 
@@ -108,7 +110,67 @@ class FarmerCrudController extends CrudController
 
     public function setupUploadPhotoOperation()
     {
-        CRUD::setFromDb(); 
+        $this->crud->query =  $this->crud->query->orderByRaw('(photo is NULL) desc');
+        $this->crud->denyAccess('create');
+        $this->crud->denyAccess('delete');
+
+        $this->crud->addFilter([
+            'type'  => 'simple',
+            'name'  => 'photo_empty',
+            'label' => 'Fotos faltantes'
+        ], 
+        false, 
+        function() { // if the filter is active
+            $this->crud->addClause('where', 'photo', null); 
+        } );
+ 
+        // select2 filter
+        $this->crud->addFilter([
+            'name'  => 'variety_code',
+            'type'  => 'text',
+            'label' => 'Código Variedad'
+        ],
+        false,
+        function ($value) { // if the filter is active
+            $this->crud->addClause('where', 'variety_id', $value);
+        });
+
+        CRUD::addColumns([
+            [  
+                'name'      => 'id',
+                'label'     => 'Código Agricultor',
+                'type'     => 'closure',
+                'function' => function($entry) {
+                    return "<h6><b>". $entry->id . "</b></h6>";
+                }
+            ],
+            [  
+                'name'      => 'photos_missing',
+                'label'     => 'Subir Fotos',
+                'type'     => 'closure',
+                'function' => function($entry) {
+                   if(!empty($entry->photo))
+                   {
+                       return '<h6 style="color:green;">Completo</h6>';
+                   } else {
+                    return '<h6 style="color:red;">Incompleto</h6>';
+                   } 
+                },
+                'orderable'  => true,
+                'orderLogic' => function ($query, $column, $columnDirection) {
+                  
+                        return $query->orderByRaw('(photo is NULL) ' . $columnDirection);
+                    }
+            ],
+            [
+                'name'      => 'photo',
+                'label'     => 'Foto del agricultor',
+                'type'     => 'image',
+                'prefix' => 'storage/',
+                'height' => '128px',
+                'width'  => '128px',
+            ],
+        ]);
     }
 
     protected function setupUploadPhotoDefaults()

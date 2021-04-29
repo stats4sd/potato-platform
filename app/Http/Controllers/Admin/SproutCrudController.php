@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\SproutRequest;
+use App\Models\Variety;
 use Illuminate\Support\Facades\Route;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
@@ -40,71 +41,11 @@ class SproutCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        $this->crud->query =  $this->crud->query->orderByRaw('(photo_tuber_shoot is NULL) desc');
-        $this->crud->denyAccess('create');
-        $this->crud->denyAccess('delete');
-
-        $this->crud->addFilter([
-            'type'  => 'simple',
-            'name'  => 'photo_empty',
-            'label' => 'Fotos faltantes'
-        ], 
-        false,  
-        function() { // if the filter is active
-            $this->crud->query = $this->crud->query->where('photo_tuber_shoot', null);
-        } );
-        
-        // select2 filter
-        $this->crud->addFilter([
-            'name'  => 'variety_code',
-            'type'  => 'text',
-            'label' => 'Código Variedad'
-        ],
-        false,
-        function ($value) { // if the filter is active
-            $this->crud->addClause('where', 'variety_id', $value);
-        });
-
-        CRUD::addColumns([
-            [  
-                'name'      => 'variety_id',
-                'label'     => 'Código Variedad',
-                'type'     => 'closure',
-                'function' => function($entry) {
-                    return "<h6><b>". $entry->variety_id . "</b></h6>";
-                }
-            ],
-            [  
-                'name'      => 'photos_missing',
-                'label'     => 'Upload Photos',
-                'type'     => 'closure',
-                'function' => function($entry) {
-                   if(!empty($entry->photo_tuber_shoot))
-                   {
-                       return '<h6 style="color:green;">Completa</h6>';
-                   } else {
-                    return '<h6 style="color:red;">Incompleta</h6>';
-                   } 
-                },
-                'orderable'  => true,
-                'orderLogic' => function ($query, $column, $columnDirection) {
-                  
-                        return $query->orderByRaw('(photo_tuber_shoot is NULL) ' . $columnDirection);
-                    }
-            ],
-            [
-                'name'      => 'photo_tuber_shoot',
-                'label'     => 'Foto del brote',
-                'type'     => 'image',
-                'prefix' => 'storage/',
-                'height' => '128px',
-                'width'  => '128px',
-            ],
-        ]);
-
+        CRUD::setFromDb(); 
+       
     }
 
-    /**
+      /**
      * Define what happens when the Create operation is loaded.
      * 
      * @see https://backpackforlaravel.com/docs/crud-operation-create
@@ -113,9 +54,8 @@ class SproutCrudController extends CrudController
     protected function setupCreateOperation()
     {
         CRUD::setValidation(SproutRequest::class);
-
+        
         // CRUD::setFromDb(); // fields
-
         CRUD::addField(
             [   // Upload
                 'name'      => 'photo_tuber_shoot',
@@ -126,8 +66,7 @@ class SproutCrudController extends CrudController
             ]
         );
     }
-
-    /**
+   /**
      * Define what happens when the Update operation is loaded.
      * 
      * @see https://backpackforlaravel.com/docs/crud-operation-update
@@ -167,7 +106,67 @@ class SproutCrudController extends CrudController
 
     public function setupUploadPhotoOperation()
     {
-        CRUD::setFromDb(); 
+        $this->crud->query =  $this->crud->query->orderByRaw('(photo_tuber_shoot is NULL) desc');
+        $this->crud->denyAccess('create');
+        $this->crud->denyAccess('delete');
+
+        $this->crud->addFilter([
+            'type'  => 'simple',
+            'name'  => 'photo_empty',
+            'label' => 'Fotos faltantes'
+        ], 
+        false, 
+        function() { // if the filter is active
+            $this->crud->addClause('where', 'photo_tuber_shoot', null); 
+        } );
+ 
+        // select2 filter
+        $this->crud->addFilter([
+            'name'  => 'variety_code',
+            'type'  => 'text',
+            'label' => 'Código Variedad'
+        ],
+        false,
+        function ($value) { // if the filter is active
+            $this->crud->addClause('where', 'variety_id', $value);
+        });
+
+        CRUD::addColumns([
+            [  
+                'name'      => 'variety_id',
+                'label'     => 'Código Variedad',
+                'type'     => 'closure',
+                'function' => function($entry) {
+                    return "<h6><b>". $entry->variety_id . "</b></h6>";
+                }
+            ],
+            [  
+                'name'      => 'photos_missing',
+                'label'     => 'Subir Fotos',
+                'type'     => 'closure',
+                'function' => function($entry) {
+                   if(!empty($entry->photo_tuber_shoot))
+                   {
+                       return '<h6 style="color:green;">Completo</h6>';
+                   } else {
+                    return '<h6 style="color:red;">Incompleto</h6>';
+                   } 
+                },
+                'orderable'  => true,
+                'orderLogic' => function ($query, $column, $columnDirection) {
+                  
+                        return $query->orderByRaw('(photo_tuber_shoot is NULL) ' . $columnDirection);
+                    }
+            ],
+            [
+                'name'      => 'photo_tuber_shoot',
+                'label'     => 'Foto del brote',
+                'type'     => 'image',
+                'prefix' => 'storage/',
+                'height' => '128px',
+                'width'  => '128px',
+            ],
+        ]);
     }
 
     protected function setupUploadPhotoDefaults()
@@ -183,4 +182,5 @@ class SproutCrudController extends CrudController
             $this->crud->addButton('line', 'delete', 'view', 'crud::buttons.delete', 'end');
         });
     }
+       
 }
