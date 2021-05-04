@@ -51,6 +51,26 @@
                 </div>
                 <div class="d-flex flex-column">
                     <b-button
+                        v-b-toggle="'collapse-mezcla'"
+                        class="bg-info text-left text-white w-100 px-4"
+                    >
+                        <div> Variedad </div>
+                    </b-button>
+                    <b-collapse
+                        :id="'collapse-mezcla'"
+                        class="bg-light"
+                    >
+                        <div v-for="param in mezclas" :key="param.value">
+                        <variety-filter
+                        :parameter="param"
+                        v-model="selectedFiltersMezcla[param.value]"
+                        @updateFilter="filterVariety"
+                        ></variety-filter>
+
+                        </div>
+                    </b-collapse>
+
+                    <b-button
                         v-b-toggle="'collapse-flowering'"
                         class="bg-info text-left text-white w-100 px-4"
                     >
@@ -141,7 +161,7 @@
                     thead-class="bottom-shadow text-info font-weight-normal"
                     responsive="sm"
                     hover
-                    :items="varieties"
+                    :items="varietiesFilter"
                     :fields="fields"
                     primary-key="variedad"
                     select-mode="single"
@@ -173,7 +193,7 @@
 
 
 <script>
-    import VarietyDetails from "./VarietyDetails.vue";
+import VarietyDetails from "./VarietyDetails.vue";
 import VarietyFilter from './VarietyFilter.vue';
 
     export default {
@@ -199,6 +219,7 @@ import VarietyFilter from './VarietyFilter.vue';
                     }
                 ],
                 varieties: [],
+                varietiesFilter: [],
                 selected: null,
                 selectedValues: null,
                 selectedLabels: null,
@@ -211,7 +232,15 @@ import VarietyFilter from './VarietyFilter.vue';
                 fructification:[],
                 tubersAtHarvest:[],
                 sprout:[],
-
+                mezclas:[{
+                    label: "Tipo de variedad",
+                    options :[
+                        {text:"Mezcla", value:"mezcla", disabled: false },
+                        {text:"Sin Mezcla", value:"no_mezclas", disabled: false },
+                    ],
+                    value: "mezcla"
+                }],
+                selectedFiltersMezcla: {},
                 selectedFiltersFlowering: {},
                 selectedFiltersFructification: {},
                 selectedFiltersTubersAtHarvest: {},
@@ -225,13 +254,13 @@ import VarietyFilter from './VarietyFilter.vue';
         mounted() {
             axios.get("api/varieties").then(response => {
                 this.varieties = response.data;
+                this.varietiesFilter = this.varieties;
             });
             axios.get("api/parameter-filters").then(response => {
                 this.parameters = response.data;
                 this.flowering =  this.parameters['Floración'];
 
                 this.flowering.forEach(parameter => {
-          
                     this.selectedFiltersFlowering[parameter.value] = [];
                     this.badgeFilterFlowering[parameter.label] = [];
 
@@ -292,6 +321,25 @@ import VarietyFilter from './VarietyFilter.vue';
             
             filterVariety(){
 
+                var varieties = this.varieties;
+                if(this.selectedFiltersMezcla.mezcla.length==0) {
+                    this.varietiesFilter= varieties
+                     console.log( "varietire"+this.varieties);
+                }
+                if(this.selectedFiltersMezcla.mezcla.includes('mezcla')) {
+                    var filterVarieties = varieties.filter(item => item.id.includes("."))
+                    this.varietiesFilter = filterVarieties
+                    console.log( "varietire"+this.varieties);
+                }
+
+                if(this.selectedFiltersMezcla.mezcla.includes('no_mezclas')) {
+                    var filterVarieties = varieties.filter(item => !item.id.includes("."))
+                    this.varietiesFilter=filterVarieties
+                 console.log( "varietire"+this.varieties);
+                }
+
+        
+
                 this.flowering.forEach(parameter => {
                     this.badgeFilterFlowering[parameter.label] = this.selectedFiltersFlowering[parameter.value];
                 });
@@ -320,7 +368,8 @@ import VarietyFilter from './VarietyFilter.vue';
                     
                 }).then(
                     result => {
-                        this.varieties = result.data
+                        console.log();
+                        this.varietiesFilter = result.data
                     },
                     error => {
                         console.log("error filter", error);

@@ -11,7 +11,7 @@ class VarietyController extends Controller
 {
     public function index()
     {
-        $varieties =  Variety::with('farmer.community.district.province.region')->where('id','not like','%'.'.'.'%')->get();
+        $varieties =  Variety::with('farmer.community.district.province.region')->get();
 
         return $varieties->toJson();
     }

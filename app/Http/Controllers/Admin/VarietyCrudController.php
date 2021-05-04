@@ -111,7 +111,18 @@ class VarietyCrudController extends CrudController
 
     public function setupMezclaOperation()
     {
+        $this->crud->addFilter([ 
+            'type'  => 'simple',
+            'name'  => 'mezcla',
+            'label' => 'Mezclas'
+        ],
+        false, 
+        function() { 
+            $this->crud->addClause('where', 'id', 'LIKE', "%.%");
+        });
         CRUD::setFromDb(); 
+
+
     }
 
     protected function setupMezclaDefaults()
