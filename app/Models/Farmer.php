@@ -83,4 +83,12 @@ class Farmer extends Model
     | MUTATORS
     |--------------------------------------------------------------------------
     */
+    public function setPhotoAttribute($value)
+    {
+        $attribute_name = "photo";
+        $disk = "public";
+        $destination_path = "farmers";
+
+        $this->uploadFileToDisk($value, $attribute_name, $disk, $destination_path);
+    }
 }
