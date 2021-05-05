@@ -38,7 +38,10 @@
                     <div class="font-weight-bold col-8 pl-0">
                         {{ variable.label }}
                     </div>
-                    <div class="mr-auto col-4">
+                    <div v-if="variable.label=='Codigo'" class="mr-auto col-4">
+                        <a v-bind:href="'/farmer/'+ variable.value">{{ variable.value }}</a>
+                    </div>
+                    <div v-if="variable.label!='Codigo'" class="mr-auto col-4">
                         {{ variable.value }}
                     </div>
                 </li>

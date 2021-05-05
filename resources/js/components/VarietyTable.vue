@@ -170,7 +170,15 @@
                     :current-page="currentPage"
                     :filter="tableFilter"
                     @row-selected="onRowSelected"
+                    :busy="isBusy"
+                    
                 />
+                <template  v-if="isBusy">
+                    <div class="text-center text-info my-2">
+                    <b-spinner class="align-middle"></b-spinner>
+                    <strong>Loading...</strong>
+                    </div>
+                </template>
                 <b-pagination
                     v-model="currentPage"
                     :total-rows="varieties.length"
@@ -210,8 +218,20 @@ import VarietyFilter from './VarietyFilter.vue';
                         label: "Nombre común"
                     },
                     {
-                        key: "farmer_id",
+                        key: "farmer.name",
                         label: "Agricultor(a)"
+                    },
+                    {
+                        key: "farmer.community.name",
+                        label: "Comunidad"
+                    },
+                    {
+                        key: "farmer.community.district.name",
+                        label: "District"
+                    },
+                    {
+                        key: "farmer.community.district.province.name",
+                        label: "Province"
                     },
                     {
                         key: "farmer.community.district.province.region.name",
@@ -249,12 +269,15 @@ import VarietyFilter from './VarietyFilter.vue';
                 badgeFilterFructification: {},
                 badgeFilterTubersAtHarvest: {},
                 badgeFilterSprout: {},
+                isBusy:true,
             };
         },
         mounted() {
             axios.get("api/varieties").then(response => {
                 this.varieties = response.data;
                 this.varietiesFilter = this.varieties;
+                this.isBusy=false;
+    
             });
             axios.get("api/parameter-filters").then(response => {
                 this.parameters = response.data;
@@ -325,6 +348,7 @@ import VarietyFilter from './VarietyFilter.vue';
                 if(this.selectedFiltersMezcla.mezcla.length==0) {
                     this.varietiesFilter= varieties
                 }
+
                 if(this.selectedFiltersMezcla.mezcla.includes('mezcla')) {
                     var filterVarieties = varieties.filter(item => item.id.includes("."))
                     this.varietiesFilter = filterVarieties
@@ -334,8 +358,6 @@ import VarietyFilter from './VarietyFilter.vue';
                     var filterVarieties = varieties.filter(item => !item.id.includes("."))
                     this.varietiesFilter=filterVarieties
                 }
-
-        
 
                 this.flowering.forEach(parameter => {
                     this.badgeFilterFlowering[parameter.label] = this.selectedFiltersFlowering[parameter.value];
@@ -367,7 +389,7 @@ import VarietyFilter from './VarietyFilter.vue';
                         
                     }).then(
                         result => {
-                            console.log();
+                            console.log(result.data);
                             this.varietiesFilter = result.data
                         },
                         error => {
@@ -375,7 +397,6 @@ import VarietyFilter from './VarietyFilter.vue';
                         }
                     );
                 }
-
             }
         }
     };

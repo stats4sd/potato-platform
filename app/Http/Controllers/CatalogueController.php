@@ -22,9 +22,16 @@ class CatalogueController extends Controller
         $fruits = $variety->fructifications->first();
         $flowering =  $variety->flowerings->first();
         $sprouts =  $variety->sprouts->first();
-        $tubersAtHarvest =  $variety->TubersAtHarvests->first();
+        $tubersAtHarvest =  $variety->tubersAtHarvests->first();
+        $farmer =  $variety->farmer;
 
         //Could refactor this to hold variable names and labels in a database table...
+        $farmerLabels = [
+            'name' => "Nombre",
+            'id' => "Codigo",
+            'farmhouse' => "Casa de Campo",
+        ];
+
         $floweringLabels = [
             'plant_growth' => 'Habito de crecimiento de la planta',
             'leaf_dissection' => 'Tipo de la disección de la hoja',
@@ -100,6 +107,11 @@ class CatalogueController extends Controller
             $tubersAtHarvest = $this->getChoiceLabel($tubersAtHarvestLabels, $tubersAtHarvest);
         }
 
+        if (!empty($farmer)) {
+
+            $farmer = $this->getChoiceLabel($farmerLabels, $farmer);
+        }
+
 
         return response()->json([
             'values' => [
@@ -107,12 +119,14 @@ class CatalogueController extends Controller
                 'flowering' => $flowering,
                 'sprouts' => $sprouts,
                 'tubersAtHarvest' => $tubersAtHarvest,
+                'farmer' => $farmer,
             ],
             'labels' => [
                 'fruits' => $fruitsLabels,
                 'flowering' => $floweringLabels,
                 'sprouts' => $sproutsLabels,
                 'tubersAtHarvest' => $tubersAtHarvestLabels,
+                'farmer' => $farmerLabels,
             ],
         ]);
     }
