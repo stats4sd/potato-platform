@@ -51,6 +51,26 @@
                 </div>
                 <div class="d-flex flex-column">
                     <b-button
+                        v-b-toggle="'collapse-mezcla'"
+                        class="bg-info text-left text-white w-100 px-4"
+                    >
+                        <div> Variedad </div>
+                    </b-button>
+                    <b-collapse
+                        :id="'collapse-mezcla'"
+                        class="bg-light"
+                    >
+                        <div v-for="param in mezclas" :key="param.value">
+                        <variety-filter
+                        :parameter="param"
+                        v-model="selectedFiltersMezcla[param.value]"
+                        @updateFilter="filterVariety"
+                        ></variety-filter>
+
+                        </div>
+                    </b-collapse>
+
+                    <b-button
                         v-b-toggle="'collapse-flowering'"
                         class="bg-info text-left text-white w-100 px-4"
                     >
@@ -141,7 +161,7 @@
                     thead-class="bottom-shadow text-info font-weight-normal"
                     responsive="sm"
                     hover
-                    :items="varieties"
+                    :items="varietiesFilter"
                     :fields="fields"
                     primary-key="variedad"
                     select-mode="single"
@@ -150,7 +170,15 @@
                     :current-page="currentPage"
                     :filter="tableFilter"
                     @row-selected="onRowSelected"
+                    :busy="isBusy"
+                    
                 />
+                <template  v-if="isBusy">
+                    <div class="text-center text-info my-2">
+                    <b-spinner class="align-middle"></b-spinner>
+                    <strong>Loading...</strong>
+                    </div>
+                </template>
                 <b-pagination
                     v-model="currentPage"
                     :total-rows="varieties.length"
@@ -173,7 +201,7 @@
 
 
 <script>
-    import VarietyDetails from "./VarietyDetails.vue";
+import VarietyDetails from "./VarietyDetails.vue";
 import VarietyFilter from './VarietyFilter.vue';
 
     export default {
@@ -190,8 +218,20 @@ import VarietyFilter from './VarietyFilter.vue';
                         label: "Nombre común"
                     },
                     {
-                        key: "farmer_id",
+                        key: "farmer.name",
                         label: "Agricultor(a)"
+                    },
+                    {
+                        key: "farmer.community.name",
+                        label: "Comunidad"
+                    },
+                    {
+                        key: "farmer.community.district.name",
+                        label: "District"
+                    },
+                    {
+                        key: "farmer.community.district.province.name",
+                        label: "Province"
                     },
                     {
                         key: "farmer.community.district.province.region.name",
@@ -199,6 +239,7 @@ import VarietyFilter from './VarietyFilter.vue';
                     }
                 ],
                 varieties: [],
+                varietiesFilter: [],
                 selected: null,
                 selectedValues: null,
                 selectedLabels: null,
@@ -211,7 +252,15 @@ import VarietyFilter from './VarietyFilter.vue';
                 fructification:[],
                 tubersAtHarvest:[],
                 sprout:[],
-
+                mezclas:[{
+                    label: "Tipo de variedad",
+                    options :[
+                        {text:"Mezcla", value:"mezcla", disabled: false },
+                        {text:"Sin Mezcla", value:"no_mezclas", disabled: false },
+                    ],
+                    value: "mezcla"
+                }],
+                selectedFiltersMezcla: {},
                 selectedFiltersFlowering: {},
                 selectedFiltersFructification: {},
                 selectedFiltersTubersAtHarvest: {},
@@ -220,18 +269,21 @@ import VarietyFilter from './VarietyFilter.vue';
                 badgeFilterFructification: {},
                 badgeFilterTubersAtHarvest: {},
                 badgeFilterSprout: {},
+                isBusy:true,
             };
         },
         mounted() {
             axios.get("api/varieties").then(response => {
                 this.varieties = response.data;
+                this.varietiesFilter = this.varieties;
+                this.isBusy=false;
+    
             });
             axios.get("api/parameter-filters").then(response => {
                 this.parameters = response.data;
                 this.flowering =  this.parameters['Floración'];
 
                 this.flowering.forEach(parameter => {
-          
                     this.selectedFiltersFlowering[parameter.value] = [];
                     this.badgeFilterFlowering[parameter.label] = [];
 
@@ -292,6 +344,21 @@ import VarietyFilter from './VarietyFilter.vue';
             
             filterVariety(){
 
+                var varieties = this.varieties;
+                if(this.selectedFiltersMezcla.mezcla.length==0) {
+                    this.varietiesFilter= varieties
+                }
+
+                if(this.selectedFiltersMezcla.mezcla.includes('mezcla')) {
+                    var filterVarieties = varieties.filter(item => item.id.includes("."))
+                    this.varietiesFilter = filterVarieties
+                }
+
+                if(this.selectedFiltersMezcla.mezcla.includes('no_mezclas')) {
+                    var filterVarieties = varieties.filter(item => !item.id.includes("."))
+                    this.varietiesFilter=filterVarieties
+                }
+
                 this.flowering.forEach(parameter => {
                     this.badgeFilterFlowering[parameter.label] = this.selectedFiltersFlowering[parameter.value];
                 });
@@ -308,24 +375,28 @@ import VarietyFilter from './VarietyFilter.vue';
                     this.badgeFilterSprout[parameter.label] = this.selectedFiltersSprout[parameter.value];
                 });
 
-                axios({
-                    method: "post",
-                    url: "/varieties-filter",
-                    data: {
-                            selectedFiltersFlowering: this.selectedFiltersFlowering,
-                            selectedFiltersFructification: this.selectedFiltersFructification,
-                            selectedFiltersTubersAtHarvest: this.selectedFiltersTubersAtHarvest,
-                            selectedFiltersSprout: this.selectedFiltersSprout,
+                if(this.selectedFiltersFlowering.length>0 || this.selectedFiltersFructification.length>0 || this.selectedFiltersTubersAtHarvest.length>0 || this.selectedFiltersSprout.length>0){
+
+                    axios({
+                        method: "post",
+                        url: "/varieties-filter",
+                        data: {
+                                selectedFiltersFlowering: this.selectedFiltersFlowering,
+                                selectedFiltersFructification: this.selectedFiltersFructification,
+                                selectedFiltersTubersAtHarvest: this.selectedFiltersTubersAtHarvest,
+                                selectedFiltersSprout: this.selectedFiltersSprout,
+                            },
+                        
+                    }).then(
+                        result => {
+                            console.log(result.data);
+                            this.varietiesFilter = result.data
                         },
-                    
-                }).then(
-                    result => {
-                        this.varieties = result.data
-                    },
-                    error => {
-                        console.log("error filter", error);
-                    }
-                );
+                        error => {
+                            console.log("error filter", error);
+                        }
+                    );
+                }
             }
         }
     };

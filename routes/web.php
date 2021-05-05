@@ -1,9 +1,10 @@
 <?php
 
-use App\Http\Controllers\Admin\VarietyCrudController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CatalogueController;
+use App\Http\Controllers\Api\FarmerController;
+use App\Http\Controllers\Admin\VarietyCrudController;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,6 +49,8 @@ Route::middleware(['auth'])->group(function() {
     Route::get('/agronomic_data', function () {
         return view('agronomic_data');
     });
+
+    Route::get('farmer/{id}', 'FarmerPageController@index');
 
     Route::get('xlsforms/{xlsform}/downloadsubmissions', 'SubmissionController@download')->name('xlsforms.downloadsubmissions');
 

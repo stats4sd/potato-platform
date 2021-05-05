@@ -4,6 +4,11 @@
             Variedad {{ variety.name }}
         </h2>
         <details-section
+            id="farmers"
+            title="Agricultor(a)"
+            :sub-sections="farmer"
+        />
+        <details-section
             id="flowering"
             title="Floración"
             :sub-sections="flowering"
@@ -45,6 +50,24 @@
             }
         },
         computed: {
+            farmer()  {
+
+                if(!this.labels) return null
+
+                return [
+                    {
+                        coverImage: this.values.farmer.photo,
+                        variables: Object.keys(this.labels.farmer).map((key) => {
+                            console.log('key', key)
+                            return {
+                                name: key,
+                                label: this.labels.farmer[key],
+                                value: this.values.farmer[key]
+                            };
+                        })
+                    }
+                ];
+            },
             fruits()  {
 
                 if(!this.labels) return null
@@ -82,7 +105,6 @@
             flowering()  {
                 if(!this.labels) return null
 
-                console.log('#################ahhhhhhhh#####', this.labels)
                 var laPlanta = [
                     "plant_growth",
                     "leaf_dissection",
@@ -137,6 +159,7 @@
                     },
                     {
                         title: "Tolerancia",
+                        coverImage: this.values.flowering.photo_leaf,
                         variables: tolerancia.map((key) => {
                             return {
                                 name: key,
