@@ -24,6 +24,9 @@ class Variety extends Model
     // protected $hidden = [];
     // protected $dates = [];
     public $incrementing = false;
+    protected $casts = [
+        'files' => 'array'
+    ];
 
     /*
     |--------------------------------------------------------------------------
@@ -78,4 +81,12 @@ class Variety extends Model
     | MUTATORS
     |--------------------------------------------------------------------------
     */
+    public function setFilesAttribute($value)
+    {
+        $attribute_name = "files";
+        $disk = "public";
+        $destination_path = "varities";
+
+        $this->uploadMultipleFilesToDisk($value, $attribute_name, $disk, $destination_path);
+    }
 }

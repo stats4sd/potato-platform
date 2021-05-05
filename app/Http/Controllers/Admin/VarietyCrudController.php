@@ -43,13 +43,50 @@ class VarietyCrudController extends CrudController
     protected function setupListOperation()
     {
         
-        CRUD::setFromDb(); // columns
+        $this->crud->addColumns([
+            [
+                'name'  => 'id',
+                'type'  => 'text',
+                'label' => 'Variety Code',
+            ],
+            [
+                'name'  => 'name',
+                'type'  => 'text',
+                'label' => 'Variety Name',
+            ],
+            [
+                'name'  => 'common_name',
+                'type'  => 'text',
+                'label' => 'Common name',
+            ],
+            [
+                'name'  => 'other_name',
+                'type'  => 'text',
+                'label' => 'Other name',
+            ],
+            [
+                'name'  => 'is_mixture',
+                'type'  => 'check',
+                'label' => 'is Mixture',
+            ],
+            [
+                'name'  => 'farmer',
+                'type'  => 'relationship',
+                'label' => 'Farmer',
 
-        /**
-         * Columns can be defined using the fluent syntax or array syntax:
-         * - CRUD::column('price')->type('number');
-         * - CRUD::addColumn(['name' => 'price', 'type' => 'number']); 
-         */
+            ],
+            [
+                'name'  => 'files',
+                'type'  => 'upload_multiple',
+                'label' => 'Files',
+                'disk'  => 'public',
+            ],
+            [
+                'name'  => 'additional_info',
+                'type'  => 'textarea',
+                'label' => 'Additional info',
+            ],
+        ]);
     }
 
     /**
@@ -62,13 +99,52 @@ class VarietyCrudController extends CrudController
     {
         CRUD::setValidation(VarietyRequest::class);
 
-        CRUD::setFromDb(); // fields
-
-        /**
-         * Fields can be defined using the fluent syntax or array syntax:
-         * - CRUD::field('price')->type('number');
-         * - CRUD::addField(['name' => 'price', 'type' => 'number'])); 
-         */
+        $this->crud->addFields([
+            [
+                'name'  => 'id',
+                'type'  => 'text',
+                'label' => 'Variety Code',
+            ],
+            [
+                'name'  => 'name',
+                'type'  => 'text',
+                'label' => 'Variety Name',
+            ],
+            [
+                'name'  => 'common_name',
+                'type'  => 'text',
+                'label' => 'Common name',
+            ],
+            [
+                'name'  => 'other_name',
+                'type'  => 'text',
+                'label' => 'Other name',
+            ],
+            [
+                'name'  => 'is_mixture',
+                'type'  => 'checkbox',
+                'label' => 'is Mixture',
+            ],
+            [
+                'name'  => 'farmer_id',
+                'type'  => 'relationship',
+                'label' => 'Farmer',
+                'attribute' => "name",
+                'entity' => 'farmer'
+            ],
+            [
+                'name'  => 'files',
+                'type'  => 'upload_multiple',
+                'label' => 'Files',
+                'upload'    => true,
+                'disk'      => 'uploads',
+            ],
+            [
+                'name'  => 'additional_info',
+                'type'  => 'textarea',
+                'label' => 'Additional info',
+            ],
+        ]);
     }
 
     /**
