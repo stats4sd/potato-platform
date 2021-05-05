@@ -324,18 +324,15 @@ import VarietyFilter from './VarietyFilter.vue';
                 var varieties = this.varieties;
                 if(this.selectedFiltersMezcla.mezcla.length==0) {
                     this.varietiesFilter= varieties
-                     console.log( "varietire"+this.varieties);
                 }
                 if(this.selectedFiltersMezcla.mezcla.includes('mezcla')) {
                     var filterVarieties = varieties.filter(item => item.id.includes("."))
                     this.varietiesFilter = filterVarieties
-                    console.log( "varietire"+this.varieties);
                 }
 
                 if(this.selectedFiltersMezcla.mezcla.includes('no_mezclas')) {
                     var filterVarieties = varieties.filter(item => !item.id.includes("."))
                     this.varietiesFilter=filterVarieties
-                 console.log( "varietire"+this.varieties);
                 }
 
         
@@ -356,25 +353,29 @@ import VarietyFilter from './VarietyFilter.vue';
                     this.badgeFilterSprout[parameter.label] = this.selectedFiltersSprout[parameter.value];
                 });
 
-                axios({
-                    method: "post",
-                    url: "/varieties-filter",
-                    data: {
-                            selectedFiltersFlowering: this.selectedFiltersFlowering,
-                            selectedFiltersFructification: this.selectedFiltersFructification,
-                            selectedFiltersTubersAtHarvest: this.selectedFiltersTubersAtHarvest,
-                            selectedFiltersSprout: this.selectedFiltersSprout,
+                if(this.selectedFiltersFlowering.length>0 || this.selectedFiltersFructification.length>0 || this.selectedFiltersTubersAtHarvest.length>0 || this.selectedFiltersSprout.length>0){
+
+                    axios({
+                        method: "post",
+                        url: "/varieties-filter",
+                        data: {
+                                selectedFiltersFlowering: this.selectedFiltersFlowering,
+                                selectedFiltersFructification: this.selectedFiltersFructification,
+                                selectedFiltersTubersAtHarvest: this.selectedFiltersTubersAtHarvest,
+                                selectedFiltersSprout: this.selectedFiltersSprout,
+                            },
+                        
+                    }).then(
+                        result => {
+                            console.log();
+                            this.varietiesFilter = result.data
                         },
-                    
-                }).then(
-                    result => {
-                        console.log();
-                        this.varietiesFilter = result.data
-                    },
-                    error => {
-                        console.log("error filter", error);
-                    }
-                );
+                        error => {
+                            console.log("error filter", error);
+                        }
+                    );
+                }
+
             }
         }
     };

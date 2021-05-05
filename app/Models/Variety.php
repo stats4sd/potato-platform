@@ -51,7 +51,7 @@ class Variety extends Model
         return $this->hasMany(Fructification::class);
     }
 
-    public function TubersAtHarvests()
+    public function tubersAtHarvests()
     {
         return $this->hasMany(TubersAtHarvest::class);
     }
