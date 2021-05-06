@@ -29,7 +29,7 @@
     <ul class="nav-dropdown-items">
         <li class='nav-item'><a class='nav-link' href='{{ backpack_url('region') }}'> Regiones</a></li>
         <li class='nav-item'><a class='nav-link' href='{{ backpack_url('province') }}'> Provincias</a></li>
-        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('district') }}'> Districtos</a></li>
+        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('district') }}'> Distritos</a></li>
         <li class='nav-item'><a class='nav-link' href='{{ backpack_url('community') }}'> Comunidades</a></li>
     </ul>
 </li>
@@ -44,6 +44,15 @@
         <li class='nav-item'><a class='nav-link' href='{{ backpack_url('submission') }}'> Submissions</a></li>
     </ul>
 </li>
+
+<h4 class='nav-item nav-link text-white mt-3'>Variedades</h4>
+
+<li class='nav-item'><a class='nav-link' href='{{ backpack_url('variety') }}'> Variedades</a></li>
+<li class='nav-item'><a class='nav-link' href='{{ backpack_url('fructification') }}'> Fructificación</a></li>
+<li class='nav-item'><a class='nav-link' href='{{ backpack_url('flowering') }}'> Floración</a></li>
+<li class='nav-item'><a class='nav-link' href='{{ backpack_url('tubersatharvest') }}'>Tubérculos a la cosecha</a></li>
+<li class='nav-item'><a class='nav-link' href='{{ backpack_url('sprout') }}'>Brotamiento</a></li>
+
 
 <h4 class='nav-item nav-link text-white mt-3'>Datos agronómicos</h4>
 
@@ -71,12 +80,5 @@
     </ul>
 </li>
 
-<h4 class='nav-item nav-link text-white mt-3'>Variedades</h4>
-
-<li class='nav-item'><a class='nav-link' href='{{ backpack_url('variety') }}'> Variedades</a></li>
-<li class='nav-item'><a class='nav-link' href='{{ backpack_url('fructification') }}'> Fructificación</a></li>
-<li class='nav-item'><a class='nav-link' href='{{ backpack_url('flowering') }}'> Floración</a></li>
-<li class='nav-item'><a class='nav-link' href='{{ backpack_url('tubersatharvest') }}'>Tubérculos a la cosecha</a></li>
-<li class='nav-item'><a class='nav-link' href='{{ backpack_url('sprout') }}'>Brotamiento</a></li>
 
 @endif
