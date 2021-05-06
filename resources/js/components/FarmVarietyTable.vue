@@ -270,18 +270,19 @@ import VarietyFilter from './VarietyFilter.vue';
                 badgeFilterTubersAtHarvest: {},
                 badgeFilterSprout: {},
                 isBusy:true,
+                MIX_APP_URL:process.env.MIX_APP_URL,
             };
         },
         mounted() {
-            
-            axios.get(window.location.origin+"/api/varieties").then(response => {
+        
+            axios.get(this.MIX_APP_URL+"/api/varieties").then(response => {
                 this.varieties = response.data;
                 var farmer_id = window.location.href.substring(window.location.href.lastIndexOf('/') + 1);
                 this.varietiesFilter = this.varieties.filter(item => item.farmer_id==farmer_id);
                 this.isBusy=false;
     
             });
-            axios.get(window.location.origin+"/api/parameter-filters").then(response => {
+            axios.get(this.MIX_APP_URL+"/api/parameter-filters").then(response => {
                 this.parameters = response.data;
                 this.flowering =  this.parameters['Floración'];
 
@@ -336,7 +337,6 @@ import VarietyFilter from './VarietyFilter.vue';
                         this.selectedValues = result.data.values;
                         this.selectedLabels = result.data.labels;
 
-                        // this.floweringPhotos =  JSON.parse(this.flowering.photos);
                     },
                     error => {
                         console.log(error);

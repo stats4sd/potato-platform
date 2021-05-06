@@ -36,6 +36,7 @@
     height:500px;
     }
     </style>
+     @yield('styles')
 
 
 

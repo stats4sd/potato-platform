@@ -1,7 +1,7 @@
 <template>
     <div>
         <h2 class="mb-4">
-            Variedad {{ variety.name }}
+            Variedad {{ variety.id }}
         </h2>
         <details-section
             id="farmers"
