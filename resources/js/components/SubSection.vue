@@ -9,13 +9,13 @@
                 <div class="sq-dummy" />
                 <div class="sq">
                     <a
-                        :href="'storage/'+coverImage"
+                        :href="MixAppUrl+'/storage/'+coverImage"
                         target="_blank"
                         class="d-block w-100 h-100 pr-3"
                     >
                         <img
                             class="image-sq"
-                            :src="'storage/'+coverImage"
+                            :src="MixAppUrl+'/storage/'+coverImage"
                         >
                     </a>
                 </div>
@@ -51,6 +51,7 @@
 </template>
 
 <script>
+
     export default {
         props: {
             variables: {
@@ -65,6 +66,11 @@
                 type: String,
                 default: null,
             },
+        },
+        data() {
+            return {
+                MixAppUrl:process.env.MIX_APP_URL,
+            }
         }
     }
 </script>
