@@ -1,7 +1,7 @@
 <template>
     <div>
         <h2 class="mb-4">
-            Variedad {{ variety.name }}
+            Variedad {{ variety.id }} {{variety.common_name}}
         </h2>
         <details-section
             id="farmers"
@@ -59,11 +59,42 @@
                         coverImage: this.values.farmer.photo,
                         variables: Object.keys(this.labels.farmer).map((key) => {
                             console.log('key', key)
+
+                            if(key=='community'){
+                            return {
+                                name: key,
+                                label: this.labels.farmer[key],
+                                value: this.values.farmer.community['name']
+                            }
+                            }
+                            if(key=='district'){
+                            return {
+                                name: key,
+                                label: this.labels.farmer[key],
+                                value: this.values.farmer.community.district['name']
+                            }
+                            }
+                            if(key=='province'){
+                            return {
+                                name: key,
+                                label: this.labels.farmer[key],
+                                value: this.values.farmer.community.district.province['name']
+                            }
+                            }                          
+                            if(key=='region'){
+                            return {
+                                name: key,
+                                label: this.labels.farmer[key],
+                                value: this.values.farmer.community.district.province.region['name']
+                            }
+                            }
+                            else{
                             return {
                                 name: key,
                                 label: this.labels.farmer[key],
                                 value: this.values.farmer[key]
-                            };
+                            }
+                            }
                         })
                     }
                 ];
@@ -107,12 +138,15 @@
 
                 var laPlanta = [
                     "plant_growth",
+                    "color_stem",
+                    "shape_stem_wings"
+                ];
+
+                var laHoja = [
                     "leaf_dissection",
                     "number_lateral_leaflets",
                     "number_intermediate_leaflets",
                     "number_leaflets_on_petioles",
-                    "color_stem",
-                    "shape_stem_wings"
                 ];
 
                 var laFlor = [
@@ -139,6 +173,17 @@
                         title: "La Planta",
                         coverImage: this.values.flowering.photo_plant,
                         variables: laPlanta.map((key) => {
+                            return {
+                                name: key,
+                                value: this.values.flowering[key],
+                                label: this.labels.flowering[key]
+                            };
+                        })
+                    },
+                    {
+                        title: "La Hoja",
+                        coverImage: this.values.flowering.photo_leaf,
+                        variables: laHoja.map((key) => {
                             return {
                                 name: key,
                                 value: this.values.flowering[key],
@@ -182,11 +227,12 @@
                     "depth_tuber_eyes",
                     "color_predominant_tuber_pul",
                     "color_secondary_tuber_pulp",
-                    "distribution_color_secodary_tuber_pulp"
+                    "distribution_color_secodary_tuber_pulp",
+                    "number_tubers_plant",
+                    "yield_plant"
                 ];
 
                 var tubersTolerancia = [
-                    "distribution_color_secodary_tuber_pulp",
                     "level_tolerance_late_blight",
                     "level_tolerance_weevil",
                     "level_tolerance_hailstorms",
