@@ -41,8 +41,43 @@ class FructificationCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::setFromDb(); 
-
+        $this->crud->addColumns([
+            [
+                'name'  => 'variety_id',
+                'type'  => 'text',
+                'label' => 'Código Variedad',
+            ],
+            [
+                'name'  => 'berries',
+                'type'  => 'text',
+                'label' => 'Bayas',
+            ],
+            [
+                'name'  => 'color_berries',
+                'type'  => 'text',
+                'label' => 'Color baya',
+            ],
+            [
+                'name'  => 'shape_berry',
+                'type'  => 'text',
+                'label' => 'Forma baya',
+            ],
+            [
+                'name'  => 'maturity_variety',
+                'type'  => 'text',
+                'label' => 'Madurez variedad',
+            ],
+            [
+                'name'  => 'photo_berry',
+                'type'  => 'upload',
+                'label' => 'Foto baya',
+            ],
+            [
+                'name'  => 'campana',
+                'type'  => 'text',
+                'label' => 'Campaña',
+            ],
+        ]);
     }
 
     /**
