@@ -47,46 +47,56 @@ class VarietyCrudController extends CrudController
             [
                 'name'  => 'id',
                 'type'  => 'text',
-                'label' => 'Variety Code',
+                'label' => 'Código Variedad',
             ],
             [
                 'name'  => 'name',
                 'type'  => 'text',
-                'label' => 'Variety Name',
+                'label' => 'Código',
             ],
             [
                 'name'  => 'common_name',
                 'type'  => 'text',
-                'label' => 'Common name',
+                'label' => 'Nombre común',
             ],
             [
                 'name'  => 'other_name',
                 'type'  => 'text',
-                'label' => 'Other name',
+                'label' => 'Otro Nombre',
             ],
             [
                 'name'  => 'is_mixture',
                 'type'  => 'check',
-                'label' => 'is Mixture',
+                'label' => 'Mezcla',
             ],
             [
-                'name'  => 'farmer',
-                'type'  => 'relationship',
-                'label' => 'Farmer',
+                'name'  => 'farmer_id',
+                'type'  => 'text',
+                'label' => 'Código Agricultor',
 
             ],
             [
                 'name'  => 'files',
                 'type'  => 'upload_multiple',
-                'label' => 'Files',
+                'label' => 'Archivos',
                 'disk'  => 'public',
             ],
             [
                 'name'  => 'additional_info',
                 'type'  => 'textarea',
-                'label' => 'Additional info',
+                'label' => 'Información adicional',
             ],
         ]);
+
+        $this->crud->addFilter([ 
+            'type'  => 'simple',
+            'name'  => 'mezcla',
+            'label' => 'Mezclas'
+        ],
+        false, 
+        function() { 
+            $this->crud->addClause('where', 'id', 'LIKE', "%.%");
+        });
     }
 
     /**
@@ -103,46 +113,44 @@ class VarietyCrudController extends CrudController
             [
                 'name'  => 'id',
                 'type'  => 'text',
-                'label' => 'Variety Code',
+                'label' => 'Código Variedad',
             ],
             [
                 'name'  => 'name',
                 'type'  => 'text',
-                'label' => 'Variety Name',
+                'label' => 'Código',
             ],
             [
                 'name'  => 'common_name',
                 'type'  => 'text',
-                'label' => 'Common name',
+                'label' => 'Nombre común',
             ],
             [
                 'name'  => 'other_name',
                 'type'  => 'text',
-                'label' => 'Other name',
+                'label' => 'Otro Nombre',
             ],
             [
                 'name'  => 'is_mixture',
                 'type'  => 'checkbox',
-                'label' => 'is Mixture',
+                'label' => 'Mezcla',
             ],
             [
                 'name'  => 'farmer_id',
-                'type'  => 'relationship',
-                'label' => 'Farmer',
-                'attribute' => "name",
-                'entity' => 'farmer'
+                'type'  => 'text',
+                'label' => 'Agricultor',
             ],
             [
                 'name'  => 'files',
                 'type'  => 'upload_multiple',
-                'label' => 'Files',
+                'label' => 'Archivos',
                 'upload'    => true,
                 'disk'      => 'uploads',
             ],
             [
                 'name'  => 'additional_info',
                 'type'  => 'textarea',
-                'label' => 'Additional info',
+                'label' => 'Información adicional',
             ],
         ]);
     }
@@ -158,57 +166,68 @@ class VarietyCrudController extends CrudController
         $this->setupCreateOperation();
     }
 
-    protected function setupMezclaRoutes($segment, $routeName, $controller)
+    protected function setupUploadAdditionalInfoRoutes($segment, $routeName, $controller)
     {
-        Route::get($segment.'/mezcla', [
-            'as'        => $routeName.'.getMezcla',
-            'uses'      => $controller.'@getMezclaForm',
-            'operation' => 'mezcla',
+        Route::get($segment.'/upload-additional-info', [
+            'as'        => $routeName.'.getUploadAdditionalInfo',
+            'uses'      => $controller.'@getUploadAdditionalInfoForm',
+            'operation' => 'UploadAdditionalInfo',
         ]);
 
         Route::post($segment.'/search-mezcla', [
             'as'        => $routeName.'.search',
             'uses'      => $controller.'@search',
-            'operation' => 'mezcla',
+            'operation' => 'UploadAdditionalInfo',
         ]);
 
     }
 
-    public function getMezclaForm() 
+    public function getUploadAdditionalInfoForm() 
     {
       
         $this->crud->setPageLengthMenu([[10, 25, 50, 100, -1], [10, 25, 50, 100, 'backpack::crud.all']],);
         $this->data['crud'] = $this->crud;
     
         // load the view from /resources/views/vendor/backpack/crud/ if it exists, otherwise load the one in the package
-        return view('vendor.backpack.crud.mezcla', $this->data);
+        return view('vendor.backpack.crud.upload_additional_info', $this->data);
     
     }
 
-    public function setupMezclaOperation()
-    {
-        $this->crud->addFilter([ 
-            'type'  => 'simple',
-            'name'  => 'mezcla',
-            'label' => 'Mezclas'
-        ],
-        false, 
-        function() { 
-            $this->crud->addClause('where', 'id', 'LIKE', "%.%");
-        });
-        CRUD::setFromDb(); 
+    public function setupUploadAdditionalInfoOperation()
+   {     
+    CRUD::addColumns([
+            [  
+                'name'      => 'id',
+                'label'     => 'Código Variedad',
+                'type'     => 'closure',
+                'function' => function($entry) {
+                    return "<h6><b>". $entry->id . "</b></h6>";
+                }
+            ],
+            [
+                'name'  => 'files',
+                'type'  => 'upload_multiple',
+                'label' => 'Archivos',
+                'disk'  => 'public',
+            ],
+            [
+                'name'  => 'additional_info',
+                'type'  => 'textarea',
+                'label' => 'Información adicional',
+            ],
+        ]); 
 
 
     }
 
-    protected function setupMezclaDefaults()
+    protected function setupUploadAdditionalInfoDefaults()
     {
-        $this->crud->allowAccess('mezcla');
+        $this->crud->allowAccess('UploadAdditionalInfo');
 
-        $this->crud->operation('mezcla', function () {
+        $this->crud->operation('UploadAdditionalInfo', function () {
             $this->crud->setCurrentOperation('list');
             $this->crud->loadDefaultOperationSettingsFromConfig();
-            $this->crud->setCurrentOperation('mezcla');
+            $this->crud->setCurrentOperation('UploadAdditionalInfo');
 
             $this->crud->addButton('line', 'update', 'view', 'crud::buttons.update', 'end');
             $this->crud->addButton('line', 'delete', 'view', 'crud::buttons.delete', 'end');

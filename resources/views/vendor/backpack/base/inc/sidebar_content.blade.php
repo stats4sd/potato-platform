@@ -7,7 +7,7 @@
 
 <li class='nav-item'><a class='nav-link' href="{{ backpack_url('user') }}"><i class="la la-user"></i> Usuarios</a></li>
 
-<li class='nav-item'><a class='nav-link' href="{{ backpack_url('variety/mezcla') }}"><i class="la la-clone"></i> Mezclas</a></li>
+<li class='nav-item'><a class='nav-link' href="{{ backpack_url('variety/upload-additional-info') }}"><i class="la la-clone"></i> Subir información adicional</a></li>
 
 @endif
 
@@ -50,7 +50,7 @@
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('variety') }}'> Variedades</a></li>
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('fructification') }}'> Fructificación</a></li>
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('flowering') }}'> Floración</a></li>
-<li class='nav-item'><a class='nav-link' href='{{ backpack_url('tubersatharvest') }}'>Tubérculos a la cosecha</a></li>
+<li class='nav-item'><a class='nav-link' href='{{ backpack_url('tubers_at_harvest') }}'>Tubérculos a la cosecha</a></li>
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('sprout') }}'>Brotamiento</a></li>
 
 
