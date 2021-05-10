@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Yanapai</title>
+    <title>AGUAPAN</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -49,6 +49,7 @@
         <b-collapse id="nav-collapse" is-nav>
             <b-navbar-nav>
                 <b-nav-item href="/home">Inicio</b-nav-item>
+                <b-nav-item href="/farmer">Guardianes</b-nav-item>
                 <b-nav-item href="/catalogo">Catálogo de Variedades</b-nav-item>
                 @if(Auth::check())
                     @if(Auth::user()->permission)

@@ -34,6 +34,10 @@ Route::middleware(['auth'])->group(function() {
         return view('home');
     });
 
+    Route::get('/farmer', function () {
+        return view('farmer');
+    });
+
     Route::get('/catalogo', function () {
         return view('catalogo');
     });
