@@ -223,7 +223,7 @@ import VarietyFilter from './VarietyFilter.vue';
                     },
                     {
                         key: "farmer.name",
-                        label: "Agricultor(a)"
+                        label: "Guardián"
                     },
                     {
                         key: "farmer.community.name",

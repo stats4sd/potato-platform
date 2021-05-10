@@ -5,7 +5,7 @@
         </h2>
         <details-section
             id="farmers"
-            title="Agricultor(a)"
+            title="Guardián"
             :sub-sections="farmer"
         />
         <details-section

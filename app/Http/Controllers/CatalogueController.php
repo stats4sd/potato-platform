@@ -28,18 +28,17 @@ class CatalogueController extends Controller
         //Could refactor this to hold variable names and labels in a database table...
         $farmerLabels = [
             'name' => "Nombre",
-            'id' => "Código",
             'community' => "Comunidad",
             'district' => "Distrito",
             'province' => "Provincia",
             'region' => "Región",
             'aguapan_year' => "Pertenece a AGUAPAN desde",
-            'number_varieties' => "Número de variedades"
+            'number_varieties' => "Número de variedades en la base de datos"
         ];
 
         $floweringLabels = [
             'plant_growth' => 'Habito de crecimiento de la planta',
-            'color_stem' => 'Color de tallo de esta planta',
+            'color_stem' => 'Color de tallo',
             'shape_stem_wings' => 'Forma de las alas del tallo',
 
             'leaf_dissection' => 'Tipo de la disección de la hoja',
@@ -47,7 +46,7 @@ class CatalogueController extends Controller
             'number_intermediate_leaflets' => 'Número de inter-hojuelas entre foliolos laterales',
             'number_leaflets_on_petioles' => 'Número de inter-hojuelas sobre peciolulos',
 
-            'degree_flowering_plant' => 'Grado de floracion de esta planta',
+            'degree_flowering_plant' => 'Grado de floracion',
             'shape_corolla' => 'Forma de la corola',
             'color_predominant_flower' => 'Color predominante de la flor',
             'intensity_color_predominant_flower' => 'Intensidad de color predominante de la flor',
@@ -86,8 +85,8 @@ class CatalogueController extends Controller
             'variant_shape_tuber' => 'Variante de forma',
             'depth_tuber_eyes' => 'Profundidad de los ojos',
             'color_predominant_tuber_pul' => 'Color predominante de la pulpa',
-            'color_secondary_tuber_pulp' => 'Color secundario',
-            'distribution_color_secodary_tuber_pulp' => 'Distribución del color secundario',
+            'color_secondary_tuber_pulp' => 'Color secundario de la pulpa',
+            'distribution_color_secodary_tuber_pulp' => 'Distribución del color secundario de la pulpa',
             "number_tubers_plant" => "Número de tubérculos por planta",
             "yield_plant" => "Rendimiento por planta en kg",
 

@@ -66,16 +66,17 @@ class ParameterFilterController extends Controller
     public static function getColumnsFlowering()
     {
         return array(
-            'Habito de crecimiento de la planta'=>'plant_growth', 'Tipo de la disección de la hoja'=>'leaf_dissection',
+            'Habito de crecimiento de la planta'=>'plant_growth',
+            'Color de tallo'=>'color_stem',
+            'Forma de las alas del tallo' => 'shape_stem_wings',
+            'Tipo de la disección de la hoja'=>'leaf_dissection',
             'Número de foliolos laterales de la hoja'=>'number_lateral_leaflets',
             'Número de inter-hojuelas entre foliolos laterales'=>'number_intermediate_leaflets',
             'Número de inter-hojuelas sobre peciolulos'=>'number_leaflets_on_petioles',
-            'Color de tallo de esta planta'=>'color_stem',
-            'Forma de las alas del tallo' => 'shape_stem_wings',
-            'Degree flowering plant' => 'degree_flowering_plant',
-            'Shape corolla' => 'shape_corolla',
+            'Grado de floracion' => 'degree_flowering_plant',
+            'Forma de la corola' => 'shape_corolla',
             'Color predominant flower' => 'color_predominant_flower',
-            'Grado de floracion de esta planta' => 'intensity_color_predominant_flower',
+            'Intensidad de color predominante de la flor' => 'intensity_color_predominant_flower',
             'Color secundario de la flor' => 'color_secondary_flower',
             'Distribución del color secundario de la flor' => 'distribution_color_secodary_flower',
             'Pigmentación de las anteras' => 'pigmentation_anthers',
@@ -93,6 +94,7 @@ class ParameterFilterController extends Controller
     public static function getColumnsFructification()
     {
         return array(
+            'Bayas' => 'bayas',
             'Color de las baya' => 'color_berries',
             'Forma de la baya' => 'shape_berry',
             'La madurez' => 'maturity_variety'
@@ -112,6 +114,8 @@ class ParameterFilterController extends Controller
             'Color predominante de la pulpa' => 'color_predominant_tuber_pulp',
             'Color secundario de la pulpa' => 'color_secondary_tuber_pulp',
             'Distribución del color secundario de la pulpa' => 'distribution_color_secodary_tuber_pulp',
+            'Número de tubérculos por planta' => 'number_tubers_plant',
+            'Rendimiento por planta en kg' => 'yield_plant',
             'Nivel de tolerancia a la rancha' => 'level_tolerance_late_blight',
             'Nivel de tolerancia al gorgojo de los andes' => 'level_tolerance_weevil',
             'Nivel de tolerancia a la granizada' => 'level_tolerance_hailstorms',
