@@ -1,14 +1,13 @@
 <template>
 <div>
     <div class="container">
-         <b-button-group size="sm">
+        <p>Seleccione las siguientes regiones para filtrar los agricultores </p>
+        <h5>Regiones</h5>
+        <b-button-group size="sm mb-4">
             <b-button
                 v-for="region in regions"
                 :key="region"
-               
-             
-                variant="primary"
-                class="mx-2"
+                class="text-light  rounded bg-info mx-2"
                 @click="FilterFarmers(region)"
             >
                 {{region }}
@@ -18,22 +17,33 @@
     <b-row>
         <div v-for="farmer in farmersFiltered" :key="farmer.id">
             <b-col class="mb-4">
-              
-                <b-card
+                <div v-if="farmer.photo">
                 
+                <b-card
                     v-bind:img-src="MIX_APP_URL+'/storage/'+farmer.photo"
                     img-alt="Card Image"
                     img-top
+                    img-height="250px"
                     v-bind:title="farmer.name"
                     style="width: 300px; height:350px;"
                     @click="OpenModal(farmer)"
                 
                 >
-                   
                 </b-card>
-                             
-
-              
+                </div>
+                <div v-else>
+                    <b-card
+                    v-bind:img-src="MIX_APP_URL+'/images/user.png'"
+                    img-alt="Card Image"
+                    img-top
+                    img-height="250px"
+                    v-bind:title="farmer.name"
+                    style="width: 300px; height:350px;"
+                    @click="OpenModal(farmer)"
+                
+                >
+                 </b-card>
+                </div>
             </b-col>
         </div>
             <b-modal id="modal" title="Guardián" v-model="modalShow" v-if="farmerDetails.length!=0">

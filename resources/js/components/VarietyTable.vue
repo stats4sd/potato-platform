@@ -25,7 +25,7 @@
             </b-input-group>
         </div>
 
-        <div v-for="(parameter, index) in badgeFilterFlowering" :key="parameter.index">     
+        <!-- <div v-for="(parameter, index) in badgeFilterFlowering" :key="parameter.index">     
             <h4><b-badge v-if="parameter.length" href="#" class="bg-info text-white">{{ index }} : {{ parameter.join(', ') }}</b-badge></h4>
         </div>
         <div v-for="(parameter, index) in badgeFilterFructification" :key="parameter.index">     
@@ -36,7 +36,7 @@
         </div>
         <div v-for="(parameter, index) in badgeFilterSprout" :key="parameter.index">     
             <h4><b-badge v-if="parameter.length" href="#" class="bg-info text-white">{{ index }} : {{ parameter.join(', ') }}</b-badge></h4>
-        </div>
+        </div> -->
        
     </div>
     <div class="row">
@@ -177,6 +177,7 @@
         </div>
         <div class="col-8">
             <div class="container">
+            Showing  {{ varietiesFilter.length }} entries
                 <b-table
                     id="variety-teble"
                     ref="selectableTable"
@@ -203,7 +204,7 @@
                 </template>
                 <b-pagination
                     v-model="currentPage"
-                    :total-rows="varieties.length"
+                    :total-rows="varietiesFilter.length"
                     :per-page="perPage"
                     aria-controls="variety-table"
                 />
