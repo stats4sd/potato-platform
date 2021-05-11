@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Choice;
+use App\Models\Farmer;
 use App\Models\Variety;
 use App\Models\Flowering;
 use Illuminate\Http\Request;
@@ -17,29 +18,28 @@ class CatalogueController extends Controller
     public function getVarietyDetails(Request $request)
     {
         $variety = Variety::findOrFail($request->variety_id);
-
+        
         // EVENTUALLY, we will have to reconcile the possibility of having multiple subtable records for a single variety. For now, just take the first entry...
         $fruits = $variety->fructifications->first();
         $flowering =  $variety->flowerings->first();
         $sprouts =  $variety->sprouts->first();
         $tubersAtHarvest =  $variety->tubersAtHarvests->first();
-        $farmer =  $variety->farmer->with('varieties')->with('community.district.province.region')->first();
-
+        $farmer = Farmer::where('id', $variety->farmer_id)->with('varieties')->withCount('varieties')->with('community.district.province.region')->first();
+       
         //Could refactor this to hold variable names and labels in a database table...
         $farmerLabels = [
             'name' => "Nombre",
-            'id' => "Código",
             'community' => "Comunidad",
             'district' => "Distrito",
             'province' => "Provincia",
             'region' => "Región",
             'aguapan_year' => "Pertenece a AGUAPAN desde",
-            'number_varieties' => "Número de variedades"
+            'varieties_count' => "Número de variedades en la base de datos"
         ];
 
         $floweringLabels = [
             'plant_growth' => 'Habito de crecimiento de la planta',
-            'color_stem' => 'Color de tallo de esta planta',
+            'color_stem' => 'Color de tallo',
             'shape_stem_wings' => 'Forma de las alas del tallo',
 
             'leaf_dissection' => 'Tipo de la disección de la hoja',
@@ -47,7 +47,7 @@ class CatalogueController extends Controller
             'number_intermediate_leaflets' => 'Número de inter-hojuelas entre foliolos laterales',
             'number_leaflets_on_petioles' => 'Número de inter-hojuelas sobre peciolulos',
 
-            'degree_flowering_plant' => 'Grado de floracion de esta planta',
+            'degree_flowering_plant' => 'Grado de floracion',
             'shape_corolla' => 'Forma de la corola',
             'color_predominant_flower' => 'Color predominante de la flor',
             'intensity_color_predominant_flower' => 'Intensidad de color predominante de la flor',
@@ -86,8 +86,8 @@ class CatalogueController extends Controller
             'variant_shape_tuber' => 'Variante de forma',
             'depth_tuber_eyes' => 'Profundidad de los ojos',
             'color_predominant_tuber_pul' => 'Color predominante de la pulpa',
-            'color_secondary_tuber_pulp' => 'Color secundario',
-            'distribution_color_secodary_tuber_pulp' => 'Distribución del color secundario',
+            'color_secondary_tuber_pulp' => 'Color secundario de la pulpa',
+            'distribution_color_secodary_tuber_pulp' => 'Distribución del color secundario de la pulpa',
             "number_tubers_plant" => "Número de tubérculos por planta",
             "yield_plant" => "Rendimiento por planta en kg",
 
@@ -147,7 +147,8 @@ class CatalogueController extends Controller
             $request->selectedFiltersFlowering,
             $request->selectedFiltersFructification,
             $request->selectedFiltersTubersAtHarvest,
-            $request->selectedFiltersSprout
+            $request->selectedFiltersSprout,
+        
         ) as $key => $value) {
             if ($value !== []) {
                 $filterSet = true;
@@ -167,9 +168,10 @@ class CatalogueController extends Controller
     public function getVarietyWhereOptions(array $options, $model)
     {
         $varieties_array = array();
+        $choices = Choice::all();
         foreach ($options as $key => $optionsSelected) {
             foreach ($optionsSelected as $optionKey => $optionvalue) {
-                $choice = Choice::where('label_spanish', $optionvalue)->first();
+                $choice = $choices->where('label_spanish', $optionvalue)->first();
 
                 if($choice){
                     $variety_ids =  $model::with('variety')->where($key, $choice->id)->pluck('variety_id');

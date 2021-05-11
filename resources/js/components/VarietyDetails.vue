@@ -3,9 +3,9 @@
         <h2 class="mb-4">
             Variedad {{ variety.id }} {{variety.common_name}}
         </h2>
-        <details-section
+        <farmer-card
             id="farmers"
-            title="Agricultor(a)"
+            title="Guardián"
             :sub-sections="farmer"
         />
         <details-section
@@ -33,8 +33,9 @@
 
 <script>
     import DetailsSection from "./DetailsSection.vue";
+    import FarmerCard from './FarmerCard.vue';
     export default {
-        components: { DetailsSection },
+        components: { DetailsSection, FarmerCard },
         props: {
             variety: {
                 type: Object,
