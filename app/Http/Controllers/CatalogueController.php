@@ -146,7 +146,8 @@ class CatalogueController extends Controller
             $request->selectedFiltersFlowering,
             $request->selectedFiltersFructification,
             $request->selectedFiltersTubersAtHarvest,
-            $request->selectedFiltersSprout
+            $request->selectedFiltersSprout,
+        
         ) as $key => $value) {
             if ($value !== []) {
                 $filterSet = true;

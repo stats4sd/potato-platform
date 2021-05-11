@@ -68,7 +68,7 @@
                         <variety-filter
                         :parameter="param"
                         v-model="selectedFiltersMezcla[param.value]"
-                        @updateFilter="filterVariety"
+                        @updateFilter="filterMezcla"
                         ></variety-filter>
 
                         </div>
@@ -87,7 +87,7 @@
                         <variety-filter
                         :parameter="param"
                         v-model="selectedFiltersCampana[param.value]"
-                        @updateFilter="filterVariety"
+                        @updateFilter="filterCampana"
                         ></variety-filter>
 
                         </div>
@@ -267,7 +267,7 @@ import VarietyFilter from './VarietyFilter.vue';
                         {text:"2019-2020", value:"2019_2020", disabled: false },
                         {text:"2020-2021", value:"2020_2021", disabled: false },
                     ],
-                    value: "mezcla"
+                    value: "anos"
                 }],
                 varietiesFilter: [],
                 selected: null,
@@ -372,23 +372,34 @@ import VarietyFilter from './VarietyFilter.vue';
                     }
                 );
             },
-            
-            filterVariety(){
-
+            filterMezcla(){
                 var varieties = this.varieties;
                 if(this.selectedFiltersMezcla.mezcla.length==0) {
                     this.varietiesFilter= varieties
                 }
+                  if(this.selectedFiltersMezcla.mezcla.includes('mezcla')) {
+                        var filterVarieties = varieties.filter(item => item.id.includes("."))
+                        this.varietiesFilter = filterVarieties
+                    }
+    
+                    if(this.selectedFiltersMezcla.mezcla.includes('no_mezclas')) {
+                        var filterVarieties = varieties.filter(item => !item.id.includes("."))
+                        this.varietiesFilter=filterVarieties
+                    }
 
-                if(this.selectedFiltersMezcla.mezcla.includes('mezcla')) {
-                    var filterVarieties = varieties.filter(item => item.id.includes("."))
-                    this.varietiesFilter = filterVarieties
-                }
+            },
 
-                if(this.selectedFiltersMezcla.mezcla.includes('no_mezclas')) {
-                    var filterVarieties = varieties.filter(item => !item.id.includes("."))
-                    this.varietiesFilter=filterVarieties
+            filterCampana(){
+                 var varieties = this.varieties;
+            
+                if(this.selectedFiltersCampana.anos.length>0) {
+             
+                    this.varietiesFilter = varieties.filter(item => item.flowerings[0].campana.includes(this.selectedFiltersCampana.anos))
                 }
+            },
+            
+            filterVariety(){
+                  
 
                 this.flowering.forEach(parameter => {
                     this.badgeFilterFlowering[parameter.label] = this.selectedFiltersFlowering[parameter.value];
@@ -402,12 +413,12 @@ import VarietyFilter from './VarietyFilter.vue';
                     this.badgeFilterTubersAtHarvest[parameter.label] = this.selectedFiltersTubersAtHarvest[parameter.value];
                 });
 
-                 this.sprout.forEach(parameter => {
+                this.sprout.forEach(parameter => {
                     this.badgeFilterSprout[parameter.label] = this.selectedFiltersSprout[parameter.value];
                 });
 
-                if(this.selectedFiltersFlowering.length>0 || this.selectedFiltersFructification.length>0 || this.selectedFiltersTubersAtHarvest.length>0 || this.selectedFiltersSprout.length>0){
-
+             
+             
                     axios({
                         method: "post",
                         url: "/varieties-filter",
@@ -416,18 +427,21 @@ import VarietyFilter from './VarietyFilter.vue';
                                 selectedFiltersFructification: this.selectedFiltersFructification,
                                 selectedFiltersTubersAtHarvest: this.selectedFiltersTubersAtHarvest,
                                 selectedFiltersSprout: this.selectedFiltersSprout,
+            
                             },
                         
                     }).then(
                         result => {
                             console.log(result.data);
                             this.varietiesFilter = result.data
+
                         },
                         error => {
                             console.log("error filter", error);
                         }
                     );
-                }
+               
+            
             }
         }
     };
