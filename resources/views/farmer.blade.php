@@ -13,6 +13,7 @@
     </div>
 </div>
 
+<farmer-list ></farmer-list>
 
 
 @endsection

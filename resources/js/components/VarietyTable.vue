@@ -390,7 +390,7 @@ import VarietyFilter from './VarietyFilter.vue';
             },
 
             filterCampana(){
-                 var varieties = this.varieties;
+                var varieties = this.varieties;
             
                 if(this.selectedFiltersCampana.anos.length>0) {
              
@@ -399,8 +399,6 @@ import VarietyFilter from './VarietyFilter.vue';
             },
             
             filterVariety(){
-                  
-
                 this.flowering.forEach(parameter => {
                     this.badgeFilterFlowering[parameter.label] = this.selectedFiltersFlowering[parameter.value];
                 });
@@ -417,31 +415,27 @@ import VarietyFilter from './VarietyFilter.vue';
                     this.badgeFilterSprout[parameter.label] = this.selectedFiltersSprout[parameter.value];
                 });
 
-             
-             
-                    axios({
-                        method: "post",
-                        url: "/varieties-filter",
-                        data: {
-                                selectedFiltersFlowering: this.selectedFiltersFlowering,
-                                selectedFiltersFructification: this.selectedFiltersFructification,
-                                selectedFiltersTubersAtHarvest: this.selectedFiltersTubersAtHarvest,
-                                selectedFiltersSprout: this.selectedFiltersSprout,
-            
-                            },
-                        
-                    }).then(
-                        result => {
-                            console.log(result.data);
-                            this.varietiesFilter = result.data
-
+                axios({
+                    method: "post",
+                    url: "/varieties-filter",
+                    data: {
+                            selectedFiltersFlowering: this.selectedFiltersFlowering,
+                            selectedFiltersFructification: this.selectedFiltersFructification,
+                            selectedFiltersTubersAtHarvest: this.selectedFiltersTubersAtHarvest,
+                            selectedFiltersSprout: this.selectedFiltersSprout,
+        
                         },
-                        error => {
-                            console.log("error filter", error);
-                        }
-                    );
-               
-            
+                    
+                }).then(
+                    result => {
+                        console.log(result.data);
+                        this.varietiesFilter = result.data
+
+                    },
+                    error => {
+                        console.log("error filter", error);
+                    }
+                );
             }
         }
     };

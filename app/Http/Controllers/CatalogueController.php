@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Choice;
+use App\Models\Farmer;
 use App\Models\Variety;
 use App\Models\Flowering;
 use Illuminate\Http\Request;
@@ -17,14 +18,14 @@ class CatalogueController extends Controller
     public function getVarietyDetails(Request $request)
     {
         $variety = Variety::findOrFail($request->variety_id);
-
+        
         // EVENTUALLY, we will have to reconcile the possibility of having multiple subtable records for a single variety. For now, just take the first entry...
         $fruits = $variety->fructifications->first();
         $flowering =  $variety->flowerings->first();
         $sprouts =  $variety->sprouts->first();
         $tubersAtHarvest =  $variety->tubersAtHarvests->first();
-        $farmer =  $variety->farmer->with('varieties')->with('community.district.province.region')->first();
-
+        $farmer = Farmer::where('id', $variety->farmer_id)->with('varieties')->withCount('varieties')->with('community.district.province.region')->first();
+       
         //Could refactor this to hold variable names and labels in a database table...
         $farmerLabels = [
             'name' => "Nombre",
@@ -33,7 +34,7 @@ class CatalogueController extends Controller
             'province' => "Provincia",
             'region' => "Región",
             'aguapan_year' => "Pertenece a AGUAPAN desde",
-            'number_varieties' => "Número de variedades en la base de datos"
+            'varieties_count' => "Número de variedades en la base de datos"
         ];
 
         $floweringLabels = [

@@ -54,7 +54,9 @@ Route::middleware(['auth'])->group(function() {
         return view('agronomic_data');
     });
 
-    Route::get('farmer/{id}', 'FarmerPageController@index');
+    Route::get('/farmer', function () {
+        return view('farmer');
+    });
 
     Route::get('xlsforms/{xlsform}/downloadsubmissions', 'SubmissionController@download')->name('xlsforms.downloadsubmissions');
 
