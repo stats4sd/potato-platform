@@ -6,7 +6,7 @@
     <div class="header">
         <img src="images/papas.jpeg" id="image_home_page"/>
         <div class="text-block">
-            Plataforma de datos de AGUAPAN
+        ASOCIACIÓN DE GUARDIANES DE LA PAPA NATIVA DEL CENTRO DEL PERÚ
     </div>
 </div>
 

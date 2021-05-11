@@ -23,25 +23,30 @@ class CatalogueController extends Controller
         $flowering =  $variety->flowerings->first();
         $sprouts =  $variety->sprouts->first();
         $tubersAtHarvest =  $variety->tubersAtHarvests->first();
-        $farmer =  $variety->farmer;
+        $farmer =  $variety->farmer->with('varieties')->with('community.district.province.region')->first();
 
         //Could refactor this to hold variable names and labels in a database table...
         $farmerLabels = [
             'name' => "Nombre",
-            'id' => "Codigo",
-            'farmhouse' => "Casa de Campo",
+            'community' => "Comunidad",
+            'district' => "Distrito",
+            'province' => "Provincia",
+            'region' => "Región",
+            'aguapan_year' => "Pertenece a AGUAPAN desde",
+            'number_varieties' => "Número de variedades en la base de datos"
         ];
 
         $floweringLabels = [
             'plant_growth' => 'Habito de crecimiento de la planta',
+            'color_stem' => 'Color de tallo',
+            'shape_stem_wings' => 'Forma de las alas del tallo',
+
             'leaf_dissection' => 'Tipo de la disección de la hoja',
             'number_lateral_leaflets' => 'Número de foliolos laterales de la hoja',
             'number_intermediate_leaflets' => 'Número de inter-hojuelas entre foliolos laterales',
             'number_leaflets_on_petioles' => 'Número de inter-hojuelas sobre peciolulos',
-            'color_stem' => 'Color de tallo de esta planta',
-            'shape_stem_wings' => 'Forma de las alas del tallo',
 
-            'degree_flowering_plant' => 'Grado de floracion de esta planta',
+            'degree_flowering_plant' => 'Grado de floracion',
             'shape_corolla' => 'Forma de la corola',
             'color_predominant_flower' => 'Color predominante de la flor',
             'intensity_color_predominant_flower' => 'Intensidad de color predominante de la flor',
@@ -59,7 +64,8 @@ class CatalogueController extends Controller
         ];
 
         $fruitsLabels = [
-            'color_berries' => 'Color de las baya',
+            'berries' => 'Bayas',
+            'color_berries' => 'Color de la baya',
             'shape_berry' => 'Forma de la baya',
             'maturity_variety' => 'La madurez',
         ];
@@ -79,8 +85,10 @@ class CatalogueController extends Controller
             'variant_shape_tuber' => 'Variante de forma',
             'depth_tuber_eyes' => 'Profundidad de los ojos',
             'color_predominant_tuber_pul' => 'Color predominante de la pulpa',
-            'color_secondary_tuber_pulp' => 'Color secundario',
-            'distribution_color_secodary_tuber_pulp' => 'Distribución del color secundario',
+            'color_secondary_tuber_pulp' => 'Color secundario de la pulpa',
+            'distribution_color_secodary_tuber_pulp' => 'Distribución del color secundario de la pulpa',
+            "number_tubers_plant" => "Número de tubérculos por planta",
+            "yield_plant" => "Rendimiento por planta en kg",
 
             'level_tolerance_late_blight' => 'Nivel de tolerancia a la rancha',
             'level_tolerance_weevil' => 'Nivel de tolerancia al gorgojo de los andes',
@@ -107,10 +115,10 @@ class CatalogueController extends Controller
             $tubersAtHarvest = $this->getChoiceLabel($tubersAtHarvestLabels, $tubersAtHarvest);
         }
 
-        if (!empty($farmer)) {
+        // if (!empty($farmer)) {
 
-            $farmer = $this->getChoiceLabel($farmerLabels, $farmer);
-        }
+        //     $farmer = $this->getChoiceLabel($farmerLabels, $farmer);
+        // }
 
 
         return response()->json([

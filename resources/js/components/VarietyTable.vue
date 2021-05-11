@@ -1,10 +1,14 @@
 <template>
 <div>
     <div class="container">
+        <br>
+            Esta página presenta información sobre las variedades que figuran actualmente en la base de datos.
+        </br>
+        <br>
+            Utilice la caja de búsqueda o los filtros de la columna de la izquierda para ver variedades por sus características.
+        </br>
         <p>
-            Esta página presenta información sobre las variedades que figuran actualmente en la base de datos. 
             Seleccione una variedad en la tabla de abajo para ver información detallada y fotos. 
-            Utilice los filtros de la columna de la izquierda para ver variedades por sus características.
         </p>
         <div class="d-flex justify-content-end mb-4">
             <b-input-group class="col-12 col-md-8 col-lg-6 col-xl-4">
@@ -229,7 +233,7 @@ import VarietyFilter from './VarietyFilter.vue';
                 fields: [
                      {
                         key: "id",
-                        label: "Variedad Codigo"
+                        label: "Variedad Código"
                     },
                     {
                         key: "common_name",
@@ -237,7 +241,7 @@ import VarietyFilter from './VarietyFilter.vue';
                     },
                     {
                         key: "farmer.name",
-                        label: "Agricultor(a)"
+                        label: "Guardián"
                     },
                     {
                         key: "farmer.community.name",
@@ -245,11 +249,11 @@ import VarietyFilter from './VarietyFilter.vue';
                     },
                     {
                         key: "farmer.community.district.name",
-                        label: "District"
+                        label: "Distrito"
                     },
                     {
                         key: "farmer.community.district.province.name",
-                        label: "Province"
+                        label: "Provincia"
                     },
                     {
                         key: "farmer.community.district.province.region.name",

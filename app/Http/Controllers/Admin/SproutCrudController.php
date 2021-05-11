@@ -41,8 +41,38 @@ class SproutCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::setFromDb(); 
-       
+        $this->crud->addColumns([
+            [
+                'name'  => 'variety_id',
+                'type'  => 'text',
+                'label' => 'Código Variedad',
+            ],
+            [
+                'name'  => 'color_predominant_tuber_shoot',
+                'type'  => 'text',
+                'label' => 'Color predominante',
+            ],
+            [
+                'name'  => 'color_secondary_tuber_shoot',
+                'type'  => 'text',
+                'label' => 'Color secundario',
+            ],
+            [
+                'name'  => 'distribution_color_secodary_tuber_shoot',
+                'type'  => 'text',
+                'label' => 'Distribución color secundario',
+            ],
+            [
+                'name'  => 'photo_tuber_shoot',
+                'type'  => 'text',
+                'label' => 'Foto brote',
+            ],
+            [
+                'name'  => 'campana',
+                'type'  => 'text',
+                'label' => 'Campaña',
+            ],
+        ]);
     }
 
       /**

@@ -41,8 +41,108 @@ class TubersAtHarvestCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::setFromDb(); 
-       
+        $this->crud->addColumns([
+            [
+                'name'  => 'variety_id',
+                'type'  => 'text',
+                'label' => 'Código Variedad',
+            ],
+            [
+                'name'  => 'color_predominant_tuber',
+                'type'  => 'text',
+                'label' => 'Color predominante',
+            ],
+            [
+                'name'  => 'intensity_color_predominant_tuber',
+                'type'  => 'text',
+                'label' => 'Intensidad del color predominante',
+            ],
+            [
+                'name'  => 'color_secondary_tuber',
+                'type'  => 'text',
+                'label' => 'Color secundario',
+            ],
+            [
+                'name'  => 'distribution_color_secodary_tuber',
+                'type'  => 'text',
+                'label' => 'Distribución color secundario',
+            ],
+            [
+                'name'  => 'shape_tuber',
+                'type'  => 'text',
+                'label' => 'Forma',
+            ],
+            [
+                'name'  => 'variant_shape_tuber',
+                'type'  => 'text',
+                'label' => 'Variante forma',
+            ],
+            [
+                'name'  => 'depth_tuber_eyes',
+                'type'  => 'text',
+                'label' => 'Profundidad ojos',
+            ],
+            [
+                'name'  => 'color_predominant_tuber_pulp',
+                'type'  => 'text',
+                'label' => 'Color predominante pulpa',
+            ],
+            [
+                'name'  => 'color_secondary_tuber_pulp',
+                'type'  => 'text',
+                'label' => 'Color secundario pulpa',
+            ],
+            [
+                'name'  => 'distribution_color_secodary_tuber_pulp',
+                'type'  => 'text',
+                'label' => 'Distribución color secundario pulpa',
+            ],
+            [
+                'name'  => 'number_tubers_plant',
+                'type'  => 'text',
+                'label' => 'Número tubérculos planta',
+            ],
+            [
+                'name'  => 'yield_plant',
+                'type'  => 'text',
+                'label' => 'Rendimiento planta kg',
+            ],
+            [
+                'name'  => 'level_tolerance_late_blight',
+                'type'  => 'text',
+                'label' => 'Nivel tolerancia rancha',
+            ],
+            [
+                'name'  => 'level_tolerance_weevil',
+                'type'  => 'text',
+                'label' => 'Nivel tolerancia gorgojo andes',
+            ],
+            [
+                'name'  => 'level_tolerance_hailstorms',
+                'type'  => 'text',
+                'label' => 'Nivel tolerancia granizada',
+            ],
+            [
+                'name'  => 'level_tolerance_frost',
+                'type'  => 'text',
+                'label' => 'Nivel tolerancia helada',
+            ],
+            [
+                'name'  => 'level_tolerance_drought',
+                'type'  => 'text',
+                'label' => 'Nivel tolerancia sequía',
+            ],
+            [
+                'name'  => 'photo_tuber',
+                'type'  => 'text',
+                'label' => 'Foto tubérculo',
+            ],
+            [
+                'name'  => 'campana',
+                'type'  => 'text',
+                'label' => 'Campaña',
+            ],
+        ]);
     }
 
      /**
