@@ -69,7 +69,25 @@
 
                         </div>
                     </b-collapse>
+                    <b-button
+                        v-b-toggle="'collapse-mezcla'"
+                        class="bg-info text-left text-white w-100 px-4"
+                    >
+                        <div> Campana </div>
+                    </b-button>
+                    <b-collapse
+                        :id="'collapse-mezcla'"
+                        class="bg-light"
+                    >
+                        <div v-for="param in campana" :key="param.value">
+                        <variety-filter
+                        :parameter="param"
+                        v-model="selectedFiltersCampana[param.value]"
+                        @updateFilter="filterVariety"
+                        ></variety-filter>
 
+                        </div>
+                    </b-collapse>
                     <b-button
                         v-b-toggle="'collapse-flowering'"
                         class="bg-info text-left text-white w-100 px-4"
@@ -239,6 +257,14 @@ import VarietyFilter from './VarietyFilter.vue';
                     }
                 ],
                 varieties: [],
+                campana: [{
+                    label: "Anos",
+                    options :[
+                        {text:"2019-2020", value:"2019_2020", disabled: false },
+                        {text:"2020-2021", value:"2020_2021", disabled: false },
+                    ],
+                    value: "mezcla"
+                }],
                 varietiesFilter: [],
                 selected: null,
                 selectedValues: null,
@@ -261,6 +287,7 @@ import VarietyFilter from './VarietyFilter.vue';
                     value: "mezcla"
                 }],
                 selectedFiltersMezcla: {},
+                selectedFiltersCampana:{},
                 selectedFiltersFlowering: {},
                 selectedFiltersFructification: {},
                 selectedFiltersTubersAtHarvest: {},

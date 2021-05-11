@@ -158,9 +158,10 @@ class CatalogueController extends Controller
     public function getVarietyWhereOptions(array $options, $model)
     {
         $varieties_array = array();
+        $choices = Choice::all();
         foreach ($options as $key => $optionsSelected) {
             foreach ($optionsSelected as $optionKey => $optionvalue) {
-                $choice = Choice::where('label_spanish', $optionvalue)->first();
+                $choice = $choices->where('label_spanish', $optionvalue)->first();
 
                 if($choice){
                     $variety_ids =  $model::with('variety')->where($key, $choice->id)->pluck('variety_id');
