@@ -1,7 +1,7 @@
 <template>
     <div class="card mb-4 border-0">
         <h5 class="card-header bg-info text-light">
-            Guardián
+            {{ title }}
         </h5>
        
             <div class="card-body mt-2">
@@ -28,7 +28,7 @@
             },
             title: {
                 type: String,
-                default: 'New Section',
+                //default: 'New Section',
             },
             subSections: {
                 type: Array,
