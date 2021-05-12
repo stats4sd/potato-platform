@@ -25,7 +25,7 @@
             </b-input-group>
         </div>
 
-        <div v-for="(parameter, index) in badgeFilterFlowering" :key="parameter.index">     
+        <!-- <div v-for="(parameter, index) in badgeFilterFlowering" :key="parameter.index">     
             <h4><b-badge v-if="parameter.length" href="#" class="bg-info text-white">{{ index }} : {{ parameter.join(', ') }}</b-badge></h4>
         </div>
         <div v-for="(parameter, index) in badgeFilterFructification" :key="parameter.index">     
@@ -36,7 +36,7 @@
         </div>
         <div v-for="(parameter, index) in badgeFilterSprout" :key="parameter.index">     
             <h4><b-badge v-if="parameter.length" href="#" class="bg-info text-white">{{ index }} : {{ parameter.join(', ') }}</b-badge></h4>
-        </div>
+        </div> -->
        
     </div>
     <div class="row">
@@ -68,12 +68,30 @@
                         <variety-filter
                         :parameter="param"
                         v-model="selectedFiltersMezcla[param.value]"
-                        @updateFilter="filterVariety"
+                        @updateFilter="filterMezcla"
                         ></variety-filter>
 
                         </div>
                     </b-collapse>
+                    <b-button
+                        v-b-toggle="'collapse-mezcla'"
+                        class="bg-info text-left text-white w-100 px-4"
+                    >
+                        <div> Campaña </div>
+                    </b-button>
+                    <b-collapse
+                        :id="'collapse-mezcla'"
+                        class="bg-light"
+                    >
+                        <div v-for="param in campana" :key="param.value">
+                        <variety-filter
+                        :parameter="param"
+                        v-model="selectedFiltersCampana[param.value]"
+                        @updateFilter="filterCampana"
+                        ></variety-filter>
 
+                        </div>
+                    </b-collapse>
                     <b-button
                         v-b-toggle="'collapse-flowering'"
                         class="bg-info text-left text-white w-100 px-4"
@@ -159,6 +177,7 @@
         </div>
         <div class="col-8">
             <div class="container">
+            Mostrando  {{ varietiesFilter.length }} variedades
                 <b-table
                     id="variety-teble"
                     ref="selectableTable"
@@ -185,7 +204,7 @@
                 </template>
                 <b-pagination
                     v-model="currentPage"
-                    :total-rows="varieties.length"
+                    :total-rows="varietiesFilter.length"
                     :per-page="perPage"
                     aria-controls="variety-table"
                 />
@@ -243,6 +262,14 @@ import VarietyFilter from './VarietyFilter.vue';
                     }
                 ],
                 varieties: [],
+                campana: [{
+                    label: "Campaña",
+                    options :[
+                        {text:"2019-2020", value:"2019_2020", disabled: false },
+                        {text:"2020-2021", value:"2020_2021", disabled: false },
+                    ],
+                    value: "anos"
+                }],
                 varietiesFilter: [],
                 selected: null,
                 selectedValues: null,
@@ -265,6 +292,7 @@ import VarietyFilter from './VarietyFilter.vue';
                     value: "mezcla"
                 }],
                 selectedFiltersMezcla: {},
+                selectedFiltersCampana:{},
                 selectedFiltersFlowering: {},
                 selectedFiltersFructification: {},
                 selectedFiltersTubersAtHarvest: {},
@@ -345,24 +373,33 @@ import VarietyFilter from './VarietyFilter.vue';
                     }
                 );
             },
-            
-            filterVariety(){
-
+            filterMezcla(){
                 var varieties = this.varieties;
                 if(this.selectedFiltersMezcla.mezcla.length==0) {
                     this.varietiesFilter= varieties
                 }
+                  if(this.selectedFiltersMezcla.mezcla.includes('mezcla')) {
+                        var filterVarieties = varieties.filter(item => item.id.includes("."))
+                        this.varietiesFilter = filterVarieties
+                    }
+    
+                    if(this.selectedFiltersMezcla.mezcla.includes('no_mezclas')) {
+                        var filterVarieties = varieties.filter(item => !item.id.includes("."))
+                        this.varietiesFilter=filterVarieties
+                    }
 
-                if(this.selectedFiltersMezcla.mezcla.includes('mezcla')) {
-                    var filterVarieties = varieties.filter(item => item.id.includes("."))
-                    this.varietiesFilter = filterVarieties
+            },
+
+            filterCampana(){
+                var varieties = this.varieties;
+            
+                if(this.selectedFiltersCampana.anos.length>0) {
+             
+                    this.varietiesFilter = varieties.filter(item => item.flowerings[0].campana.includes(this.selectedFiltersCampana.anos))
                 }
-
-                if(this.selectedFiltersMezcla.mezcla.includes('no_mezclas')) {
-                    var filterVarieties = varieties.filter(item => !item.id.includes("."))
-                    this.varietiesFilter=filterVarieties
-                }
-
+            },
+            
+            filterVariety(){
                 this.flowering.forEach(parameter => {
                     this.badgeFilterFlowering[parameter.label] = this.selectedFiltersFlowering[parameter.value];
                 });
@@ -375,32 +412,31 @@ import VarietyFilter from './VarietyFilter.vue';
                     this.badgeFilterTubersAtHarvest[parameter.label] = this.selectedFiltersTubersAtHarvest[parameter.value];
                 });
 
-                 this.sprout.forEach(parameter => {
+                this.sprout.forEach(parameter => {
                     this.badgeFilterSprout[parameter.label] = this.selectedFiltersSprout[parameter.value];
                 });
 
-                if(this.selectedFiltersFlowering.length>0 || this.selectedFiltersFructification.length>0 || this.selectedFiltersTubersAtHarvest.length>0 || this.selectedFiltersSprout.length>0){
-
-                    axios({
-                        method: "post",
-                        url: "/varieties-filter",
-                        data: {
-                                selectedFiltersFlowering: this.selectedFiltersFlowering,
-                                selectedFiltersFructification: this.selectedFiltersFructification,
-                                selectedFiltersTubersAtHarvest: this.selectedFiltersTubersAtHarvest,
-                                selectedFiltersSprout: this.selectedFiltersSprout,
-                            },
-                        
-                    }).then(
-                        result => {
-                            console.log(result.data);
-                            this.varietiesFilter = result.data
+                axios({
+                    method: "post",
+                    url: "/varieties-filter",
+                    data: {
+                            selectedFiltersFlowering: this.selectedFiltersFlowering,
+                            selectedFiltersFructification: this.selectedFiltersFructification,
+                            selectedFiltersTubersAtHarvest: this.selectedFiltersTubersAtHarvest,
+                            selectedFiltersSprout: this.selectedFiltersSprout,
+        
                         },
-                        error => {
-                            console.log("error filter", error);
-                        }
-                    );
-                }
+                    
+                }).then(
+                    result => {
+                        console.log(result.data);
+                        this.varietiesFilter = result.data
+
+                    },
+                    error => {
+                        console.log("error filter", error);
+                    }
+                );
             }
         }
     };

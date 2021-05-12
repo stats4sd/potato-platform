@@ -10,7 +10,7 @@ class FarmerController extends Controller
 {
     public function index()
     {
-        $farmers =  Farmer::select('id', 'name')->get();
+        $farmers = Farmer::with('community.district.province.region')->withCount('varieties')->get();
 
         return $farmers->toJson();
     }

@@ -1,5 +1,8 @@
 
 @extends('layouts.app')
+@section('styles')
+
+@endsection
 @section('content')
 
 <div class="container">
@@ -10,6 +13,7 @@
     </div>
 </div>
 
+<farmer-list ></farmer-list>
 
 
 @endsection

@@ -8,16 +8,24 @@
             >
                 <div class="sq-dummy" />
                 <div class="sq">
-                    <a
-                        :href="'storage/'+coverImage"
+                    <!-- <a
+                        :href="MixAppUrl+'/storage/'+coverImage"
                         target="_blank"
                         class="d-block w-100 h-100 pr-3"
-                    >
+                    > -->
                         <img
                             class="image-sq"
-                            :src="'storage/'+coverImage"
+                            :src="MixAppUrl+'/storage/'+coverImage"
+                            @click="OpenModal()"
                         >
-                    </a>
+                    <!-- </a> -->
+                     <b-modal id="modal"  v-model="modalShow" hide-footer="true" size='xl' >
+                        <img
+                      
+                            class="image-sq"
+                            :src="MixAppUrl+'/storage/'+coverImage"
+                        >
+                    </b-modal>
                 </div>
             </div>
         </div>
@@ -51,6 +59,7 @@
 </template>
 
 <script>
+
     export default {
         props: {
             variables: {
@@ -65,6 +74,19 @@
                 type: String,
                 default: null,
             },
+        },
+        data() {
+            return {
+                MixAppUrl:process.env.MIX_APP_URL,
+                modalShow:false,
+            }
+        },
+        methods: {
+            OpenModal(){
+        
+                this.modalShow =true;
+                
+            }
         }
     }
 </script>

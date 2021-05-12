@@ -8,10 +8,10 @@ use Illuminate\Http\Request;
 class FarmerPageController extends Controller
 {
     
-    public function index($id)
+    public function index()
     {
-        $farmer =  Farmer::with(['varieties'])->find($id);
-
+        $farmers =  Farmer::with('varieties')->get();
+       
         return view('farmer');
     }
 }

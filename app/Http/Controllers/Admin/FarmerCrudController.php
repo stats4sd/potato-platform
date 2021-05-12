@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\FarmerRequest;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Request;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
@@ -81,6 +82,7 @@ class FarmerCrudController extends CrudController
         $this->setupCreateOperation();
     }
 
+
     protected function setupUploadPhotoRoutes($segment, $routeName, $controller)
     {
         Route::get($segment.'/upload-photo', [
@@ -95,6 +97,56 @@ class FarmerCrudController extends CrudController
             'operation' => 'UploadPhoto',
         ]);
 
+    }
+    protected function setupCreatePhotoRoutes($segment, $routeName, $controller)
+    {
+        Route::get($segment.'/{id}/create-photo', [
+            'as'        => $routeName.'.getCreatePhoto',
+            'uses'      => $controller.'@getCreatePhotoForm',
+            'operation' => 'CreatePhoto',
+        ]);
+        Route::post($segment.'/{id}/create-photo', [
+            'as'        => $routeName.'.postCreatePhoto',
+            'uses'      => $controller.'@postCreatePhotoForm',
+            'operation' => 'CreatePhoto',
+        ]);
+    }
+    protected function setupCreatePhotoDefaults()
+    {
+        $this->crud->allowAccess('CreatePhoto');
+
+        $this->crud->operation('list', function() {
+          $this->crud->addButtonFromView('line', 'create_photo', 'create_photo', 'beginning');  
+        });
+    }
+    public function getCreatePhotoForm($id) 
+    {
+        $this->crud->hasAccessOrFail('update');
+        $this->crud->setOperation('CreatePhoto');
+
+        // get the info for that entry
+        $this->data['entry'] = $this->crud->getEntry($id);
+        $this->data['crud'] = $this->crud;
+        $this->data['title'] = 'CreatePhoto '.$this->crud->entity_name;
+
+        return view('vendor.backpack.crud.create_photo', $this->data);
+    }
+    public function postCreatePhotoForm(Request $request = null)
+    {
+        $this->crud->hasAccessOrFail('update');
+
+        // TODO: do whatever logic you need here
+        // ...
+        // You can use 
+        // - $this->crud
+        // - $this->crud->getEntry($id)
+        // - $request
+        // ...
+
+        // show a success message
+        \Alert::success('Moderation saved for this entry.')->flash();
+
+        return \Redirect::to($this->crud->route);
     }
 
     public function getUploadPhotoForm() 
@@ -113,6 +165,7 @@ class FarmerCrudController extends CrudController
         $this->crud->query =  $this->crud->query->orderByRaw('(photo is NULL) desc');
         $this->crud->denyAccess('create');
         $this->crud->denyAccess('delete');
+   
 
         $this->crud->addFilter([
             'type'  => 'simple',

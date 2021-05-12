@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Choice;
 use App\Models\Flowering;
+use App\Models\Fructification;
+use App\Models\Sprout;
 use App\Models\TubersAtHarvest;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
