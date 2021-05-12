@@ -1,11 +1,11 @@
 <template>
     <div>
         <h2 class="mb-4">
-            Variedad {{ variety.id }} {{variety.common_name}}
+            <!-- Variedad {{ variety.id }} {{variety.common_name}} -->
         </h2>
         <farmer-card
             id="farmers"
-            title="Guardián"
+            :title="'Variedad ' +variety.id +' ' +variety.common_name"
             :sub-sections="farmer"
         />
         <details-section

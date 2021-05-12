@@ -28,7 +28,7 @@ class CatalogueController extends Controller
        
         //Could refactor this to hold variable names and labels in a database table...
         $farmerLabels = [
-            'name' => "Nombre",
+            'name' => "Guardián",
             'community' => "Comunidad",
             'district' => "Distrito",
             'province' => "Provincia",
