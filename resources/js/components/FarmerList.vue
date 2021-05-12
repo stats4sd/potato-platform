@@ -1,8 +1,8 @@
 <template>
 <div>
     <div class="container">
-        <p>Seleccione las siguientes regiones para filtrar los agricultores </p>
-        <h5>Regiones</h5>
+        <p>AGUAPAN es una asociación de guardianes cuyo objetivo es el fomento, la conservación y el uso de la inmensa variabilidad de papas nativas del centro de Perú. </p>
+        <p>Selecciona una región para conocer a los guardianes. Haz clic en su perfil para ver más información.</p>
         <b-button-group size="sm mb-4">
             <b-button
                 v-for="region in regions"
@@ -55,7 +55,8 @@
                 <p class="my-4"><b>Región </b>{{ farmerDetails.community.district.province.region.name }}</p>
                 <p class="my-4"><b>Pertenece a AGUAPAN desde </b>{{ farmerDetails.aguapan_year}}</p>
                 <p class="my-4"><b>Número de variedades en la base de datos </b>{{ farmerDetails.varieties_count }}</p>
-             
+                <p class="my-4"><i>Haz clic aquí para ver más información sobre sus variedades</i></p>
+
             </b-modal>
     </b-row>
     </div>
