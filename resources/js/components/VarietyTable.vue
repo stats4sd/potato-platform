@@ -77,7 +77,7 @@
                         v-b-toggle="'collapse-mezcla'"
                         class="bg-info text-left text-white w-100 px-4"
                     >
-                        <div> Campana </div>
+                        <div> Campaña </div>
                     </b-button>
                     <b-collapse
                         :id="'collapse-mezcla'"
@@ -177,7 +177,7 @@
         </div>
         <div class="col-8">
             <div class="container">
-            Showing  {{ varietiesFilter.length }} entries
+            Mostrando  {{ varietiesFilter.length }} variedades
                 <b-table
                     id="variety-teble"
                     ref="selectableTable"
@@ -263,7 +263,7 @@ import VarietyFilter from './VarietyFilter.vue';
                 ],
                 varieties: [],
                 campana: [{
-                    label: "Anos",
+                    label: "Campaña",
                     options :[
                         {text:"2019-2020", value:"2019_2020", disabled: false },
                         {text:"2020-2021", value:"2020_2021", disabled: false },
