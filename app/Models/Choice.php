@@ -40,6 +40,11 @@ class Choice extends Model
         return $this->belongsToMany(Variable::class, '_link_variables_choices');
     }
 
+    public function flowerings()
+    {
+        return $this->hasMany(Flowering::class);
+    }
+
     /*
     |--------------------------------------------------------------------------
     | SCOPES

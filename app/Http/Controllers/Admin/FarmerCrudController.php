@@ -59,17 +59,28 @@ class FarmerCrudController extends CrudController
     protected function setupCreateOperation()
     {
         CRUD::setValidation(FarmerRequest::class);
-
-         // CRUD::setFromDb(); // fields
-         CRUD::addField(
+        if(backpack_user()->permission==1){
+        CRUD::addField(
             [   // Upload
                 'name'      => 'photo',
                 'label'     => 'Suba la foto del agricultor',
                 'type'      => 'upload',
                 'upload'    => true,
                 'disk'      => 'public',
-            ]
-        );
+                ]
+            );
+        }
+        if(backpack_user()->permission==2){
+            CRUD::addFields([
+                [   
+                    'name'      => 'id',
+                    'label'     => 'Codigo',
+                    'type'      => 'text',
+             
+                ]
+            ]);
+           
+        }
     }
     /**
      * Define what happens when the Update operation is loaded.
@@ -98,63 +109,12 @@ class FarmerCrudController extends CrudController
         ]);
 
     }
-    protected function setupCreatePhotoRoutes($segment, $routeName, $controller)
-    {
-        Route::get($segment.'/{id}/create-photo', [
-            'as'        => $routeName.'.getCreatePhoto',
-            'uses'      => $controller.'@getCreatePhotoForm',
-            'operation' => 'CreatePhoto',
-        ]);
-        Route::post($segment.'/{id}/create-photo', [
-            'as'        => $routeName.'.postCreatePhoto',
-            'uses'      => $controller.'@postCreatePhotoForm',
-            'operation' => 'CreatePhoto',
-        ]);
-    }
-    protected function setupCreatePhotoDefaults()
-    {
-        $this->crud->allowAccess('CreatePhoto');
-
-        $this->crud->operation('list', function() {
-          $this->crud->addButtonFromView('line', 'create_photo', 'create_photo', 'beginning');  
-        });
-    }
-    public function getCreatePhotoForm($id) 
-    {
-        $this->crud->hasAccessOrFail('update');
-        $this->crud->setOperation('CreatePhoto');
-
-        // get the info for that entry
-        $this->data['entry'] = $this->crud->getEntry($id);
-        $this->data['crud'] = $this->crud;
-        $this->data['title'] = 'CreatePhoto '.$this->crud->entity_name;
-
-        return view('vendor.backpack.crud.create_photo', $this->data);
-    }
-    public function postCreatePhotoForm(Request $request = null)
-    {
-        $this->crud->hasAccessOrFail('update');
-
-        // TODO: do whatever logic you need here
-        // ...
-        // You can use 
-        // - $this->crud
-        // - $this->crud->getEntry($id)
-        // - $request
-        // ...
-
-        // show a success message
-        \Alert::success('Moderation saved for this entry.')->flash();
-
-        return \Redirect::to($this->crud->route);
-    }
 
     public function getUploadPhotoForm() 
     {
-      
         $this->crud->setPageLengthMenu([[10, 25, 50, 100, -1], [10, 25, 50, 100, 'backpack::crud.all']],);
         $this->data['crud'] = $this->crud;
-    
+        
         // load the view from /resources/views/vendor/backpack/crud/ if it exists, otherwise load the one in the package
         return view('vendor.backpack.crud.upload_photo', $this->data);
     
@@ -165,7 +125,6 @@ class FarmerCrudController extends CrudController
         $this->crud->query =  $this->crud->query->orderByRaw('(photo is NULL) desc');
         $this->crud->denyAccess('create');
         $this->crud->denyAccess('delete');
-   
 
         $this->crud->addFilter([
             'type'  => 'simple',
@@ -229,6 +188,7 @@ class FarmerCrudController extends CrudController
     protected function setupUploadPhotoDefaults()
     {
         $this->crud->allowAccess('UploadPhoto');
+        $this->crud->allowAccess('CreatePhoto');
 
         $this->crud->operation('UploadPhoto', function () {
             $this->crud->setCurrentOperation('list');

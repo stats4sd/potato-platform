@@ -148,6 +148,9 @@ class CatalogueController extends Controller
             $request->selectedFiltersFructification,
             $request->selectedFiltersTubersAtHarvest,
             $request->selectedFiltersSprout,
+            // $request->selectedFiltersCampana,
+            // $request->selectedFiltersMezcla,
+            
         
         ) as $key => $value) {
             if ($value !== []) {
@@ -155,10 +158,10 @@ class CatalogueController extends Controller
             }
         }
         if ($filterSet) {
-            $variety_flowering = $this->getVarietyWhereOptions($request->selectedFiltersFlowering, 'App\\Models\\Flowering');
-            $variety_fructation = $this->getVarietyWhereOptions($request->selectedFiltersFructification, 'App\\Models\\Fructification');
-            $variety_tubers_at_harvest = $this->getVarietyWhereOptions($request->selectedFiltersTubersAtHarvest, 'App\\Models\\TubersAtHarvest');
-            $variety_sprout = $this->getVarietyWhereOptions($request->selectedFiltersSprout, 'App\\Models\\Sprout');
+            $variety_flowering = $this->getVarietyWhereOptions($request->selectedFiltersFlowering, 'App\\Models\\Flowering', $request->selectedFiltersCampana,);
+            $variety_fructation = $this->getVarietyWhereOptions($request->selectedFiltersFructification, 'App\\Models\\Fructification', $request->selectedFiltersCampana,);
+            $variety_tubers_at_harvest = $this->getVarietyWhereOptions($request->selectedFiltersTubersAtHarvest, 'App\\Models\\TubersAtHarvest', $request->selectedFiltersCampana,);
+            $variety_sprout = $this->getVarietyWhereOptions($request->selectedFiltersSprout, 'App\\Models\\Sprout',  $request->selectedFiltersCampana,);
 
             return array_merge($variety_flowering, $variety_fructation, $variety_tubers_at_harvest, $variety_sprout);
         }

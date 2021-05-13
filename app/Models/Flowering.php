@@ -43,6 +43,16 @@ class Flowering extends Model
         return $this->belongsTo(Variety::class);
     }
 
+    public function choicePlantGrowth()
+    {
+        return $this->belongsTo(Choice::class, 'plant_growth');
+    }
+
+    public function choiceLeafDissection()
+    {
+        return $this->belongsTo(Choice::class, 'leaf_dissection');
+    }
+
     /*
     |--------------------------------------------------------------------------
     | SCOPES

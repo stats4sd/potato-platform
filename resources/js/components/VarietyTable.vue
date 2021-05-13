@@ -16,6 +16,7 @@
                     v-model="tableFilter"
                     placeholder="Buscar variedades"
                     class="bg-light border-right-0"
+                    debounce="500"
                 />
                 <template #append>
                     <b-input-group-text class="bg-light border-left-0">

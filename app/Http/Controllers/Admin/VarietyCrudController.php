@@ -195,7 +195,7 @@ class VarietyCrudController extends CrudController
 
     public function setupUploadAdditionalInfoOperation()
    {     
-    CRUD::addColumns([
+        CRUD::addColumns([
             [  
                 'name'      => 'id',
                 'label'     => 'Código Variedad',

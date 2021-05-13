@@ -33,12 +33,13 @@
 		@include('crud::inc.grouped_errors')
 
 		  <form method="post"
-		  		action="{{ url($crud->route) }}"
+		  		action="{{ url($crud->route.'/'.$id) }}"
 				@if ($crud->hasUploadFields('create'))
 				enctype="multipart/form-data"
 				@endif
 		  		>
 			  {!! csrf_field() !!}
+			  {!! method_field('PUT') !!}
 		      <!-- load the view from the application if it exists, otherwise load the one in the package -->
 		      @if(view()->exists('vendor.backpack.crud.form_content'))
 		      	@include('vendor.backpack.crud.form_content', [ 'fields' => $crud->fields(), 'action' => 'create' ])
