@@ -11,10 +11,6 @@ use Illuminate\Support\Facades\DB;
 
 class CatalogueController extends Controller
 {
-    public function index()
-    {
-    }
-
     public function getVarietyDetails(Request $request)
     {
         $variety = Variety::findOrFail($request->variety_id);

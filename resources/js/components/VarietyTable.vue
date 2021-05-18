@@ -310,6 +310,7 @@ import VarietyFilter from './VarietyFilter.vue';
                 this.varieties = response.data;
                 this.varietiesFilter = this.varieties;
                 this.isBusy=false;
+                console.log( this.varieties)
     
             });
             axios.get("api/parameter-filters").then(response => {
@@ -416,28 +417,50 @@ import VarietyFilter from './VarietyFilter.vue';
                 this.sprout.forEach(parameter => {
                     this.badgeFilterSprout[parameter.label] = this.selectedFiltersSprout[parameter.value];
                 });
+             
+               for (const [key, value] of Object.entries(this.selectedFiltersFlowering)) {
+                   if(value.length>0){
+                    this.varietiesFilter = this.varieties.filter(item => item.flowerings.key.includes(value))
+                       console.log(`${key}: ${value}`);
+                   }
+                }
 
-                axios({
-                    method: "post",
-                    url: "/varieties-filter",
-                    data: {
-                            selectedFiltersFlowering: this.selectedFiltersFlowering,
-                            selectedFiltersFructification: this.selectedFiltersFructification,
-                            selectedFiltersTubersAtHarvest: this.selectedFiltersTubersAtHarvest,
-                            selectedFiltersSprout: this.selectedFiltersSprout,
+                                
+                    // let values= Object.values(this.selectedFiltersFlowering[i]);
+                    // var equalToOne = values.filter(function (item) {
+                    //     return item == 1;
+                    // })
+              
+                   
+                if (this.selectedFiltersFlowering.length>0) {
+                    this.selectedFiltersFlowering.forEach(flowering => {
+                        this.varietiesFilter = varieties.filter(item => item.flowerings.flowering.includes(flowering))
+                        
+                    });
+                }
+
+
+                // axios({
+                //     method: "post",
+                //     url: "/varieties-filter",
+                //     data: {
+                //             selectedFiltersFlowering: this.selectedFiltersFlowering,
+                //             selectedFiltersFructification: this.selectedFiltersFructification,
+                //             selectedFiltersTubersAtHarvest: this.selectedFiltersTubersAtHarvest,
+                //             selectedFiltersSprout: this.selectedFiltersSprout,
         
-                        },
+                //         },
                     
-                }).then(
-                    result => {
-                        console.log(result.data);
-                        this.varietiesFilter = result.data
+                // }).then(
+                //     result => {
+                //         console.log(result.data);
+                //         this.varietiesFilter = result.data
 
-                    },
-                    error => {
-                        console.log("error filter", error);
-                    }
-                );
+                //     },
+                //     error => {
+                //         console.log("error filter", error);
+                //     }
+                // );
             }
         }
     };
