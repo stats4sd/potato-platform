@@ -53,6 +53,90 @@ class Flowering extends Model
         return $this->belongsTo(Choice::class, 'leaf_dissection');
     }
 
+    public function choiceNumberLateralLeaflets()
+    {
+        return $this->belongsTo(Choice::class, 'number_lateral_leaflets');
+    }
+    public function choiceNumberIntermediateLeaflets()
+    {
+        return $this->belongsTo(Choice::class, 'number_intermediate_leaflets');
+    }
+    public function choiceNumberLeafletsOnPetioles()
+    {
+        return $this->belongsTo(Choice::class, 'number_leaflets_on_petioles');
+    }
+    public function choiceColorStem()
+    {
+        return $this->belongsTo(Choice::class, 'color_stem');        
+    }
+    public function choiceShapeStemWings()
+    {
+        return $this->belongsTo(Choice::class, 'shape_stem_wings');
+    }
+    public function choiceDegreeFloweringPlant()
+    {
+        return $this->belongsTo(Choice::class, 'degree_flowering_plant');
+    }
+    public function choiceShapeCorolla()
+    {
+        return $this->belongsTo(Choice::class, 'shape_corolla');
+    }
+    public function choiceColorPredominantFlower()
+    {
+        return $this->belongsTo(Choice::class, 'color_predominant_flower');
+    }
+    public function choiceIntensityColorPredominantFlower()
+    {
+        return $this->belongsTo(Choice::class, 'intensity_color_predominant_flower');
+    }
+    public function choiceColorSecondaryFlower()
+    {
+        return $this->belongsTo(Choice::class, 'color_secondary_flower');
+    }
+    public function choiceDistributionColorSecodaryFlower()
+    {
+        return $this->belongsTo(Choice::class, 'distribution_color_secodary_flower');
+    }
+    public function choicePigmentationAnthers()
+    {
+        return $this->belongsTo(Choice::class, 'pigmentation_anthers');
+    }
+    public function choicePigmentationPistil()
+    {
+        return $this->belongsTo(Choice::class, 'pigmentation_pistil');
+    }
+    public function choiceColorChalice()
+    {
+        return $this->belongsTo(Choice::class, 'color_chalice');
+    }
+        
+    public function choiceColorPedicel()
+    {
+        return $this->belongsTo(Choice::class, 'color_pedicel');
+    }
+        
+    public function choiceLevelToleranceLateBlight()
+    {
+        return $this->belongsTo(Choice::class, 'level_tolerance_late_blight');
+    }
+        
+    public function choiceLevelToleranceHailstorms()
+    {
+        return $this->belongsTo(Choice::class, 'level_tolerance_hailstorms');
+    }
+    public function choiceLevelToleranceFrost()
+    {
+        return $this->belongsTo(Choice::class, 'level_tolerance_frost');
+    }
+    public function choiceLevelToleranceDrought()
+    {
+        return $this->belongsTo(Choice::class, 'level_tolerance_drought');
+    }
+    public function choiceCampana()
+    {
+    return $this->belongsTo(Choice::class, 'number_leaflets_on_petioles');        
+    }
+
     /*
     |--------------------------------------------------------------------------
     | SCOPES

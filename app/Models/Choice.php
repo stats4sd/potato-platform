@@ -45,6 +45,21 @@ class Choice extends Model
         return $this->hasMany(Flowering::class);
     }
 
+    public function fructifications()
+    {
+        return $this->hasMany(Fructification::class);
+    }
+
+    public function tubersAtHarvests()
+    {
+        return $this->hasMany(TubersAtHarvest::class);
+    }
+
+    public function sprouts()
+    {
+        return $this->hasMany(Sprout::class);
+    }
+
     /*
     |--------------------------------------------------------------------------
     | SCOPES

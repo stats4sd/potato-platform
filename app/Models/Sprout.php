@@ -40,6 +40,27 @@ class Sprout extends Model
         return $this->belongsTo(Variety::class);
     }
 
+    public function choiceColorPredominantTuberShoot()
+    {
+        return $this->belongsTo(Choice::class, 'color_predominant_tuber_shoot');
+    }
+
+    public function choiceColorSecondaryTuberShoot()
+    {
+        return $this->belongsTo(Choice::class, 'color_secondary_tuber_shoot');
+    }
+
+    public function choiceDistributionColorSecodaryTuberShoot()
+    {
+        return $this->belongsTo(Choice::class, 'distribution_color_secodary_tuber_shoot');
+    }
+
+    public function choiceCampana()
+    {
+        return $this->belongsTo(Choice::class, 'campana');
+    }
+
+
     /*
     |--------------------------------------------------------------------------
     | SCOPES
