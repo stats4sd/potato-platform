@@ -17,7 +17,6 @@
                     placeholder="Buscar variedades"
                     class="bg-light border-right-0"
                     debounce="500"
-                    @updateFilter="filterVariety"
                 />
                 <template #append>
                     <b-input-group-text class="bg-light border-left-0">
@@ -283,13 +282,14 @@ import VarietyFilter from './VarietyFilter.vue';
             });  
         },
         watch:{
-             tableFilter(){
-                this.varietiesFilter = this.varieties;
-      
-                this.varietiesFilter =   this.varietiesFilter.filter((item) => { 
-                        return item.id.includes(this.tableFilter)
-                    })
-             }
+            tableFilter(){
+                // this.varietiesFilter = this.varieties;
+                // this.varietiesFilter =   this.varietiesFilter.filter((item) => { 
+                //     return item.id.includes(this.tableFilter) 
+                // })
+                this.filterVariety();
+                
+            }
         },
         methods: {
             onRowSelected(items) {
@@ -317,7 +317,11 @@ import VarietyFilter from './VarietyFilter.vue';
             
             
             filterVariety(){
-                 this.varietiesFilter = this.varieties;
+
+                this.varietiesFilter = this.varieties;
+                this.varietiesFilter =   this.varietiesFilter.filter((item) => { 
+                    return item.id.includes(this.tableFilter) 
+                })
                
                 for (const [key, value] of Object.entries(this.selectedFiltersFlowering)) {
                     if(value.length>0){
