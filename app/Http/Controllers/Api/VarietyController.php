@@ -11,7 +11,8 @@ class VarietyController extends Controller
 {
     public function index()
     {
-        $varieties =  Variety::with('farmer.community.district.province.region')
+        $varieties =  Variety::whereHas('flowerings')->whereHas('fructifications')
+        ->whereHas('tubersAtHarvests')->whereHas('sprouts')->with('farmer.community.district.province.region')
         ->with('flowerings.choicePlantGrowth', 
         'flowerings.choiceLeafDissection',
         'flowerings.choiceNumberLateralLeaflets',
@@ -61,9 +62,7 @@ class VarietyController extends Controller
         'sprouts.choiceColorSecondaryTuberShoot',
         'sprouts.choiceDistributionColorSecodaryTuberShoot',
         'sprouts.choiceCampana',
-        )
-        ->whereHas('flowerings')->whereHas('fructifications')
-        ->whereHas('tubersAtHarvests')->whereHas('sprouts')->get();
+        )->get();
 
         return $varieties->toJson();
     }

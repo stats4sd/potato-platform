@@ -96,10 +96,10 @@ class ParameterFilterController extends Controller
     public static function getColumnsFructification()
     {
         return array(
-            'Bayas' => 'bayas',
-            'Color de las baya' => 'color_berries',
-            'Forma de la baya' => 'shape_berry',
-            'La madurez' => 'maturity_variety'
+            'bayas' => 'Bayas',
+            'color_berries' => 'Color de las baya',
+            'shape_berry' => 'Forma de la baya',
+            'maturity_variety' => 'La madurez'
         );
     }
 

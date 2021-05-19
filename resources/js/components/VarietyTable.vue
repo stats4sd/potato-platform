@@ -1,12 +1,12 @@
 <template>
 <div>
     <div class="container">
-        <br>
-            Esta página presenta información sobre las variedades que figuran actualmente en la base de datos.
-        </br>
-        <br>
+        <p>
+            Esta página presenta información sope las variedades que figuran actualmente en la base de datos.
+        </p>
+        <p>
             Utilice la caja de búsqueda o los filtros de la columna de la izquierda para ver variedades por sus características.
-        </br>
+        </p>
         <p>
             Seleccione una variedad en la tabla de abajo para ver información detallada y fotos. 
         </p>
@@ -17,6 +17,7 @@
                     placeholder="Buscar variedades"
                     class="bg-light border-right-0"
                     debounce="500"
+                    @updateFilter="filterVariety"
                 />
                 <template #append>
                     <b-input-group-text class="bg-light border-left-0">
@@ -26,19 +27,6 @@
             </b-input-group>
         </div>
 
-        <!-- <div v-for="(parameter, index) in badgeFilterFlowering" :key="parameter.index">     
-            <h4><b-badge v-if="parameter.length" href="#" class="bg-info text-white">{{ index }} : {{ parameter.join(', ') }}</b-badge></h4>
-        </div>
-        <div v-for="(parameter, index) in badgeFilterFructification" :key="parameter.index">     
-            <h4><b-badge v-if="parameter.length" href="#" class="bg-info text-white">{{ index }} : {{ parameter.join(', ') }}</b-badge></h4>
-        </div>
-        <div v-for="(parameter, index) in badgeFilterTubersAtHarvest" :key="parameter.index">     
-            <h4><b-badge v-if="parameter.length" href="#" class="bg-info text-white">{{ index }} : {{ parameter.join(', ') }}</b-badge></h4>
-        </div>
-        <div v-for="(parameter, index) in badgeFilterSprout" :key="parameter.index">     
-            <h4><b-badge v-if="parameter.length" href="#" class="bg-info text-white">{{ index }} : {{ parameter.join(', ') }}</b-badge></h4>
-        </div> -->
-       
     </div>
     <div class="row">
         <div class="col-2">
@@ -55,44 +43,6 @@
                     </h4>
                 </div>
                 <div class="d-flex flex-column">
-                    <b-button
-                        v-b-toggle="'collapse-mezcla'"
-                        class="bg-info text-left text-white w-100 px-4"
-                    >
-                        <div> Variedad </div>
-                    </b-button>
-                    <b-collapse
-                        :id="'collapse-mezcla'"
-                        class="bg-light"
-                    >
-                        <div v-for="param in mezclas" :key="param.value">
-                        <variety-filter
-                        :parameter="param"
-                        v-model="selectedFiltersMezcla[param.value]"
-                        @updateFilter="filterMezcla"
-                        ></variety-filter>
-
-                        </div>
-                    </b-collapse>
-                    <b-button
-                        v-b-toggle="'collapse-mezcla'"
-                        class="bg-info text-left text-white w-100 px-4"
-                    >
-                        <div> Campaña </div>
-                    </b-button>
-                    <b-collapse
-                        :id="'collapse-mezcla'"
-                        class="bg-light"
-                    >
-                        <div v-for="param in campana" :key="param.value">
-                        <variety-filter
-                        :parameter="param"
-                        v-model="selectedFiltersCampana[param.value]"
-                        @updateFilter="filterCampana"
-                        ></variety-filter>
-
-                        </div>
-                    </b-collapse>
                     <b-button
                         v-b-toggle="'collapse-flowering'"
                         class="bg-info text-left text-white w-100 px-4"
@@ -192,7 +142,6 @@
                     selectable
                     :per-page="perPage"
                     :current-page="currentPage"
-                    :filter="tableFilter"
                     @row-selected="onRowSelected"
                     :busy="isBusy"
                     
@@ -263,14 +212,6 @@ import VarietyFilter from './VarietyFilter.vue';
                     }
                 ],
                 varieties: [],
-                campana: [{
-                    label: "Campaña",
-                    options :[
-                        {text:"2019-2020", value:"2019_2020", disabled: false },
-                        {text:"2020-2021", value:"2020_2021", disabled: false },
-                    ],
-                    value: "anos"
-                }],
                 varietiesFilter: [],
                 selected: null,
                 selectedValues: null,
@@ -284,16 +225,6 @@ import VarietyFilter from './VarietyFilter.vue';
                 fructification:[],
                 tubersAtHarvest:[],
                 sprout:[],
-                mezclas:[{
-                    label: "Tipo de variedad",
-                    options :[
-                        {text:"Mezcla", value:"mezcla", disabled: false },
-                        {text:"Sin Mezcla", value:"no_mezclas", disabled: false },
-                    ],
-                    value: "mezcla"
-                }],
-                selectedFiltersMezcla: {},
-                selectedFiltersCampana:{},
                 selectedFiltersFlowering: {},
                 selectedFiltersFructification: {},
                 selectedFiltersTubersAtHarvest: {},
@@ -351,6 +282,15 @@ import VarietyFilter from './VarietyFilter.vue';
                 });
             });  
         },
+        watch:{
+             tableFilter(){
+                this.varietiesFilter = this.varieties;
+      
+                this.varietiesFilter =   this.varietiesFilter.filter((item) => { 
+                        return item.id.includes(this.tableFilter)
+                    })
+             }
+        },
         methods: {
             onRowSelected(items) {
                 this.selected = items[items.length - 1];
@@ -368,99 +308,52 @@ import VarietyFilter from './VarietyFilter.vue';
                         this.selectedValues = result.data.values;
                         this.selectedLabels = result.data.labels;
 
-                        // this.floweringPhotos =  JSON.parse(this.flowering.photos);
                     },
                     error => {
                         console.log(error);
                     }
                 );
             },
-            filterMezcla(){
-                var varieties = this.varieties;
-                if(this.selectedFiltersMezcla.mezcla.length==0) {
-                    this.varietiesFilter= varieties
-                }
-                  if(this.selectedFiltersMezcla.mezcla.includes('mezcla')) {
-                        var filterVarieties = varieties.filter(item => item.id.includes("."))
-                        this.varietiesFilter = filterVarieties
-                    }
-    
-                    if(this.selectedFiltersMezcla.mezcla.includes('no_mezclas')) {
-                        var filterVarieties = varieties.filter(item => !item.id.includes("."))
-                        this.varietiesFilter=filterVarieties
-                    }
-
-            },
-
-            filterCampana(){
-                var varieties = this.varieties;
             
-                if(this.selectedFiltersCampana.anos.length>0) {
-             
-                    this.varietiesFilter = varieties.filter(item => item.flowerings[0].campana.includes(this.selectedFiltersCampana.anos))
-                }
-            },
             
             filterVariety(){
-                this.flowering.forEach(parameter => {
-                    this.badgeFilterFlowering[parameter.label] = this.selectedFiltersFlowering[parameter.value];
-                });
-
-                this.fructification.forEach(parameter => {
-                    this.badgeFilterFructification[parameter.label] = this.selectedFiltersFructification[parameter.value];
-                });
-
-                this.tubersAtHarvest.forEach(parameter => {
-                    this.badgeFilterTubersAtHarvest[parameter.label] = this.selectedFiltersTubersAtHarvest[parameter.value];
-                });
-
-                this.sprout.forEach(parameter => {
-                    this.badgeFilterSprout[parameter.label] = this.selectedFiltersSprout[parameter.value];
-                });
-             
-               for (const [key, value] of Object.entries(this.selectedFiltersFlowering)) {
-                   if(value.length>0){
-                    this.varietiesFilter = this.varieties.filter(item => item.flowerings.key.includes(value))
-                       console.log(`${key}: ${value}`);
-                   }
+                 this.varietiesFilter = this.varieties;
+               
+                for (const [key, value] of Object.entries(this.selectedFiltersFlowering)) {
+                    if(value.length>0){
+                        this.varietiesFilter =   this.varietiesFilter.filter((item) => { 
+                            return Object.values(value).includes(item.flowerings[0][key]) 
+                        })
+                    }
                 }
 
+                for (const [key, value] of Object.entries(this.selectedFiltersFructification)) {
+                    if(value.length>0){
+                        this.varietiesFilter =   this.varietiesFilter.filter((item) => { 
+                            return Object.values(value).includes(item.fructifications[0][key]) 
+                        })
+                    }
+                }
+
+                for (const [key, value] of Object.entries(this.selectedFiltersTubersAtHarvest)) {
+                    if(value.length>0){
+                        this.varietiesFilter =   this.varietiesFilter.filter((item) => { 
+                            return Object.values(value).includes(item.tubers_at_harvests[0][key]) 
+                        })
+                    }
+                }
+
+                 for (const [key, value] of Object.entries(this.selectedFiltersSprout)) {
+                    if(value.length>0){
+                        this.varietiesFilter =   this.varietiesFilter.filter((item) => { 
+                            return Object.values(value).includes(item.sprouts[0][key]) 
+                        })
+                    }
+                }
                                 
-                    // let values= Object.values(this.selectedFiltersFlowering[i]);
-                    // var equalToOne = values.filter(function (item) {
-                    //     return item == 1;
-                    // })
               
-                   
-                if (this.selectedFiltersFlowering.length>0) {
-                    this.selectedFiltersFlowering.forEach(flowering => {
-                        this.varietiesFilter = varieties.filter(item => item.flowerings.flowering.includes(flowering))
-                        
-                    });
-                }
 
 
-                // axios({
-                //     method: "post",
-                //     url: "/varieties-filter",
-                //     data: {
-                //             selectedFiltersFlowering: this.selectedFiltersFlowering,
-                //             selectedFiltersFructification: this.selectedFiltersFructification,
-                //             selectedFiltersTubersAtHarvest: this.selectedFiltersTubersAtHarvest,
-                //             selectedFiltersSprout: this.selectedFiltersSprout,
-        
-                //         },
-                    
-                // }).then(
-                //     result => {
-                //         console.log(result.data);
-                //         this.varietiesFilter = result.data
-
-                //     },
-                //     error => {
-                //         console.log("error filter", error);
-                //     }
-                // );
             }
         }
     };

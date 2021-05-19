@@ -111,6 +111,10 @@ class VariableCrudController extends CrudController
                 'type' => 'text',
                 'name'  => 'model',
             ],  
+            [
+                'type' => 'checkbox',
+                'name'  => 'json',
+            ], 
         ]); 
         
 
