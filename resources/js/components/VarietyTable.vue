@@ -212,6 +212,7 @@ import VarietyFilter from './VarietyFilter.vue';
                 ],
                 varieties: [],
                 varietiesFilter: [],
+                farmers: [],
                 selected: null,
                 selectedValues: null,
                 selectedLabels: null,
@@ -234,44 +235,35 @@ import VarietyFilter from './VarietyFilter.vue';
         },
         mounted() {
             axios.get("api/varieties").then(response => {
+                this.isBusy=false;
                 this.varieties = response.data;
                 this.varietiesFilter = this.varieties;
-                this.isBusy=false;
-                console.log( this.varieties)
-    
             });
+  
             axios.get("api/parameter-filters").then(response => {
                 this.parameters = response.data;
                 this.flowering =  this.parameters['Floración'];
 
                 this.flowering.forEach(parameter => {
                     this.selectedFiltersFlowering[parameter.value] = [];
-                 
-
                 });
 
                 this.fructification =  this.parameters['Fructificación'];
 
                 this.fructification.forEach(parameter => {
-                    
                     this.selectedFiltersFructification[parameter.value] = [];
-
                 });
 
                 this.tubersAtHarvest =  this.parameters['Tubérculos a la Cosecha'];
 
                 this.tubersAtHarvest.forEach(parameter => {
-                    
                     this.selectedFiltersTubersAtHarvest[parameter.value] = [];
-
                 });
 
                 this.sprout =  this.parameters['Brotamiento'];
 
                 this.sprout.forEach(parameter => {
-                    
                     this.selectedFiltersSprout[parameter.value] = [];
-
                 });
             });  
         },
@@ -283,6 +275,23 @@ import VarietyFilter from './VarietyFilter.vue';
         methods: {
             onRowSelected(items) {
                 this.selected = items[items.length - 1];
+                axios({
+                    method: "post",
+                    url: "/variety-details",
+                    data: {
+                        variety_id: this.selected.id
+                    }
+                }).then(
+                    result => {
+                        console.log("result", result.data);
+                        this.selectedValues  = result.data.values;
+                        this.selectedLabels = result.data.labels;
+                       
+                    },
+                    error => {
+                        console.log(error);
+                    }
+                );
             },
             
             

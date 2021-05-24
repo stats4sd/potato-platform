@@ -22,8 +22,9 @@ class CatalogueController extends Controller
         'fructifications.choiceCampana',
         'fructifications.choiceBerries',
         )->first();
+      
 
-        $flowering =  $variety->with('flowerings.choicePlantGrowth', 
+        $flowerings =  $variety->with('flowerings.choicePlantGrowth', 
         'flowerings.choiceLeafDissection',
         'flowerings.choiceNumberLateralLeaflets',
         'flowerings.choiceNumberIntermediateLeaflets',
@@ -46,7 +47,7 @@ class CatalogueController extends Controller
         'flowerings.choiceLevelToleranceDrought',
         'flowerings.choiceCampana',
         )->first();
-
+       
       
         $sprouts =  $variety->with('sprouts.choiceColorPredominantTuberShoot',
         'sprouts.choiceColorSecondaryTuberShoot',
@@ -71,7 +72,7 @@ class CatalogueController extends Controller
         'tubersAtHarvests.choiceLevelToleranceDrought',
         )->first();
 
-        $farmer = Farmer::where('id', $variety->first()->farmer_id)->with('varieties')->withCount('varieties')->with('community.district.province.region')->first();
+        $farmer = Farmer::where('id', $variety->first()->farmer_id)->withCount('varieties')->with('community.district.province.region')->first();
        
         //Could refactor this to hold variable names and labels in a database table...
         $farmerLabels = [
@@ -84,7 +85,7 @@ class CatalogueController extends Controller
             'varieties_count' => 'Número de variedades en la base de datos'
         ];
 
-        $floweringLabels = [
+        $floweringsLabels = [
             'choice_plant_growth' => 'Habito de crecimiento de la planta',
             'choice_color_stem' => 'Color de tallo',
             'choice_shape_stem_wings' => 'Forma de las alas del tallo',
@@ -150,15 +151,15 @@ class CatalogueController extends Controller
 
         return response()->json([
             'values' => [
-                'fruits'=> $fruits,
-                'flowering' => $flowering['flowerings'],
-                'sprouts' => $sprouts,
-                'tubersAtHarvest' => $tubersAtHarvest,
+                'fruits'=> $fruits['fructifications'][0],
+                'flowerings' => $flowerings['flowerings'][0],
+                'sprouts' => $sprouts['sprouts'][0],
+                'tubersAtHarvest' => $tubersAtHarvest['tubersAtHarvests'][0],
                 'farmer' => $farmer,
             ],
             'labels' => [
                 'fruits' => $fruitsLabels,
-                'flowering' => $floweringLabels,
+                'flowerings' => $floweringsLabels,
                 'sprouts' => $sproutsLabels,
                 'tubersAtHarvest' => $tubersAtHarvestLabels,
                 'farmer' => $farmerLabels,

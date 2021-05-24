@@ -27,6 +27,7 @@ class Variety extends Model
     protected $casts = [
         'files' => 'array'
     ];
+    // protected $appends = ['community'];
 
     /*
     |--------------------------------------------------------------------------
@@ -75,6 +76,10 @@ class Variety extends Model
     | ACCESSORS
     |--------------------------------------------------------------------------
     */
+    // public function getCommunityAttribute()
+    // {
+    //     return $this->farmer->community->name;
+    // }
 
     /*
     |--------------------------------------------------------------------------
