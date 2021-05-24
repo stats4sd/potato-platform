@@ -19,6 +19,8 @@ class Farmer extends Model
     protected $table = 'farmers';
     protected $guarded = [];
     public $incrementing = false;
+    protected $appends = ['count_varieties'];
+
 
     /*
     |--------------------------------------------------------------------------
@@ -77,6 +79,10 @@ class Farmer extends Model
     | ACCESSORS
     |--------------------------------------------------------------------------
     */
+    public function getCountVarietiesAttribute()
+    {
+        return $this->varieties ? $this->varieties->count() : 0;
+    }
 
     /*
     |--------------------------------------------------------------------------

@@ -228,10 +228,7 @@ import VarietyFilter from './VarietyFilter.vue';
                 selectedFiltersFructification: {},
                 selectedFiltersTubersAtHarvest: {},
                 selectedFiltersSprout: {},
-                badgeFilterFlowering: {},
-                badgeFilterFructification: {},
-                badgeFilterTubersAtHarvest: {},
-                badgeFilterSprout: {},
+                selectedVariety:{},
                 isBusy:true,
             };
         },
@@ -249,7 +246,7 @@ import VarietyFilter from './VarietyFilter.vue';
 
                 this.flowering.forEach(parameter => {
                     this.selectedFiltersFlowering[parameter.value] = [];
-                    this.badgeFilterFlowering[parameter.label] = [];
+                 
 
                 });
 
@@ -258,7 +255,6 @@ import VarietyFilter from './VarietyFilter.vue';
                 this.fructification.forEach(parameter => {
                     
                     this.selectedFiltersFructification[parameter.value] = [];
-                    this.badgeFilterFructification[parameter.label] = [];
 
                 });
 
@@ -267,7 +263,6 @@ import VarietyFilter from './VarietyFilter.vue';
                 this.tubersAtHarvest.forEach(parameter => {
                     
                     this.selectedFiltersTubersAtHarvest[parameter.value] = [];
-                    this.badgeFilterTubersAtHarvest[parameter.label] = [];
 
                 });
 
@@ -276,53 +271,46 @@ import VarietyFilter from './VarietyFilter.vue';
                 this.sprout.forEach(parameter => {
                     
                     this.selectedFiltersSprout[parameter.value] = [];
-                    this.badgeFilterSprout[parameter.label] = [];
 
                 });
             });  
         },
         watch:{
             tableFilter(){
-                // this.varietiesFilter = this.varieties;
-                // this.varietiesFilter =   this.varietiesFilter.filter((item) => { 
-                //     return item.id.includes(this.tableFilter) 
-                // })
                 this.filterVariety();
-                
             }
         },
         methods: {
             onRowSelected(items) {
                 this.selected = items[items.length - 1];
-       
-                axios({
-                    method: "post",
-                    url: "/variety-details",
-                    data: {
-                        variety_id: this.selected.id
-                    }
-                }).then(
-                    result => {
-                        console.log("result", result.data);
-
-                        this.selectedValues = result.data.values;
-                        this.selectedLabels = result.data.labels;
-
-                    },
-                    error => {
-                        console.log(error);
-                    }
-                );
             },
             
             
             filterVariety(){
 
                 this.varietiesFilter = this.varieties;
-                this.varietiesFilter =   this.varietiesFilter.filter((item) => { 
-                    return item.id.includes(this.tableFilter) 
+
+                this.varietiesFilter =  this.varietiesFilter.filter((item) => { 
+                        if(item.common_name){
+                            return item.id.toLowerCase().includes(this.tableFilter.toLowerCase()) 
+                            || item.farmer.name.toLowerCase().includes(this.tableFilter.toLowerCase()) 
+                            || item.farmer.community.name.toLowerCase().includes(this.tableFilter.toLowerCase()) 
+                            || item.farmer.community.district.name.toLowerCase().includes(this.tableFilter.toLowerCase()) 
+                            || item.farmer.community.district.province.name.toLowerCase().includes(this.tableFilter.toLowerCase()) 
+                            || item.farmer.community.district.province.region.name.toLowerCase().includes(this.tableFilter.toLowerCase()) 
+                            || item.common_name.toLowerCase().includes(this.tableFilter.toLowerCase()) 
+                        }
+
+                        return item.id.toLowerCase().includes(this.tableFilter.toLowerCase()) 
+                        || item.farmer.name.toLowerCase().includes(this.tableFilter.toLowerCase()) 
+                        || item.farmer.community.name.toLowerCase().includes(this.tableFilter.toLowerCase()) 
+                        || item.farmer.community.district.name.toLowerCase().includes(this.tableFilter.toLowerCase()) 
+                        || item.farmer.community.district.province.name.toLowerCase().includes(this.tableFilter.toLowerCase()) 
+                        || item.farmer.community.district.province.region.name.toLowerCase().includes(this.tableFilter.toLowerCase()) 
                 })
-               
+
+                
+
                 for (const [key, value] of Object.entries(this.selectedFiltersFlowering)) {
                     if(value.length>0){
                         this.varietiesFilter =   this.varietiesFilter.filter((item) => { 

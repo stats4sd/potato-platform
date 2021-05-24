@@ -50,50 +50,119 @@
                 default: null
             }
         },
+        data() {
+            return {
+                labelsFarmer: {
+                    'name' :'Guardián',
+                    'community' :'Comunidad',
+                    'district' :'Distrito',
+                    'province' :'Provincia',
+                    'region' :'Región',
+                    'aguapan_year' :'Pertenece a AGUAPAN desde',
+                    'count_varieties' :'Número de variedades en la base de datos'
+                },
+                labelsFlowering:{
+                    'choice_plant_growth': 'Habito de crecimiento de la planta',
+                    'choice_color_stem': 'Color de tallo',
+                    'choice_shape_stem_wings': 'Forma de las alas del tallo',
+
+                    'choice_leaf_dissection': 'Tipo de la disección de la hoja',
+                    'choice_number_lateral_leaflets': 'Número de foliolos laterales de la hoja',
+                    'choice_number_intermediate_leaflets': 'Número de inter-hojuelas entre foliolos laterales',
+                    'choice_number_leaflets_on_petioles': 'Número de inter-hojuelas sobre peciolulos',
+
+                    'choice_degree_flowering_plant': 'Grado de floracion',
+                    'choice_shape_corolla': 'Forma de la corola',
+                    'choice_color_predominant_flower': 'Color predominante de la flor',
+                    'choice_intensity_color_predominant_flower': 'Intensidad de color predominante de la flor',
+                    'choice_color_secondary_flower': 'Color secundario de la flor',
+                    'choice_distribution_color_secodary_flower': 'Distribución del color secundario de la flor',
+                    'choice_pigmentation_anthers': 'Pigmentación de las anteras',
+                    'choice_pigmentation_pistil': 'Pigmentación en el pistilo',
+                    'choice_color_chalice': 'Color del cáliz',
+                    'choice_color_pedicel': 'Color del pedicelo',
+
+                    'choice_level_tolerance_late_blight': 'Nivel de tolerancia a la rancha',
+                    'choice_level_tolerance_hailstorms': 'Nivel de tolerancia a la granizada',
+                    'choice_level_tolerance_frost': 'Nivel de tolerancia a la helada',
+                    'choice_level_tolerance_drought': 'Nivel de tolerancia a la sequía',
+                },
+                labelsFructification:{
+                    'choice_berries' :'Bayas',
+                    'choice_color_berries' :'Color de la baya',
+                    'choice_shape_berry' :'Forma de la baya',
+                    'choice_maturity_variety' :'La madurez',
+                },
+                labelsTubersAtHarvest:{
+                    'choice_color_predominant_tuber' : 'Color predominante',
+                    'choice_intensity_color_predominant_tuber' : 'Intensidad del color predominante',
+                    'choice_color_secondary_tuber' : 'Color secundario',
+                    'choice_distribution_color_secodary_tuber' : 'Distribución del color secundario',
+                    'choice_shape_tuber' : 'Forma general',
+                    'choice_variant_shape_tuber' : 'Variante de forma',
+                    'choice_depth_tuber_eyes' : 'Profundidad de los ojos',
+                    'choice_color_predominant_tuber_pulp' : 'Color predominante de la pulpa',
+                    'choice_color_secondary_tuber_pulp' : 'Color secundario de la pulpa',
+                    'choice_distribution_color_secodary_tuber_pulp' : 'Distribución del color secundario de la pulpa',
+                    'number_tubers_plant' : 'Número de tubérculos por planta',
+                    'yield_plant' : 'Rendimiento por planta en kg',
+
+                    'choice_level_tolerance_late_blight' : 'Nivel de tolerancia a la rancha',
+                    'choice_level_tolerance_weevil' : 'Nivel de tolerancia al gorgojo de los andes',
+                    'choice_level_tolerance_hailstorms' : 'Nivel de tolerancia a la granizada',
+                    'choice_level_tolerance_frost' : 'Nivel de tolerancia a la helada',
+                    'choice_level_tolerance_drought' : 'Nivel de tolerancia a la sequía',
+                },
+                labelsSprout:{
+                    'choice_color_predominant_tuber_shoot':'Color predominante',
+                    'choice_color_secondary_tuber_shoot':'Color secundario',
+                    'choice_distribution_color_secodary_tuber_shoot':'Distribución del color secundario',
+                }
+            }
+        },
         computed: {
             farmer()  {
-
-                if(!this.labels) return null
-
+              
+                if(!this.variety) return null
+             console.log( this.variety.farmer)
                 return [
                     {
-                        coverImage: this.values.farmer.photo,
-                        variables: Object.keys(this.labels.farmer).map((key) => {
-                            console.log('key', key)
+                        coverImage: this.variety.farmer.photo,
+                        variables: Object.keys(this.labelsFarmer).map((key) => {
 
                             if(key=='community'){
                             return {
                                 name: key,
-                                label: this.labels.farmer[key],
-                                value: this.values.farmer.community['name']
+                                label: this.labelsFarmer[key],
+                                value: this.variety.farmer[key].name
                             }
                             }
                             if(key=='district'){
                             return {
                                 name: key,
-                                label: this.labels.farmer[key],
-                                value: this.values.farmer.community.district['name']
+                                label: this.labelsFarmer[key],
+                                value: this.variety.farmer.community[key].name
                             }
                             }
                             if(key=='province'){
                             return {
                                 name: key,
-                                label: this.labels.farmer[key],
-                                value: this.values.farmer.community.district.province['name']
+                                label: this.labelsFarmer[key],
+                                value: this.variety.farmer.community.district[key].name
                             }
                             }                          
                             if(key=='region'){
                             return {
                                 name: key,
-                                label: this.labels.farmer[key],
-                                value: this.values.farmer.community.district.province.region['name']
+                                label: this.labelsFarmer[key],
+                                value: this.variety.farmer.community.district.province[key].name
                             }
                             }
                             else{
                             return {
                                 name: key,
-                                label: this.labels.farmer[key],
-                                value: this.values.farmer[key]
+                                label: this.labelsFarmer[key],
+                                value: this.variety.farmer[key]
                             }
                             }
                         })
@@ -102,154 +171,165 @@
             },
             fruits()  {
 
-                if(!this.labels) return null
+                if(!this.labelsFructification) return null
 
                 return [
+
                     {
-                        coverImage: this.values.fruits.photo_berry,
-                        variables: Object.keys(this.labels.fruits).map((key) => {
-                            console.log('key', key)
+                        coverImage: this.variety.fructifications[0].photo_berry,
+                        variables: Object.keys(this.labelsFructification).map((key) => {
                             return {
                                 name: key,
-                                label: this.labels.fruits[key],
-                                value: this.values.fruits[key]
-                            };
+                                label: this.labelsFructification[key],
+                                value: this.variety.fructifications[0][key] ? this.variety.fructifications[0][key].label_spanish :  this.variety.fructifications[0][key] ,
+                            }
                         })
                     }
                 ];
             },
             sprouts()  {
 
-                if(!this.labels) return null
+                if(!this.labelsSprout) return null
                 return [
                     {
-                        coverImage: this.values.sprouts.photo_tuber_shoot,
-                        variables: Object.keys(this.labels.sprouts).map((key) => {
+                        coverImage: this.variety.sprouts.photo_tuber_shoot,
+                        variables: Object.keys(this.labelsSprout).map((key) => {
                             return {
                                 name: key,
-                                label: this.labels.sprouts[key],
-                                value: this.values.sprouts[key]
+                                label: this.labelsSprout[key],
+                                value: this.variety.sprouts[0][key] ? this.variety.sprouts[0][key].label_spanish :  this.variety.sprouts[0][key] ,
                             };
                         })
                     }
                 ];
             },
             flowering()  {
-                if(!this.labels) return null
+                if(!this.labelsFlowering) return null
 
                 var laPlanta = [
-                    "plant_growth",
-                    "color_stem",
-                    "shape_stem_wings"
+                    "choice_plant_growth",
+                    "choice_color_stem",
+                    "choice_shape_stem_wings"
                 ];
 
                 var laHoja = [
-                    "leaf_dissection",
-                    "number_lateral_leaflets",
-                    "number_intermediate_leaflets",
-                    "number_leaflets_on_petioles",
+                    "choice_leaf_dissection",
+                    "choice_number_lateral_leaflets",
+                    "choice_number_intermediate_leaflets",
+                    "choice_number_leaflets_on_petioles",
                 ];
 
                 var laFlor = [
-                    "degree_flowering_plant",
-                    "shape_corolla",
-                    "color_predominant_flower",
-                    "intensity_color_predominant_flower",
-                    "color_secondary_flower",
-                    "distribution_color_secodary_flower",
-                    "pigmentation_anthers",
-                    "pigmentation_pistil",
-                    "color_chalice",
-                    "color_pedicel"
+                    "choice_degree_flowering_plant",
+                    "choice_shape_corolla",
+                    "choice_color_predominant_flower",
+                    "choice_intensity_color_predominant_flower",
+                    "choice_color_secondary_flower",
+                    "choice_distribution_color_secodary_flower",
+                    "choice_pigmentation_anthers",
+                    "choice_pigmentation_pistil",
+                    "choice_color_chalice",
+                    "choice_color_pedicel"
                 ];
 
                 var tolerancia = [
-                    "level_tolerance_late_blight",
-                    "level_tolerance_hailstorms",
-                    "level_tolerance_frost",
-                    "level_tolerance_drought "
+                    "choice_level_tolerance_late_blight",
+                    "choice_level_tolerance_hailstorms",
+                    "choice_level_tolerance_frost",
+                    "choice_level_tolerance_drought "
                 ];
                 return [
                     {
                         title: "La Planta",
-                        coverImage: this.values.flowering.photo_plant,
+                        coverImage: this.variety.flowerings[0].photo_plant,
                         variables: laPlanta.map((key) => {
+                            console.log(this.variety.flowerings[0][key])
                             return {
                                 name: key,
-                                value: this.values.flowering[key],
-                                label: this.labels.flowering[key]
+                                value: this.variety.flowerings[0][key] ? this.variety.flowerings[0][key].label_spanish :  this.variety.flowerings[0][key] ,
+                                label: this.labelsFlowering[key]
                             };
                         })
                     },
                     {
                         title: "La Hoja",
-                        coverImage: this.values.flowering.photo_leaf,
+                        coverImage: this.variety.flowerings[0].photo_leaf,
                         variables: laHoja.map((key) => {
+                         
                             return {
                                 name: key,
-                                value: this.values.flowering[key],
-                                label: this.labels.flowering[key]
+                                value: this.variety.flowerings[0][key] ? this.variety.flowerings[0][key].label_spanish :  this.variety.flowerings[0][key] ,
+                                label: this.labelsFlowering[key]
                             };
                         })
                     },
                     {
                         title: "La Flor",
-                        coverImage: this.values.flowering.photo_flower,
+                        coverImage: this.variety.flowerings[0].photo_flower,
                         variables: laFlor.map((key) => {
                             return {
                                 name: key,
-                                value: this.values.flowering[key],
-                                label: this.labels.flowering[key]
+                                value: this.variety.flowerings[0][key] ? this.variety.flowerings[0][key].label_spanish :  this.variety.flowerings[0][key] ,
+                                label: this.labelsFlowering[key]
                             };
                         })
                     },
                     {
                         title: "Tolerancia",
-                        coverImage: this.values.flowering.photo_leaf,
+                        coverImage: this.variety.flowerings[0].photo_leaf,
                         variables: tolerancia.map((key) => {
                             return {
                                 name: key,
-                                value: this.values.flowering[key],
-                                label: this.labels.flowering[key]
+                                value: this.variety.flowerings[0][key] ? this.variety.flowerings[0][key].label_spanish :  this.variety.flowerings[0][key] ,
+                                label: this.labelsFlowering[key]
                             };
                         })
                     }
                 ];
             },
             tubersAtHarvest()  {
-                if(!this.labels) return null
+                if(!this.labelsTubersAtHarvest) return null
                 var tubersAtHarvestMain = [
-                    "color_predominant_tuber",
-                    "intensity_color_predominant_tuber",
-                    "color_secondary_tuber",
-                    "distribution_color_secodary_tuber",
-                    "shape_tuber",
-                    "variant_shape_tuber",
-                    "depth_tuber_eyes",
-                    "color_predominant_tuber_pul",
-                    "color_secondary_tuber_pulp",
-                    "distribution_color_secodary_tuber_pulp",
+                    "choice_color_predominant_tuber",
+                    "choice_intensity_color_predominant_tuber",
+                    "choice_color_secondary_tuber",
+                    "choice_distribution_color_secodary_tuber",
+                    "choice_shape_tuber",
+                    "choice_variant_shape_tuber",
+                    "choice_depth_tuber_eyes",
+                    "choice_color_predominant_tuber_pulp",
+                    "choice_color_secondary_tuber_pulp",
+                    "choice_distribution_color_secodary_tuber_pulp",
                     "number_tubers_plant",
                     "yield_plant"
                 ];
 
                 var tubersTolerancia = [
-                    "level_tolerance_late_blight",
-                    "level_tolerance_weevil",
-                    "level_tolerance_hailstorms",
-                    "level_tolerance_frost",
-                    "level_tolerance_drought"
+                    "choice_level_tolerance_late_blight",
+                    "choice_level_tolerance_weevil",
+                    "choice_level_tolerance_hailstorms",
+                    "choice_level_tolerance_frost",
+                    "choice_level_tolerance_drought"
                 ];
 
                 return [
                     {
                         title: '',
-                        coverImage: this.values.tubersAtHarvest.photo_tuber,
+                        coverImage: this.variety.tubers_at_harvests[0].photo_tuber,
                         variables: tubersAtHarvestMain.map((key) => {
-                            return {
-                                name: key,
-                                value: this.values.tubersAtHarvest[key],
-                                label: this.labels.tubersAtHarvest[key],
+                            if( typeof this.variety.tubers_at_harvests[0][key] === "object" &&  this.variety.tubers_at_harvests[0][key] != null){
+
+                                return {
+                                    name: key,
+                                    value: this.variety.tubers_at_harvests[0][key].label_spanish ,
+                                    label: this.labelsTubersAtHarvest[key],
+                                }
+                            }else {
+                                return {
+                                    name: key,
+                                    value: this.variety.tubers_at_harvests[0][key] ,
+                                    label: this.labelsTubersAtHarvest[key],
+                                }
                             }
                         })
                     },
@@ -258,8 +338,8 @@
                         variables: tubersTolerancia.map((key) => {
                             return {
                                 name: key,
-                                value: this.values.tubersAtHarvest[key],
-                                label: this.labels.tubersAtHarvest[key],
+                                value: this.variety.tubers_at_harvests[0][key] ? this.variety.tubers_at_harvests[0][key].label_spanish :  this.variety.tubers_at_harvests[0][key] ,
+                                label: this.labelsTubersAtHarvest[key],
                             }
                         })
                     },
