@@ -157,8 +157,15 @@
                     :per-page="perPage"
                     aria-controls="variety-table"
                 />
+                <template  v-if="isBusyVarietyDetails">
+                    <div class="text-center text-info my-2">
+                    <b-spinner class="align-middle"></b-spinner>
+                    <strong>Loading...</strong>
+                    </div>
+                </template>
+               
                 <variety-details
-                    v-if="selected"
+                    v-if="selected && !isBusyVarietyDetails"
                     class="container py-4"
                     :variety="selected"
                     :values="selectedValues"
@@ -231,6 +238,7 @@ import VarietyFilter from './VarietyFilter.vue';
                 selectedFiltersSprout: {},
                 selectedVariety:{},
                 isBusy:true,
+                isBusyVarietyDetails:false,
             };
         },
         mounted() {
@@ -274,6 +282,7 @@ import VarietyFilter from './VarietyFilter.vue';
         },
         methods: {
             onRowSelected(items) {
+                this.isBusyVarietyDetails = true;
                 this.selected = items[items.length - 1];
                 axios({
                     method: "post",
@@ -286,9 +295,12 @@ import VarietyFilter from './VarietyFilter.vue';
                         console.log("result", result.data);
                         this.selectedValues  = result.data.values;
                         this.selectedLabels = result.data.labels;
+                        this.isBusyVarietyDetails = false;
+                
                        
                     },
                     error => {
+                        this.isBusyVarietyDetails = false;
                         console.log(error);
                     }
                 );
