@@ -277,6 +277,7 @@ import VarietyFilter from './VarietyFilter.vue';
         },
         watch:{
             tableFilter(){
+                this.isBusyVarietyDetails = false;
                 this.filterVariety();
             }
         },
@@ -292,10 +293,10 @@ import VarietyFilter from './VarietyFilter.vue';
                     }
                 }).then(
                     result => {
+                        this.isBusyVarietyDetails = false;
                         console.log("result", result.data);
                         this.selectedValues  = result.data.values;
                         this.selectedLabels = result.data.labels;
-                        this.isBusyVarietyDetails = false;
                 
                        
                     },
@@ -308,7 +309,7 @@ import VarietyFilter from './VarietyFilter.vue';
             
             
             filterVariety(){
-
+                this.isBusyVarietyDetails = false;
                 this.varietiesFilter = this.varieties;
 
                 this.varietiesFilter =  this.varietiesFilter.filter((item) => { 
@@ -363,10 +364,7 @@ import VarietyFilter from './VarietyFilter.vue';
                         })
                     }
                 }
-                                
-              
-
-
+                
             }
         }
     };
