@@ -41,27 +41,26 @@ class ParameterFilterController extends Controller
     {
         $data=[];
      
-        $variables = Variable::with('choices')->where('model',  $model)->get();
-       
+        $variables = Variable::with('choices')->where('model', $model)->get();
 
         foreach ($variables as $variable) {
-          
-            $column_data['label']= $columns[$variable->db_varname];
-            $column_data['value']= $variable->db_varname;
-            $column_data['options'] = [];
-            
-            foreach ($variable->choices as $choice) {
+            if($variable->db_varname!='campana'){
+                $column_data['label']= $columns[$variable->db_varname];
+                $column_data['value']= $variable->db_varname;
+                $column_data['options'] = [];
                 
-                
-                $column_data['options'][]= [
-                    'text' => $choice->label_spanish,
-                    'value' => $choice->id
-                ];
-                
+                foreach ($variable->choices as $choice) {
+                    
+                    $column_data['options'][]= [
+                        'text' => $choice->label_spanish,
+                        'value' => $choice->id
+                    ];
+                    
+                }
+                $data[] = $column_data;
             }
-            $data[] = $column_data;
         }
-       
+      
         return $data;
     }
 
@@ -89,49 +88,53 @@ class ParameterFilterController extends Controller
             'level_tolerance_weevil' => 'Nivel de tolerancia al gorgojo de los andes',
             'level_tolerance_hailstorms' => 'Nivel de tolerancia a la granizada',
             'level_tolerance_frost' => 'Nivel de tolerancia a la helada',
-            'level_tolerance_drought' => 'Nivel de tolerancia a la sequía'
+            'level_tolerance_drought' => 'Nivel de tolerancia a la sequía',
+            'campana' => 'Campana',
         );
     }
 
     public static function getColumnsFructification()
     {
         return array(
-            'bayas' => 'Bayas',
+            'berries' => 'Bayas',
             'color_berries' => 'Color de las baya',
             'shape_berry' => 'Forma de la baya',
-            'maturity_variety' => 'La madurez'
+            'maturity_variety' => 'La madurez',
+            'campana' => 'Campana',
         );
     }
 
     public static function getColumnsTubersAtHarvest()
     {
         return array(
-            'Color predominante' => 'color_predominant_tuber',
-            'Intensidad del color predominante' => 'intensity_color_predominant_tuber',
-            'Color secundario' => 'color_secodary_tuber',
-            'Distribución del color secundario' => 'distribution_color_secodary_tuber',
-            'Forma general' => 'shape_tuber',
-            'Variante de forma' => 'variant_shape_tuber',
-            'Profundidad de los ojos' => 'depth_tuber_eyes',
-            'Color predominante de la pulpa' => 'color_predominant_tuber_pulp',
-            'Color secundario de la pulpa' => 'color_secondary_tuber_pulp',
-            'Distribución del color secundario de la pulpa' => 'distribution_color_secodary_tuber_pulp',
-            'Número de tubérculos por planta' => 'number_tubers_plant',
-            'Rendimiento por planta en kg' => 'yield_plant',
-            'Nivel de tolerancia a la rancha' => 'level_tolerance_late_blight',
-            'Nivel de tolerancia al gorgojo de los andes' => 'level_tolerance_weevil',
-            'Nivel de tolerancia a la granizada' => 'level_tolerance_hailstorms',
-            'Nivel de tolerancia a la helada' => 'level_tolerance_frost',
-            'Nivel de tolerancia a la sequía' => 'level_tolerance_drought'
+            'color_predominant_tuber'=>'Color predominante',
+            'intensity_color_predominant_tuber'=>'Intensidad del color predominante',
+            'color_secondary_tuber'=>'Color secundario', 
+            'distribution_color_secodary_tuber'=>'Distribución del color secundario', 
+            'shape_tuber'=>'Forma general', 
+            'variant_shape_tuber'=>'Variante de forma', 
+            'depth_tuber_eyes'=>'Profundidad de los ojos', 
+            'color_predominant_tuber_pulp'=>'Color predominante de la pulpa', 
+            'color_secondary_tuber_pulp'=>'Color secundario de la pulpa', 
+            'distribution_color_secodary_tuber_pulp'=>'Distribución del color secundario de la pulpa', 
+            'number_tubers_plant'=>'Número de tubérculos por planta', 
+            'yield_plant'=>'Rendimiento por planta en kg', 
+            'level_tolerance_late_blight'=>'Nivel de tolerancia a la rancha', 
+            'level_tolerance_weevil'=>'Nivel de tolerancia al gorgojo de los andes' ,
+            'level_tolerance_hailstorms'=>'Nivel de tolerancia a la granizada', 
+            'level_tolerance_frost'=>'Nivel de tolerancia a la helada', 
+            'level_tolerance_drought'=>'Nivel de tolerancia a la sequía' ,
+            'campana' => 'Campana',
         );
     }
 
     public static function getColumnsSprouts()
     {
         return array(
-            'Color predominante' => 'color_predominant_tuber_shoot',
-            'Color secundario' => 'color_secondary_tuber_shoot',
-            'Distribución del color secundario' => 'distribution_color_secodary_tuber_shoot',
+            'color_predominant_tuber_shoot' => 'Color predominante',
+            'color_secondary_tuber_shoot' => 'Color secundario',
+            'distribution_color_secodary_tuber_shoot' => 'Distribución del color secundario',
+            'campana' => 'Campana',
         );
     }
 }

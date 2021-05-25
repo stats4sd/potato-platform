@@ -11,7 +11,7 @@ class VarietyController extends Controller
 {
     public function index()
     {
-        $varieties =  Variety::whereHas('flowerings')->whereHas('fructifications')
+        $varieties =  Variety::where('is_mixture', 0)->whereHas('flowerings')->whereHas('fructifications')
         ->whereHas('tubersAtHarvests')->whereHas('sprouts')
         ->with('flowerings')
         ->with('fructifications')
