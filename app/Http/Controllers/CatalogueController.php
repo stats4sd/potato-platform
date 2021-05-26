@@ -13,67 +13,71 @@ class CatalogueController extends Controller
 {
     public function getVarietyDetails(Request $request)
     {
-        $variety = Variety::where('id',$request->variety_id);
-        
+        $variety = Variety::find($request->variety_id);
+
         // EVENTUALLY, we will have to reconcile the possibility of having multiple subtable records for a single variety. For now, just take the first entry...
-        $fruits = $variety->with('fructifications.choiceColorBerries', 
-        'fructifications.choiceShapeBerry',
-        'fructifications.choiceMaturityVariety',
-        'fructifications.choiceCampana',
-        'fructifications.choiceBerries',
-        )->first();
-      
+        $fruits = $variety->fructifications->first()->load(
+            'choiceColorBerries',
+            'choiceShapeBerry',
+            'choiceMaturityVariety',
+            'choiceCampana',
+            'choiceBerries',
+        );
 
-        $flowerings =  $variety->with('flowerings.choicePlantGrowth', 
-        'flowerings.choiceLeafDissection',
-        'flowerings.choiceNumberLateralLeaflets',
-        'flowerings.choiceNumberIntermediateLeaflets',
-        'flowerings.choiceNumberLeafletsOnPetioles',
-        'flowerings.choiceColorStem',
-        'flowerings.choiceShapeStemWings',
-        'flowerings.choiceDegreeFloweringPlant',
-        'flowerings.choiceShapeCorolla',
-        'flowerings.choiceColorPredominantFlower',
-        'flowerings.choiceIntensityColorPredominantFlower',
-        'flowerings.choiceColorSecondaryFlower',
-        'flowerings.choiceDistributionColorSecodaryFlower',
-        'flowerings.choicePigmentationAnthers',
-        'flowerings.choicePigmentationPistil',
-        'flowerings.choiceColorChalice',
-        'flowerings.choiceColorPedicel',
-        'flowerings.choiceLevelToleranceLateBlight',
-        'flowerings.choiceLevelToleranceHailstorms',
-        'flowerings.choiceLevelToleranceFrost',
-        'flowerings.choiceLevelToleranceDrought',
-        'flowerings.choiceCampana',
-        )->first();
-       
-      
-        $sprouts =  $variety->with('sprouts.choiceColorPredominantTuberShoot',
-        'sprouts.choiceColorSecondaryTuberShoot',
-        'sprouts.choiceDistributionColorSecodaryTuberShoot',
-        'sprouts.choiceCampana',
-        )->first();
 
-        $tubersAtHarvest =  $variety->with('tubersAtHarvests.choiceColorPredominantTuber', 
-        'tubersAtHarvests.choiceIntensityColorPredominantTuber',
-        'tubersAtHarvests.choiceColorSecondaryTuber',
-        'tubersAtHarvests.choiceDistributionColorSecodaryTuber',
-        'tubersAtHarvests.choiceShapeTuber',
-        'tubersAtHarvests.choiceVariantShapeTuber',
-        'tubersAtHarvests.choiceDepthTuberEyes',
-        'tubersAtHarvests.choiceColorPredominantTuberPulp',
-        'tubersAtHarvests.choiceColorSecondaryTuberPulp',
-        'tubersAtHarvests.choiceDistributionColorSecodaryTuberPulp',
-        'tubersAtHarvests.choiceLevelToleranceLateBlight',
-        'tubersAtHarvests.choiceLevelToleranceWeevil',
-        'tubersAtHarvests.choiceLevelToleranceHailstorms',
-        'tubersAtHarvests.choiceLevelToleranceFrost',
-        'tubersAtHarvests.choiceLevelToleranceDrought',
-        )->first();
+        $flowerings =  $variety->flowerings->first()->load(
+            'choicePlantGrowth',
+            'choiceLeafDissection',
+            'choiceNumberLateralLeaflets',
+            'choiceNumberIntermediateLeaflets',
+            'choiceNumberLeafletsOnPetioles',
+            'choiceColorStem',
+            'choiceShapeStemWings',
+            'choiceDegreeFloweringPlant',
+            'choiceShapeCorolla',
+            'choiceColorPredominantFlower',
+            'choiceIntensityColorPredominantFlower',
+            'choiceColorSecondaryFlower',
+            'choiceDistributionColorSecodaryFlower',
+            'choicePigmentationAnthers',
+            'choicePigmentationPistil',
+            'choiceColorChalice',
+            'choiceColorPedicel',
+            'choiceLevelToleranceLateBlight',
+            'choiceLevelToleranceHailstorms',
+            'choiceLevelToleranceFrost',
+            'choiceLevelToleranceDrought',
+            'choiceCampana',
+        );
+
+
+        $sprouts =  $variety->sprouts->first()->load(
+            'choiceColorPredominantTuberShoot',
+            'choiceColorSecondaryTuberShoot',
+            'choiceDistributionColorSecodaryTuberShoot',
+            'choiceCampana',
+        );
+
+        $tubersAtHarvest =  $variety->tubersAtHarvests->first()->load(
+            'choiceColorPredominantTuber',
+            'choiceIntensityColorPredominantTuber',
+            'choiceColorSecondaryTuber',
+            'choiceDistributionColorSecodaryTuber',
+            'choiceShapeTuber',
+            'choiceVariantShapeTuber',
+            'choiceDepthTuberEyes',
+            'choiceColorPredominantTuberPulp',
+            'choiceColorSecondaryTuberPulp',
+            'choiceDistributionColorSecodaryTuberPulp',
+            'choiceLevelToleranceLateBlight',
+            'choiceLevelToleranceWeevil',
+            'choiceLevelToleranceHailstorms',
+            'choiceLevelToleranceFrost',
+            'choiceLevelToleranceDrought',
+        );
 
         $farmer = Farmer::where('id', $variety->first()->farmer_id)->withCount('varieties')->with('community.district.province.region')->first();
-       
+
         //Could refactor this to hold variable names and labels in a database table...
         $farmerLabels = [
             'name' => 'Guardián',
@@ -147,14 +151,14 @@ class CatalogueController extends Controller
 
         ];
 
-        
+
 
         return response()->json([
             'values' => [
-                'fruits'=> $fruits['fructifications'][0],
-                'flowerings' => $flowerings['flowerings'][0],
-                'sprouts' => $sprouts['sprouts'][0],
-                'tubersAtHarvest' => $tubersAtHarvest['tubersAtHarvests'][0],
+                'fruits'=> $fruits,
+                'flowerings' => $flowerings,
+                'sprouts' => $sprouts,
+                'tubersAtHarvest' => $tubersAtHarvest,
                 'farmer' => $farmer,
             ],
             'labels' => [
@@ -166,5 +170,4 @@ class CatalogueController extends Controller
             ],
         ]);
     }
-
 }
