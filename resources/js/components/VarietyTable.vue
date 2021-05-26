@@ -285,6 +285,12 @@ import VarietyFilter from './VarietyFilter.vue';
             onRowSelected(items) {
                 this.isBusyVarietyDetails = true;
                 this.selected = items[items.length - 1];
+
+                if(!this.selected) {
+                    return
+                }
+
+                this.isBusyVarietyDetails = true;
                 axios({
                     method: "post",
                     url: "/variety-details",
