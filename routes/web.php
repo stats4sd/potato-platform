@@ -17,6 +17,8 @@ use App\Http\Controllers\Admin\VarietyCrudController;
 |
 */
 
+//To accept temporary uploads.
+Route::mediaLibrary();
 
 Auth::routes();
 Route::middleware(['auth'])->group(function() {
