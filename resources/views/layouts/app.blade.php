@@ -41,6 +41,7 @@
 
 
     <!-- App scripts -->
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.6.0/dist/alpine.min.js" defer></script>
 </head>
 <body>
     <div id="app">
@@ -55,6 +56,7 @@
                 @if(Auth::check())
                     @if(Auth::user()->permission)
                     <b-nav-item href="/fotos">Subir Fotos</b-nav-item>
+                    <b-nav-item href="/upload-images">Upload Photos</b-nav-item>
                     @endif
                     <b-nav-item active style=" position: absolute; right: 15px;"> Welcome {{ Auth::user()->name }} </b-nav-item>
                 @endif
@@ -68,4 +70,5 @@
 </body>
 
 @yield('javascript')
+
 </html>

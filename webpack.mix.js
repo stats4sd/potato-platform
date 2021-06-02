@@ -14,3 +14,10 @@ const mix = require('laravel-mix');
 mix.js('resources/js/app.js', 'public/js')
     .sourceMaps()
     .sass('resources/sass/app.scss', 'public/css');
+
+mix.override((webpackConfig) => {
+    webpackConfig.resolve.modules = [
+        "node_modules",
+        __dirname + "/vendor/spatie/laravel-medialibrary-pro/resources/js",
+    ];
+});

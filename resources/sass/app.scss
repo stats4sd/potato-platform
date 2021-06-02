@@ -1,9 +1,7 @@
 // Fonts
 @import url("https://fonts.googleapis.com/css?family=Ubuntu");
 @import url("https://use.fontawesome.com/releases/v5.7.0/css/all.css");
-
-// Media Library Style
-@import(vendor/spatie/laravel-medialibrary-pro/resources/js/media-library-pro-styles);
+@import "../../vendor/spatie/laravel-medialibrary-pro/resources/js/media-library-pro-styles";
 
 // Variables
 @import "variables";

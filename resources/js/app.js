@@ -18,6 +18,7 @@ Vue.use(IconsPlugin);
 Vue.component('VSelect', vSelect);
 Vue.component('VarietyTable', require('./components/VarietyTable.vue').default);
 Vue.component('FarmerList', require('./components/FarmerList.vue').default);
+// Vue.component('UploadPhotos', require('./components/UploadPhotos.vue').default);
 
 const app = new Vue({
     el: '#app'

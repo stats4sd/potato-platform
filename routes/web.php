@@ -60,6 +60,10 @@ Route::middleware(['auth'])->group(function() {
         return view('farmer');
     });
 
+    Route::get('/upload-images', function () {
+        return view('upload_image');
+    });
+
     Route::get('xlsforms/{xlsform}/downloadsubmissions', 'SubmissionController@download')->name('xlsforms.downloadsubmissions');
 
     Route::post('/variety-details', 'CatalogueController@getVarietyDetails');
