@@ -19,8 +19,7 @@ use App\Http\Controllers\Admin\VarietyCrudController;
 
 
 Auth::routes();
-Route::middleware(['auth'])->group(function() {
-
+Route::middleware(['auth'])->group(function () {
     Route::get('/', function () {
         return view('home');
     });
@@ -65,4 +64,6 @@ Route::middleware(['auth'])->group(function() {
     Route::post('/varieties-filter', 'CatalogueController@getVarietyFilter');
 });
 
+Route::mediaLibrary();
 
+Route::view('testupload', 'testupload');
