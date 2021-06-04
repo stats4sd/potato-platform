@@ -1,103 +1,62 @@
 <template>
     <div>
-        <div class="container">
-            <progress-bar
-                :current-step="currentStep"
-                :steps="steps"
-            />
-        </div>
+        
         <div class="container my-4">
             <div class="accordion-area" role="tablist">
-                <div class="panel">
-                    <div class="panel-header">
-                        <b-button
-                            class="panel-link active"
-                            :class="visible1 ? null : 'collapsed'"
-                            :aria-expanded="visible1 ? 'true' : 'false'"
-                            @click="currentStep = 1"
-                        >
-                            Step 1: {{ steps[0].title }}
-                        </b-button>
-                    </div>
-                    <b-collapse id="collapse-1" accordion="accordion" role="tabpanel" v-model="visible1">
-                        <div class="py-4 mx-4">
-                            <h3>What variety are you going to add photos?</h3>
-                           
-                            <div class="row py-4 mx-4 justify-content-center">
-                                <h3>Variety Id</h3>
-                                <b-form-input v-model="varietyId" placeholder="Enter variety ID"></b-form-input>
-                                <h3>Campana</h3>
-                                <b-form-select v-model="selectedCampana" :options="campanas" value-field="id" text-field="label_spanish"></b-form-select>
-                            </div>
-                            <div style="text-align: center;">
-                                <button class="site-btn my-4" v-on:click="currentStep=2">
-                                    Next
-                                </button>
-                            </div>
-                        </div>
-                    </b-collapse>
-                </div>
-                <div class="panel">
-                    <div class="panel-header">
-                        <b-button
-                            class="panel-link active"
-                            :class="visible2 ? null : 'collapsed'"
-                            :aria-expanded="visible2 ? 'true' : 'false'"
-                            @click="currentStep = 2"
-                        >
-                            Step 2: {{ steps[1].title }}
-                        </b-button>
-                    </div>
-                    <form method="POST" action="/store-images" enctype="multipart/form-data" >
-                        <input type="hidden" name="_token" :value="csrf">
-                        <b-form-input hidden name="varietyId" v-model="varietyId" placeholder="Enter variety ID"></b-form-input>
-                        <b-form-select hidden name="selectedCampana" v-model="selectedCampana" :options="campanas" value-field="id" text-field="label_spanish"></b-form-select>
                 
-                        <b-collapse id="collapse-2" accordion="accordion" role="tabpanel" v-model="visible2">
-                            <div class="py-4 mx-4">
-                                <h3>Flowering</h3>
-                                    <div class="row py-4 mx-4 justify-content-center">
-                                            <media-library-collection
-                                            multiple 
-                                            name="flowering" 
-                                            collection="flowering"
-                                            />
-                                    </div>
-                                <h3>Fructification</h3>
-                                    <div class="row py-4 mx-4 justify-content-center">
-                                           <media-library-collection
-                                            multiple 
-                                            name="fructification" 
-                                            collection="fructification"
-                                            />
-                                    </div>
-                                <h3>Tuber at Harvest</h3>
-                                    <div class="row py-4 mx-4 justify-content-center">
-                                          <media-library-collection
-                                            multiple 
-                                            name="tubers_at_harvest" 
-                                            collection="tubers_at_harvest"
-                                            />
-                                    </div>
-                                <h3>Sprout</h3>
-                                    <div class="row py-4 mx-4 justify-content-center">
-                                           <media-library-collection
-                                            multiple 
-                                            name="sprout" 
-                                            collection="sprout"
-                                            />
-                                    </div>
-
-                                <div style="text-align: center;">
-                                    <button type="submit" class="site-btn my-4" @click="currentStep = 3" >
-                                        Next
-                                    </button>
-                                </div>
+                    
+                  
+            
+                <h3>What variety are you going to add photos?</h3>
+                
+                <form method="POST" action="/store-images" enctype="multipart/form-data" >
+                    <input type="hidden" name="_token" :value="csrf">
+                    <b-form-select  name="varietyId" v-model="varietyId" placeholder="Enter variety ID"></b-form-select>
+                    <b-form-select  name="selectedCampana" v-model="selectedCampana" :options="campanas" value-field="id" text-field="label_spanish"></b-form-select>
+            
+                
+                    <div class="py-4 mx-4">
+                        <h3>Flowering</h3>
+                            <div class="row py-4 mx-4 justify-content-center">
+                                    <media-library-collection
+                                    multiple 
+                                    name="flowering" 
+                                    collection="flowering"
+                                    />
                             </div>
-                        </b-collapse>
-                      
-                    </form>
-                </div>
+                        <h3>Fructification</h3>
+                            <div class="row py-4 mx-4 justify-content-center">
+                                <media-library-collection
+                                    multiple 
+                                    name="fructification" 
+                                    collection="fructification"
+                                    />
+                            </div>
+                        <h3>Tuber at Harvest</h3>
+                            <div class="row py-4 mx-4 justify-content-center">
+                                <media-library-collection
+                                    multiple 
+                                    name="tubers_at_harvest" 
+                                    collection="tubers_at_harvest"
+                                    />
+                            </div>
+                        <h3>Sprout</h3>
+                            <div class="row py-4 mx-4 justify-content-center">
+                                <media-library-collection
+                                    multiple 
+                                    name="sprout" 
+                                    collection="sprout"
+                                    />
+                            </div>
+
+                        <div style="text-align: center;">
+                            <button type="submit" class="site-btn my-4" >
+                                Next
+                            </button>
+                        </div>
+                    </div>
+                </form>
+ 
             </div>
         </div>
         
