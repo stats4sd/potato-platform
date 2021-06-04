@@ -5,10 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
-class Sprout extends Model
+class Sprout extends Model implements HasMedia
 {
-    use CrudTrait, HasFactory;
+    use CrudTrait, HasFactory, InteractsWithMedia;
 
     /*
     |--------------------------------------------------------------------------
@@ -29,6 +31,11 @@ class Sprout extends Model
     | FUNCTIONS
     |--------------------------------------------------------------------------
     */
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('SproutImages');
+    }
+
 
     /*
     |--------------------------------------------------------------------------

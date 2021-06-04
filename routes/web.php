@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CatalogueController;
 use App\Http\Controllers\Api\FarmerController;
 use App\Http\Controllers\Admin\VarietyCrudController;
+use App\Models\Flowering;
 
 /*
 |--------------------------------------------------------------------------
@@ -61,13 +62,16 @@ Route::middleware(['auth'])->group(function() {
     });
 
     Route::get('/upload-images', function () {
-        return view('upload_image');
+      
+            return view('upload_image');
     });
 
     Route::get('xlsforms/{xlsform}/downloadsubmissions', 'SubmissionController@download')->name('xlsforms.downloadsubmissions');
 
     Route::post('/variety-details', 'CatalogueController@getVarietyDetails');
 
+    Route::post('/store-images', 'MediaController@store');
+    
 });
 
 
