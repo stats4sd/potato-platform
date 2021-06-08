@@ -23,3 +23,4 @@ Route::apiResource('farmers', "Api\FarmerController");
 Route::apiResource('varieties', "Api\VarietyController");
 Route::apiResource('parameter-filters', "Api\ParameterFilterController");
 Route::apiResource('campanas', "Api\ChoiceController");
+Route::apiResource('varieties-list', "Api\VarietyListController");

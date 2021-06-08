@@ -11,8 +11,8 @@
                 
                 <form method="POST" action="/store-images" enctype="multipart/form-data" >
                     <input type="hidden" name="_token" :value="csrf">
-                    <b-form-select  name="varietyId" v-model="varietyId" placeholder="Enter variety ID"></b-form-select>
-                    <b-form-select  name="selectedCampana" v-model="selectedCampana" :options="campanas" value-field="id" text-field="label_spanish"></b-form-select>
+                    <b-form-select @change="getVarietyImages" class="mb-3" name="varietyId" v-model="varietyId" :options="varieties" value-field="id" text-field="id"></b-form-select>
+                    
             
                 
                     <div class="py-4 mx-4">
@@ -20,33 +20,296 @@
                             <div class="row py-4 mx-4 justify-content-center">
                                     <media-library-collection
                                     multiple 
-                                    name="flowering" 
-                                    collection="flowering"
-                                    />
+                                    name="flowerings" 
+                                    collection="flowerings"
+                                    :initial-value="floweringImages"
+
+                                    >
+                                   <template
+                                        slot="fields"
+                                        slot-scope="{
+                                            getCustomPropertyInputProps,
+                                            getCustomPropertyInputListeners,
+                                            getCustomPropertyInputErrors,
+                                            getNameInputProps,
+                                            getNameInputListeners,
+                                            getNameInputErrors,
+                                        }"
+                                    >
+                                    <div class="media-library-properties">
+                                        <div class="media-library-field">
+                                            <label class="media-library-label">Name</label>
+                                            <input
+                                                class="media-library-input"
+                                                v-bind="getNameInputProps('name')"
+                                                v-on="getNameInputListeners('name')"
+                                            />
+                                        </div>
+                                        <div class="media-library-field">
+                                            <label class="media-library-label">Photo Type</label>
+                                            <input
+                                                class="media-library-input"
+                                                list="photo-list"
+                                                v-bind="getCustomPropertyInputProps('photo_type')"
+                                                v-on="getCustomPropertyInputListeners('photo_type')"
+                                            />
+                                            
+                                            <datalist id="photo-list">
+                                                <div  v-for="floweringPhoto in floweringPhotos" :key="floweringPhoto.value">
+                                                    <option>{{ floweringPhoto.text }}</option>
+                                                </div>
+                                            </datalist>
+                                        </div>
+
+                                        <div class="media-library-field">
+                                            <label class="media-library-label">Campana</label>
+                                            <input
+                                                class="media-library-input"
+                                                list="campana-list"
+                                                v-bind="getCustomPropertyInputProps('campana')"
+                                                v-on="getCustomPropertyInputListeners('campana')"
+                                            />
+                                            
+                                            <datalist id="campana-list">
+                                                <div  v-for="campana in campanas" :key="campana.id">
+                                                    <option>{{ campana.label_spanish }}</option>
+                                                </div>
+                                            </datalist>
+                                        </div>
+                                        <div class="media-library-field">
+                                            <label class="media-library-label">Public</label>
+                                            <input
+                                                class="media-library-input"
+                                                list="show-image"
+                                                v-bind="getCustomPropertyInputProps('public')"
+                                                v-on="getCustomPropertyInputListeners('public')"
+                                            />
+                                            <datalist id="show-image">
+                                                <option>Yes</option>
+                                                <option>No</option>
+                                            </datalist>
+                                        </div>
+                                       
+                                    </div>
+                                        
+                                    </template>
+                                    </media-library-collection>
+
                             </div>
                         <h3>Fructification</h3>
                             <div class="row py-4 mx-4 justify-content-center">
                                 <media-library-collection
                                     multiple 
-                                    name="fructification" 
-                                    collection="fructification"
-                                    />
+                                    name="fructifications" 
+                                    collection="fructifications"
+                                    :initial-value="fructificationImages"
+                                >
+                                <template
+                                        slot="fields"
+                                        slot-scope="{
+                                            getCustomPropertyInputProps,
+                                            getCustomPropertyInputListeners,
+                                            getCustomPropertyInputErrors,
+                                            getNameInputProps,
+                                            getNameInputListeners,
+                                            getNameInputErrors,
+                                        }"
+                                    >
+                                    <div class="media-library-properties">
+                                        <div class="media-library-field">
+                                            <label class="media-library-label">Name</label>
+                                            <input
+                                                class="media-library-input"
+                                                v-bind="getNameInputProps('name')"
+                                                v-on="getNameInputListeners('name')"
+                                            />
+                                        </div>
+                                     
+                                        <div class="media-library-field">
+                                            <label class="media-library-label">Photo Type</label>
+                                            <input
+                                                :value="fructificationPhoto"
+                                                class="media-library-input"
+                                                v-bind="getCustomPropertyInputProps('photo_type')"
+                                                v-on="getCustomPropertyInputListeners('photo_type')"
+                                            />
+                                        </div>
+                                        
+                                        <div class="media-library-field">
+                                            <label class="media-library-label">Campana</label>
+                                            <input
+                                                class="media-library-input"
+                                                list="campana-list"
+                                                v-bind="getCustomPropertyInputProps('campana')"
+                                                v-on="getCustomPropertyInputListeners('campana')"
+                                            />
+                                            
+                                            <datalist id="campana-list">
+                                                <div  v-for="campana in campanas" :key="campana.id">
+                                                    <option>{{ campana.label_spanish }}</option>
+                                                </div>
+                                            </datalist>
+                                        </div>
+                                        <div class="media-library-field">
+                                            <label class="media-library-label">Public</label>
+                                            <input
+                                                class="media-library-input"
+                                                list="show-image"
+                                                v-bind="getCustomPropertyInputProps('public')"
+                                                v-on="getCustomPropertyInputListeners('public')"
+                                            />
+                                            <datalist id="show-image">
+                                                <option>Yes</option>
+                                                <option>No</option>
+                                            </datalist>
+                                        </div>
+                                    </div>
+                                        
+                                    </template>
+                                </media-library-collection>
                             </div>
                         <h3>Tuber at Harvest</h3>
                             <div class="row py-4 mx-4 justify-content-center">
                                 <media-library-collection
                                     multiple 
-                                    name="tubers_at_harvest" 
-                                    collection="tubers_at_harvest"
-                                    />
+                                    name="tuber_at_harvests" 
+                                    collection="tuber_at_harvests"
+                                    :initial-value="tubersAtHarvestImages"
+                                >
+                                <template
+                                        slot="fields"
+                                        slot-scope="{
+                                            getCustomPropertyInputProps,
+                                            getCustomPropertyInputListeners,
+                                            getCustomPropertyInputErrors,
+                                            getNameInputProps,
+                                            getNameInputListeners,
+                                            getNameInputErrors,
+                                        }"
+                                    >
+                                    <div class="media-library-properties">
+                                        <div class="media-library-field">
+                                            <label class="media-library-label">Name</label>
+                                            <input
+                                                class="media-library-input"
+                                                v-bind="getNameInputProps('name')"
+                                                v-on="getNameInputListeners('name')"
+                                            />
+                                        </div>
+                                     
+                                        <div class="media-library-field">
+                                            <label class="media-library-label">Photo Type</label>
+                                            <input
+                                                :value="tuberAtHarvestPhoto"
+                                                class="media-library-input"
+                                                v-bind="getCustomPropertyInputProps('photo_type')"
+                                                v-on="getCustomPropertyInputListeners('photo_type')"
+                                       
+                                            />
+                                        </div>
+                                        <div class="media-library-field">
+                                            <label class="media-library-label">Campana</label>
+                                            <input
+                                                class="media-library-input"
+                                                list="campana-list"
+                                                v-bind="getCustomPropertyInputProps('campana')"
+                                                v-on="getCustomPropertyInputListeners('campana')"
+                                            />
+                                            
+                                            <datalist id="campana-list">
+                                                <div  v-for="campana in campanas" :key="campana.id">
+                                                    <option>{{ campana.label_spanish }}</option>
+                                                </div>
+                                            </datalist>
+                                        </div>
+                                        <div class="media-library-field">
+                                            <label class="media-library-label">Public</label>
+                                            <input
+                                                class="media-library-input"
+                                                list="show-image"
+                                                v-bind="getCustomPropertyInputProps('public')"
+                                                v-on="getCustomPropertyInputListeners('public')"
+                                            />
+                                            <datalist id="show-image">
+                                                <option>Yes</option>
+                                                <option>No</option>
+                                            </datalist>
+                                        </div>
+                                    </div>
+                                    </template>
+                                </media-library-collection>
                             </div>
                         <h3>Sprout</h3>
                             <div class="row py-4 mx-4 justify-content-center">
                                 <media-library-collection
                                     multiple 
-                                    name="sprout" 
-                                    collection="sprout"
-                                    />
+                                    name="sprouts" 
+                                    collection="sprouts"
+                                    :initial-value="sproutImages"
+                                >
+                                <template
+                                        slot="fields"
+                                        slot-scope="{
+                                            getCustomPropertyInputProps,
+                                            getCustomPropertyInputListeners,
+                                            getCustomPropertyInputErrors,
+                                            getNameInputProps,
+                                            getNameInputListeners,
+                                            getNameInputErrors,
+                                        }"
+                                    >
+                                    <div class="media-library-properties">
+                                        <div class="media-library-field">
+                                            <label class="media-library-label">Name</label>
+                                            <input
+                                                class="media-library-input"
+                                                v-bind="getNameInputProps('name')"
+                                                v-on="getNameInputListeners('name')"
+                                            />
+                                        </div>
+                                   
+                                        <div class="media-library-field">
+                                            <label class="media-library-label">Photo Type</label>
+                                            <input
+                                                :value="sproutPhoto"
+                                                class="media-library-input"
+                                                v-bind="getCustomPropertyInputProps('photo_type')"
+                                                v-on="getCustomPropertyInputListeners('photo_type')"
+                                                enable
+                                            />
+                                        </div>
+                                        <div class="media-library-field">
+                                            <label class="media-library-label">Campana</label>
+                                            <input
+                                                class="media-library-input"
+                                                list="campana-list"
+                                                v-bind="getCustomPropertyInputProps('campana')"
+                                                v-on="getCustomPropertyInputListeners('campana')"
+                                            />
+                                            
+                                            <datalist id="campana-list">
+                                                <div  v-for="campana in campanas" :key="campana.id">
+                                                    <option>{{ campana.label_spanish }}</option>
+                                                </div>
+                                            </datalist>
+                                        </div>
+                                        <div class="media-library-field">
+                                            <label class="media-library-label">Public</label>
+                                            <input
+                                                class="media-library-input"
+                                                list="show-image"
+                                                v-bind="getCustomPropertyInputProps('public')"
+                                                v-on="getCustomPropertyInputListeners('public')"
+                                            />
+                                            <datalist id="show-image">
+                                                <option>Yes</option>
+                                                <option>No</option>
+                                            </datalist>
+                                        </div>
+                                    </div>
+                                        
+                                    </template>
+                                </media-library-collection>
                             </div>
 
                         <div style="text-align: center;">
@@ -77,79 +340,59 @@ export default {
     components: { MediaLibraryCollection, axios},
     data() {
         return {
-            currentStep: this.form ? 4 : 1,
-            steps: [
-                {
-                    'id': 1,
-                    'title': "Variety ID / Campana",
-                },
-                {
-                    'id': 2,
-                    'title': "Upload photos",
-                },
-                {
-                    'id': 3,
-                    'title': "Preview and Finish",
-                }
-            ],
-            varietyId:"",
+            varietyId:null,
+            varieties:[],
             campanas:[],
             selectedCampana:null,
+            floweringImages:[],
+            tubersAtHarvestImages:[],
+            sproutImages:[],
+            tubersAtHarvestImages:[],
+            showImage:"public",
             csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+            floweringPhotos:[
+                { value: 'photo_leaf', text: 'Photo Leaf' },
+                { value: 'photo_flower', text: 'Photo Flower'},
+                { value: 'photo_plant', text: 'Photo Plant' }
+            ],
+            fructificationPhoto:"Photo berry",
+            tuberAtHarvestPhoto:"Photo tuber",
+            sproutPhoto: "Photo tuber shoot"
           
         };
     },
     mounted () {
-            axios.get(rootUrl+'/api/campanas').then((response) => {
-                this.campanas = response.data;
-            })
+        axios.get(rootUrl+'/api/varieties-list').then(response => {
+            this.varieties = response.data;
+        }),
+        axios.get(rootUrl+'/api/campanas').then((response) => {
+            this.campanas = response.data;
+        })
     },
     watch: {
-        varietyId(){
-            this.varietyId =  this.varietyId.toUpperCase();
-        }
+      
     },
     computed: {
-            // At some point, it'd be ideal to work out how to do this for any number of steps, perhaps using an array of 'visible' values instead of seperates...
-            visible1: {
-                get: function() {return this.currentStep === 1},
-                set: function(newValue) { if(newValue) this.currentStep = 1 },
-            },
-            visible2: {
-                get: function() {return this.currentStep === 2},
-                set: function(newValue) { if(newValue) this.currentStep = 2 },
-            },
-            visible3: {
-                get: function() {return this.currentStep === 3},
-                set: function(newValue) { if(newValue) this.currentStep = 3 },
-            },
-            visible4: {
-                get: function() {return this.currentStep === 4},
-                set: function(newValue) { if(newValue) this.currentStep = 4 },
-            },
+           
 
         },
     methods: {
-        getAllImages(items) {
-                this.isBusyVarietyDetails = true;
-                this.selected = items[items.length - 1];
+        getVarietyImages() {
                 axios({
                     method: "post",
-                    url: "/variety-details",
+                    url: "/variety-images",
                     data: {
-                        variety_id: this.selected.id
+                        variety_id: this.varietyId
                     }
                 }).then(
                     result => {
-                        this.isBusyVarietyDetails = false;
                         console.log("result", result.data);
-                        this.selectedValues  = result.data.values;
-                        this.selectedLabels = result.data.labels;
-                
-                       
+                        this.floweringImages = result.data.floweringImages;
+                        this.fructificationImages = result.data.fructificationImages;
+                        this.sproutImages = result.data.sproutImages;
+                        this.tubersAtHarvestImages = result.data.tubersAtHarvestImages;
                     },
                     error => {
-                        this.isBusyVarietyDetails = false;
                         console.log(error);
                     }
                 );

@@ -2,51 +2,59 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Flowering;
-use App\Models\Fructification;
 use App\Models\Sprout;
-use App\Models\TubersAtHarvest;
+use App\Models\Variety;
+use App\Models\Flowering;
 use Illuminate\Http\Request;
+use App\Models\Fructification;
+use App\Models\TubersAtHarvest;
 
 class MediaController extends Controller
 {
     public function store(Request $request)
     {
-        $flowering = Flowering::where('variety_id', $request->varietyId)->where('campana', $request->selectedCampana)->first();
-        $flowering->syncFromMediaLibraryRequest($request->flowering)->toMediaCollection('flowering');
+        $variety = Variety::find($request->varietyId);
+        $variety->syncFromMediaLibraryRequest($request->flowerings)->withCustomProperties('name', 'photo_type','campana','public')->toMediaCollection('flowerings');
+        $variety->syncFromMediaLibraryRequest($request->fructifications)->withCustomProperties('name', 'photo_type','campana','public')->toMediaCollection('fructifications');
+        $variety->syncFromMediaLibraryRequest($request->tuber_at_harvests)->withCustomProperties('name', 'photo_type','campana','public')->toMediaCollection('tuber_at_harvests');
+        $variety->syncFromMediaLibraryRequest($request->sprouts)->withCustomProperties('name', 'photo_type','campana','public')->toMediaCollection('sprouts');
 
-        $fructification = Fructification::where('variety_id', $request->varietyId)->where('campana',$request->selectedCampana)->first();
-        $fructification->syncFromMediaLibraryRequest($request->fructification)->toMediaCollection('fructification');
+        return redirect('/upload-images')->with('success', 'Photos sucessed save!');
+    }
 
-        $tubers_at_harvest = TubersAtHarvest::where('variety_id', $request->varietyId)->where('campana',$request->selectedCampana)->first();
-        $tubers_at_harvest->syncFromMediaLibraryRequest($request->tubers_at_harvest)->toMediaCollection('tubers_at_harvest');
+    public function getVarietyImages(Request $request)
+    {
+        $variety = Variety::findOrFail($request->variety_id);
+        $sproutImages = null;
+        $floweringImages = null;
+        $fructificationImages = null;
+        $tubersAtHarvestImages = null;
+        $sproutImages = null;
 
-        $sprout = Sprout::where('variety_id', $request->varietyId)->where('campana',$request->selectedCampana)->first();
-        $sprout->syncFromMediaLibraryRequest($request->sprout)->toMediaCollection('sprout');
+        
 
-        if($flowering){
-            $floweringImages= $flowering->getMedia('flowering');
+        if($variety->getMedia('flowerings')){
+            $floweringImages = $variety->getMedia('flowerings');
         }
 
-        if($fructification){
-            $fructificationImages= $fructification->getMedia('fructification');
+        if($variety->getMedia('fructifications')){
+            $fructificationImages = $variety->getMedia('fructifications');
         }
 
-        if($tubers_at_harvest){
-            $tubersAtHarvestImages= $tubers_at_harvest->getMedia('tubers_at_harvest');
+        if($variety->getMedia('tuber_at_harvests')){
+            $tubersAtHarvestImages = $variety->getMedia('tuber_at_harvests');
         }
 
-        if($sprout){
-            $sproutImages= $sprout->getMedia('sprout');
+        if($variety->getMedia('sprouts')){
+            $sproutImages = $variety->getMedia('sprouts');
         }
 
-        // return response()->json([
-        //    'floweringImages' => $floweringImages,
-        //    'fructificationImages' => $fructificationImages,
-        //    'tubersAtHarvestImages' => $tubersAtHarvestImages,
-        //    'sproutImages' => $sproutImages
-        //    ]);
-           return back()->with('floweringImages', $floweringImages);
-   
+
+        return response()->json([
+            'floweringImages' => $floweringImages,
+            'fructificationImages' => $fructificationImages,
+            'tubersAtHarvestImages' => $tubersAtHarvestImages,
+            'sproutImages' =>  $sproutImages,
+        ]);
     }
 }

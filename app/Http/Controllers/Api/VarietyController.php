@@ -21,4 +21,5 @@ class VarietyController extends Controller
       
         return $varieties->toJson();
     }
+
 }
