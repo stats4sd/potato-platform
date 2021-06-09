@@ -62,7 +62,6 @@ Route::middleware(['auth'])->group(function() {
 
     Route::post('/variety-details', 'CatalogueController@getVarietyDetails');
 
-    Route::post('/varieties-filter', 'CatalogueController@getVarietyFilter');
 });
 
 

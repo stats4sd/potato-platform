@@ -19,9 +19,8 @@
                             @click="OpenModal()"
                         >
                     <!-- </a> -->
-                     <b-modal id="modal"  v-model="modalShow" hide-footer="true" size='xl' >
+                     <b-modal id="modal" v-model="modalShow" hide-footer="true" size='xl' >
                         <img
-                      
                             class="image-sq"
                             :src="MixAppUrl+'/storage/'+coverImage"
                         >
@@ -83,9 +82,7 @@
         },
         methods: {
             OpenModal(){
-        
                 this.modalShow =true;
-                
             }
         }
     }
