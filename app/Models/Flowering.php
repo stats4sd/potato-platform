@@ -140,15 +140,15 @@ class Flowering extends Model implements HasMedia
     }
     public function choiceCampana()
     {
-    return $this->belongsTo(Choice::class, 'number_leaflets_on_petioles');        
+        return $this->belongsTo(Choice::class, 'campana');        
     }
-
+    
     /*
     |--------------------------------------------------------------------------
     | SCOPES
     |--------------------------------------------------------------------------
     */
-
+    
     /*
     |--------------------------------------------------------------------------
     | ACCESSORS

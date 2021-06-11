@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Choice;
+use App\Models\Variety;
 use App\Http\Requests\VarietyRequest;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Request;
@@ -97,6 +99,9 @@ class VarietyCrudController extends CrudController
         function() { 
             $this->crud->addClause('where', 'id', 'LIKE', "%.%");
         });
+
+        $this->crud->addButtonFromView('line', 'review', 'review', 'beginning');
+
     }
 
     /**
@@ -233,6 +238,80 @@ class VarietyCrudController extends CrudController
             $this->crud->addButton('line', 'delete', 'view', 'crud::buttons.delete', 'end');
         });
        
+    }
+
+    public function review()
+    {
+      
+        $variety = Variety::where('id',CRUD::getCurrentEntryId());
+
+        $flowerings =  $variety->with('flowerings.choicePlantGrowth', 
+        'flowerings.choiceLeafDissection',
+        'flowerings.choiceNumberLateralLeaflets',
+        'flowerings.choiceNumberIntermediateLeaflets',
+        'flowerings.choiceNumberLeafletsOnPetioles',
+        'flowerings.choiceColorStem',
+        'flowerings.choiceShapeStemWings',
+        'flowerings.choiceDegreeFloweringPlant',
+        'flowerings.choiceShapeCorolla',
+        'flowerings.choiceColorPredominantFlower',
+        'flowerings.choiceIntensityColorPredominantFlower',
+        'flowerings.choiceColorSecondaryFlower',
+        'flowerings.choiceDistributionColorSecodaryFlower',
+        'flowerings.choicePigmentationAnthers',
+        'flowerings.choicePigmentationPistil',
+        'flowerings.choiceColorChalice',
+        'flowerings.choiceColorPedicel',
+        'flowerings.choiceLevelToleranceLateBlight',
+        'flowerings.choiceLevelToleranceHailstorms',
+        'flowerings.choiceLevelToleranceFrost',
+        'flowerings.choiceLevelToleranceDrought',
+        'flowerings.choiceCampana',
+        )->first();
+        
+       
+        $floweringProprieties = [
+            'choice_plant_growth' => 'Habito de crecimiento de la planta',
+            'choice_color_stem' => 'Color de tallo',
+            'choice_shape_stem_wings' => 'Forma de las alas del tallo',
+
+            'choice_leaf_dissection' => 'Tipo de la disección de la hoja',
+            'choice_number_lateral_leaflets' => 'Número de foliolos laterales de la hoja',
+            'choice_number_intermediate_leaflets' => 'Número de inter-hojuelas entre foliolos laterales',
+            'choice_number_leaflets_on_petioles' => 'Número de inter-hojuelas sobre peciolulos',
+
+            'choice_degree_flowering_plant' => 'Grado de floracion',
+            'choice_shape_corolla' => 'Forma de la corola',
+            'choice_color_predominant_flower' => 'Color predominante de la flor',
+            'choice_intensity_color_predominant_flower' => 'Intensidad de color predominante de la flor',
+            'choice_color_secondary_flower' => 'Color secundario de la flor',
+            'choice_distribution_color_secodary_flower' => 'Distribución del color secundario de la flor',
+            'choice_pigmentation_anthers' => 'Pigmentación de las anteras',
+            'choice_pigmentation_pistil' => 'Pigmentación en el pistilo',
+            'choice_color_chalice' => 'Color del cáliz',
+            'choice_color_pedicel' => 'Color del pedicelo',
+
+            'choice_level_tolerance_late_blight' => 'Nivel de tolerancia a la rancha',
+            'choice_level_tolerance_hailstorms' => 'Nivel de tolerancia a la granizada',
+            'choice_level_tolerance_frost' => 'Nivel de tolerancia a la helada',
+            'choice_level_tolerance_drought' => 'Nivel de tolerancia a la sequía',
+        ];
+        $flowerings=$flowerings['flowerings']->toArray();
+        $flowerings = $flowerings;
+        $floweringPhotos = CRUD::getCurrentEntry()->getMedia('flowerings');
+        // dd(  $floweringPhotos);
+
+        return view('varieties.review', ['variety' => CRUD::getCurrentEntryId(), 
+        'choices'=>Choice::all(), 
+        'floweringProprieties'=>$floweringProprieties,
+        'flowerings'=> $flowerings,
+        'floweringPhotos' => $floweringPhotos,
+        ]);
+    }
+
+    public function getVarietyReviewed(Request $request)
+    {
+        dd($request);
     }
 
 }

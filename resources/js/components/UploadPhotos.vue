@@ -314,7 +314,7 @@
 
                         <div style="text-align: center;">
                             <button type="submit" class="site-btn my-4" >
-                                Next
+                                Submit
                             </button>
                         </div>
                     </div>

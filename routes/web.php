@@ -62,7 +62,6 @@ Route::middleware(['auth'])->group(function() {
     });
 
     Route::get('/upload-images', function () {
-      
             return view('upload_image');
     });
 
@@ -72,6 +71,7 @@ Route::middleware(['auth'])->group(function() {
     Route::post('/variety-images', 'MediaController@getVarietyImages');
 
     Route::post('/store-images', 'MediaController@store');
+  
 
     
     
