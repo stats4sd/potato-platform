@@ -482,6 +482,8 @@ class VarietyCrudController extends CrudController
             'photo_tuber_shoot' =>$request->photo_tuber_shoot
         ]);
 
+        Variety::where('id', $request->variety_id)->update(['reviewed'=>1]);
+
 
         \Alert::add('success', 'The variety <strong>'.$request->variety_id.'</strong><br> has been reviewed successfully.')->flash();
         return   Redirect::to('admin\variety');

@@ -63,16 +63,7 @@ Route::middleware(['auth'])->group(function() {
     });
 
     Route::get('/upload-images', function () {
-        $variety = Variety::findOrFail('HcoAA003');
-     
-        
-
-       
-            $testImage = $variety->getMedia('flowerings');
-        
-
-            return view('upload_image',['testImage'=>$testImage]);
-
+        return view('upload_image');
     });
 
     Route::get('xlsforms/{xlsform}/downloadsubmissions', 'SubmissionController@download')->name('xlsforms.downloadsubmissions');

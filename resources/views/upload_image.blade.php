@@ -1,9 +1,6 @@
-
 @extends('layouts.app')
 
-@section('styles')
- 
-@endsection
+
 @section('content')
 
 
@@ -29,8 +26,11 @@
     </div>
 </div>
 
-<upload-photos :testImage='{{$testImage}}'></upload-photos>
+<upload-photos></upload-photos>
 
 @endsection
 
+@section('after_scripts')
+<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.6.0/dist/alpine.min.js" defer></script>
+@endsection
 

@@ -53,4 +53,5 @@ Route::group([
     Route::crud('fructificationreviewed', 'FructificationReviewedCrudController');
     Route::crud('tubersatharvestreviewed', 'TubersAtHarvestReviewedCrudController');
     Route::crud('sproutreviewed', 'SproutReviewedCrudController');
+
 }); // this should be the absolute last line of this file
