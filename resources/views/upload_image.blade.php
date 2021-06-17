@@ -1,4 +1,6 @@
+
 @extends('layouts.app')
+
 @section('styles')
  
 @endsection
@@ -19,6 +21,7 @@
                 <div class="alert alert-danger">
                     {!! session('error') !!}
                 </div>
+                
             @endif
             
             
@@ -26,7 +29,7 @@
     </div>
 </div>
 
-<upload-photos></upload-photos>
+<upload-photos :testImage='{{$testImage}}'></upload-photos>
 
 @endsection
 

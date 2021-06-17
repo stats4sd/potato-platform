@@ -1,11 +1,12 @@
 <?php
 
+use App\Models\Variety;
+use App\Models\Flowering;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CatalogueController;
 use App\Http\Controllers\Api\FarmerController;
 use App\Http\Controllers\Admin\VarietyCrudController;
-use App\Models\Flowering;
 
 /*
 |--------------------------------------------------------------------------
@@ -62,7 +63,16 @@ Route::middleware(['auth'])->group(function() {
     });
 
     Route::get('/upload-images', function () {
-            return view('upload_image');
+        $variety = Variety::findOrFail('HcoAA003');
+     
+        
+
+       
+            $testImage = $variety->getMedia('flowerings');
+        
+
+            return view('upload_image',['testImage'=>$testImage]);
+
     });
 
     Route::get('xlsforms/{xlsform}/downloadsubmissions', 'SubmissionController@download')->name('xlsforms.downloadsubmissions');

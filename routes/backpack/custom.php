@@ -46,7 +46,11 @@ Route::group([
     Route::crud('choice', 'ChoiceCrudController');
 
     Route::get('variety/{id}/review', 'VarietyCrudController@review');
-    Route::post('variety-reviewed', 'VarietyCrudController@getVarietyReviewed');
+    Route::post('variety/variety-reviewed', 'VarietyCrudController@getVarietyReviewed');
  
 
+    Route::crud('floweringreviewed', 'FloweringReviewedCrudController');
+    Route::crud('fructificationreviewed', 'FructificationReviewedCrudController');
+    Route::crud('tubersatharvestreviewed', 'TubersAtHarvestReviewedCrudController');
+    Route::crud('sproutreviewed', 'SproutReviewedCrudController');
 }); // this should be the absolute last line of this file

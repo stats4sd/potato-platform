@@ -121,6 +121,11 @@ class TubersAtHarvest extends Model implements HasMedia
         return $this->belongsTo(Choice::class, 'level_tolerance_drought');
     }
 
+    public function choiceCampana()
+    {
+        return $this->belongsTo(Choice::class, 'campana');        
+    }
+
 
 
 

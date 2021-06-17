@@ -3,10 +3,20 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Choice;
+use App\Models\Sprout;
 use App\Models\Variety;
+use App\Models\Flowering;
+use Illuminate\Http\Request;
+use App\Models\Fructification;
+use App\Models\SproutReviewed;
+use App\Models\TubersAtHarvest;
+use App\Models\FloweringReviewed;
+use Prologue\Alerts\Facades\Alert;
 use App\Http\Requests\VarietyRequest;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Request;
+use App\Models\FructificationReviewed;
+use App\Models\TubersAtHarvestReviewed;
+use Illuminate\Support\Facades\Redirect;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
@@ -268,8 +278,7 @@ class VarietyCrudController extends CrudController
         'flowerings.choiceLevelToleranceDrought',
         'flowerings.choiceCampana',
         )->first();
-        
-       
+
         $floweringProprieties = [
             'choice_plant_growth' => 'Habito de crecimiento de la planta',
             'choice_color_stem' => 'Color de tallo',
@@ -298,20 +307,184 @@ class VarietyCrudController extends CrudController
         ];
         $flowerings=$flowerings['flowerings']->toArray();
         $flowerings = $flowerings;
+
         $floweringPhotos = CRUD::getCurrentEntry()->getMedia('flowerings');
-        // dd(  $floweringPhotos);
+
+        $fructifications = $variety->with('fructifications.choiceColorBerries', 
+            'fructifications.choiceShapeBerry',
+            'fructifications.choiceMaturityVariety',
+            'fructifications.choiceCampana',
+            'fructifications.choiceBerries',
+        )->first();
+
+        $fructificationProprieties = [
+            'choice_berries' => 'Bayas',
+            'choice_color_berries' => 'Color de la baya',
+            'choice_shape_berry' => 'Forma de la baya',
+            'choice_maturity_variety' => 'La madurez',
+        ];
+
+        
+        $fructifications=$fructifications['fructifications']->toArray();
+        $fructifications = $fructifications;
+      
+
+        $fructificationPhotos = CRUD::getCurrentEntry()->getMedia('fructifications');
+
+        $sprouts =  $variety->with('sprouts.choiceColorPredominantTuberShoot',
+        'sprouts.choiceColorSecondaryTuberShoot',
+        'sprouts.choiceDistributionColorSecodaryTuberShoot',
+        'sprouts.choiceCampana',
+        )->first();
+
+        $sproutProprieties = [
+            'choice_color_predominant_tuber_shoot' => 'Color predominante',
+            'choice_color_secondary_tuber_shoot' => 'Color secundario',
+            'choice_distribution_color_secodary_tuber_shoot' => 'Distribución del color secundario',
+        ];
+
+        $sprouts=$sprouts['sprouts']->toArray();
+        $sprouts = $sprouts;
+        
+        $sproutPhotos = CRUD::getCurrentEntry()->getMedia('sprouts');
+        
+        $tubersAtHarvests =  $variety->with('tubersAtHarvests.choiceColorPredominantTuber', 
+        'tubersAtHarvests.choiceIntensityColorPredominantTuber',
+        'tubersAtHarvests.choiceColorSecondaryTuber',
+        'tubersAtHarvests.choiceDistributionColorSecodaryTuber',
+        'tubersAtHarvests.choiceShapeTuber',
+        'tubersAtHarvests.choiceVariantShapeTuber',
+        'tubersAtHarvests.choiceDepthTuberEyes',
+        'tubersAtHarvests.choiceColorPredominantTuberPulp',
+        'tubersAtHarvests.choiceColorSecondaryTuberPulp',
+        'tubersAtHarvests.choiceDistributionColorSecodaryTuberPulp',
+        'tubersAtHarvests.choiceLevelToleranceLateBlight',
+        'tubersAtHarvests.choiceLevelToleranceWeevil',
+        'tubersAtHarvests.choiceLevelToleranceHailstorms',
+        'tubersAtHarvests.choiceLevelToleranceFrost',
+        'tubersAtHarvests.choiceLevelToleranceDrought',
+        'tubersAtHarvests.choiceCampana',
+        )->first();
+        
+        $tubersAtHarvests=$tubersAtHarvests['tubersAtHarvests']->toArray();
+        $tubersAtHarvests = $tubersAtHarvests;
+        
+        $tubersAtHarvestPhotos = CRUD::getCurrentEntry()->getMedia('tuber_at_harvests');
+
+        $tubersAtHarvestProprieties = [
+            'choice_color_predominant_tuber' => 'Color predominante',
+            'choice_intensity_color_predominant_tuber' => 'Intensidad del color predominante',
+            'choice_color_secondary_tuber' => 'Color secundario',
+            'choice_distribution_color_secodary_tuber' => 'Distribución del color secundario',
+            'choice_shape_tuber' => 'Forma general',
+            'choice_variant_shape_tuber' => 'Variante de forma',
+            'choice_depth_tuber_eyes' => 'Profundidad de los ojos',
+            'choice_color_predominant_tuber_pulp' => 'Color predominante de la pulpa',
+            'choice_color_secondary_tuber_pulp' => 'Color secundario de la pulpa',
+            'choice_distribution_color_secodary_tuber_pulp' => 'Distribución del color secundario de la pulpa',
+            'number_tubers_plant' => 'Número de tubérculos por planta',
+            'yield_plant' => 'Rendimiento por planta en kg',
+
+            'choice_level_tolerance_late_blight' => 'Nivel de tolerancia a la rancha',
+            'choice_level_tolerance_weevil' => 'Nivel de tolerancia al gorgojo de los andes',
+            'choice_level_tolerance_hailstorms' => 'Nivel de tolerancia a la granizada',
+            'choice_level_tolerance_frost' => 'Nivel de tolerancia a la helada',
+            'choice_level_tolerance_drought' => 'Nivel de tolerancia a la sequía',
+
+        ];
 
         return view('varieties.review', ['variety' => CRUD::getCurrentEntryId(), 
         'choices'=>Choice::all(), 
         'floweringProprieties'=>$floweringProprieties,
         'flowerings'=> $flowerings,
         'floweringPhotos' => $floweringPhotos,
+
+        'fructificationProprieties'=>$fructificationProprieties,
+        'fructifications'=> $fructifications,
+        'fructificationPhotos' => $fructificationPhotos,
+
+        'tubersAtHarvestProprieties'=>$tubersAtHarvestProprieties,
+        'tubersAtHarvests'=> $tubersAtHarvests,
+        'tubersAtHarvestPhotos' => $tubersAtHarvestPhotos,
+
+        'sproutProprieties'=>$sproutProprieties,
+        'sprouts'=> $sprouts,
+        'sproutPhotos' => $sproutPhotos,
         ]);
     }
 
     public function getVarietyReviewed(Request $request)
     {
-        dd($request);
+        FloweringReviewed::updateOrCreate(['variety_id'=>$request->variety_id],
+        [
+            'plant_growth'=>$request->choice_plant_growth ,
+            'leaf_dissection'=>$request->choice_leaf_dissection ,
+            'number_lateral_leaflets'=>$request->choice_number_lateral_leaflets ,
+            'number_intermediate_leaflets'=>$request->choice_number_intermediate_leaflets ,
+            'number_leaflets_on_petioles'=>$request->choice_number_leaflets_on_petioles,
+            'color_stem'=>$request->choice_color_stem ,
+            'shape_stem_wings'=>$request->choice_shape_stem_wings ,
+            'degree_flowering_plant'=>$request->choice_degree_flowering_plant ,
+            'shape_corolla'=>$request->choice_shape_corolla ,
+            'color_predominant_flower'=>$request->choice_color_predominant_flower ,
+            'intensity_color_predominant_flower'=>$request->choice_intensity_color_predominant_flower ,
+            'color_secondary_flower'=>$request->choice_color_secondary_flower ,
+            'distribution_color_secodary_flower'=>$request->choice_distribution_color_secodary_flower ,
+            'pigmentation_anthers'=>$request->choice_pigmentation_anthers ,
+            'pigmentation_pistil'=>$request->choice_pigmentation_pistil ,
+            'color_chalice'=>$request->choice_color_chalice ,
+            'color_pedicel'=>$request->choice_color_pedicel ,
+            'photo_leaf'=>$request->photo_leaf ,
+            'photo_flower'=>$request->photo_flower ,
+            'photo_plant'=>$request->photo_plant ,
+            'level_tolerance_late_blight'=>$request->choice_level_tolerance_late_blight,
+            'level_tolerance_hailstorms'=>$request->choice_level_tolerance_hailstorms,
+            'level_tolerance_frost'=>$request->choice_level_tolerance_frost,
+            'level_tolerance_drought'=>$request->choice_level_tolerance_droughtd,
+        ]);
+
+        FructificationReviewed::updateOrCreate(['variety_id' => $request->variety_id],
+        [
+            'berries' => $request->choice_berries,
+            'color_berries' => $request->choice_color_berries,
+            'shape_berry' => $request->choice_shape_berry,
+            'maturity_variety' => $request->choice_maturity_variety,
+            'photo_berry' =>$request->photo_berry,
+        ]);
+
+        TubersAtHarvestReviewed::updateOrCreate(['variety_id' => $request->variety_id],
+        [
+            'color_predominant_tuber' => $request->choice_color_predominant_tuber,
+            'intensity_color_predominant_tuber' => $request->choice_intensity_color_predominant_tuber,
+            'color_secondary_tuber' => $request->choice_color_secondary_tuber,
+            'distribution_color_secodary_tuber' => $request->choice_distribution_color_secodary_tuber,
+            'shape_tuber' => $request->choice_shape_tuber,
+            'variant_shape_tuber' => $request->choice_variant_shape_tuber,
+            'depth_tuber_eyes' => $request->choice_depth_tuber_eyes,
+            'color_predominant_tuber_pulp' => $request->choice_color_predominant_tuber_pulp,
+            'color_secondary_tuber_pulp' => $request->choice_color_secondary_tuber_pulp,
+            'distribution_color_secodary_tuber_pulp' => $request->choice_distribution_color_secodary_tuber_pulp,
+            'number_tubers_plant' => $request->number_tubers_plant,
+            'yield_plant' => $request->yield_plant,
+
+            'level_tolerance_late_blight' => $request->choice_level_tolerance_late_blight,
+            'level_tolerance_weevil' =>  $request->choice_level_tolerance_weevil,
+            'level_tolerance_hailstorms' => $request->choice_level_tolerance_hailstorms,
+            'level_tolerance_frost' => $request->choice_level_tolerance_frost,
+            'level_tolerance_drought' => $request->choice_level_tolerance_drought,
+        ]);
+
+        SproutReviewed::updateOrCreate(['variety_id' => $request->variety_id],
+        [
+            'choice_color_predominant_tuber_shoot' => $request->color_predominant_tuber_shoot,
+            'choice_color_secondary_tuber_shoot' => $request->color_secondary_tuber_shoot,
+            'choice_distribution_color_secodary_tuber_shoot' => $request->distribution_color_secodary_tuber_shoot,
+            'photo_tuber_shoot' =>$request->photo_tuber_shoot
+        ]);
+
+
+        \Alert::add('success', 'The variety <strong>'.$request->variety_id.'</strong><br> has been reviewed successfully.')->flash();
+        return   Redirect::to('admin\variety');
     }
 
 }

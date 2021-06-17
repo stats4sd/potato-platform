@@ -22,7 +22,7 @@
                                     multiple 
                                     name="flowerings" 
                                     collection="flowerings"
-                                    :initial-value="floweringImages"
+                                    :initial-value="testImage"
 
                                     >
                                    <template
@@ -338,13 +338,15 @@ import axios from 'axios';
 const rootUrl = process.env.MIX_APP_URL
 export default {
     components: { MediaLibraryCollection, axios},
+    props:['testImage'],
     data() {
         return {
             varietyId:null,
             varieties:[],
             campanas:[],
             selectedCampana:null,
-            floweringImages:[],
+            floweringImages:null,
+            fructificationImages:[],
             tubersAtHarvestImages:[],
             sproutImages:[],
             tubersAtHarvestImages:[],
@@ -385,6 +387,7 @@ export default {
                         variety_id: this.varietyId
                     }
                 }).then(
+
                     result => {
                         console.log("result", result.data);
                         this.floweringImages = result.data.floweringImages;
