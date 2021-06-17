@@ -2,7 +2,7 @@
 <div>
     <div class="container">
         <p>AGUAPAN es una asociación de guardianes cuyo objetivo es el fomento, la conservación y el uso de la inmensa variabilidad de papas nativas del centro de Perú. </p>
-        <p>Selecciona una región para conocer a los guardianes. Haz clic en su perfil para ver más información.</p>
+        <p>Selecciona una región para conocer a los guardianes. Haga clic en su perfil para ver más información.</p>
         <b-button-group size="sm mb-4">
             <b-button
                 v-for="region in regions"
@@ -46,16 +46,16 @@
                 </div>
             </b-col>
         </div>
-            <b-modal id="modal" title="Guardián" v-model="modalShow" v-if="farmerDetails.length!=0">
+            <b-modal id="modal" v-model="modalShow" v-if="farmerDetails.length!=0">
 
-                <p class="my-4"><b>Nombre </b>{{ farmerDetails.name }}</p>
+                <h3><b>{{ farmerDetails.name }}</b></h3>
                 <p class="my-4"><b>Comunidad </b>{{ farmerDetails.community.name }}</p>
                 <p class="my-4"><b>Distrito </b>{{ farmerDetails.community.district.name }}</p>
                 <p class="my-4"><b>Provincia </b>{{ farmerDetails.community.district.province.name }}</p>
                 <p class="my-4"><b>Región </b>{{ farmerDetails.community.district.province.region.name }}</p>
                 <p class="my-4"><b>Pertenece a AGUAPAN desde </b>{{ farmerDetails.aguapan_year}}</p>
                 <p class="my-4"><b>Número de variedades en la base de datos </b>{{ farmerDetails.varieties_count }}</p>
-                <p class="my-4"><i>Haz clic aquí para ver más información sobre sus variedades</i></p>
+                <p class="my-4"><i>Haga clic aquí para ver más información sobre sus variedades</i></p>
 
             </b-modal>
     </b-row>
