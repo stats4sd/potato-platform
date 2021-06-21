@@ -22,8 +22,13 @@
         "vue-template-compiler": "^2.6.12"
     },
     "dependencies": {
+        "@coreui/coreui": "^3.4.0",
+        "@digitallyhappy/backstrap": "^0.3.4",
+        "@popperjs/core": "^2.9.2",
+        "animate.css": "^4.1.1",
         "bootstrap": "^4.5.3",
         "bootstrap-vue": "^2.21.2",
+        "noty": "^3.2.0-beta-deprecated",
         "vue": "^2.6.12",
         "vue-select": "^3.11.2"
     }

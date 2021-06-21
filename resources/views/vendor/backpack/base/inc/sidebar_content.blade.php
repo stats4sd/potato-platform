@@ -82,3 +82,7 @@
 
 
 @endif
+<li class='nav-item'><a class='nav-link' href='{{ backpack_url('floweringreviewed') }}'><i class='nav-icon la la-question'></i> FloweringRevieweds</a></li>
+<li class='nav-item'><a class='nav-link' href='{{ backpack_url('fructificationreviewed') }}'><i class='nav-icon la la-question'></i> FructificationRevieweds</a></li>
+<li class='nav-item'><a class='nav-link' href='{{ backpack_url('tubersatharvestreviewed') }}'><i class='nav-icon la la-question'></i> TubersAtHarvestRevieweds</a></li>
+<li class='nav-item'><a class='nav-link' href='{{ backpack_url('sproutreviewed') }}'><i class='nav-icon la la-question'></i> SproutRevieweds</a></li>

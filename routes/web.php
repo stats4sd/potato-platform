@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Variety;
+use App\Models\Flowering;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CatalogueController;
@@ -17,6 +19,8 @@ use App\Http\Controllers\Admin\VarietyCrudController;
 |
 */
 
+//To accept temporary uploads.
+Route::mediaLibrary();
 
 Auth::routes();
 Route::middleware(['auth'])->group(function() {
@@ -58,10 +62,20 @@ Route::middleware(['auth'])->group(function() {
         return view('farmer');
     });
 
+    Route::get('/upload-images', function () {
+        return view('upload_image');
+    });
+
     Route::get('xlsforms/{xlsform}/downloadsubmissions', 'SubmissionController@download')->name('xlsforms.downloadsubmissions');
 
     Route::post('/variety-details', 'CatalogueController@getVarietyDetails');
+    Route::post('/variety-images', 'MediaController@getVarietyImages');
 
+    Route::post('/store-images', 'MediaController@store');
+  
+
+    
+    
 });
 
 

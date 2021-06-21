@@ -5,10 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
-class Flowering extends Model
+class Flowering extends Model implements HasMedia
 {
-    use CrudTrait, HasFactory;
+    use CrudTrait, HasFactory, InteractsWithMedia;
 
     /*
     |--------------------------------------------------------------------------
@@ -31,6 +33,10 @@ class Flowering extends Model
     | FUNCTIONS
     |--------------------------------------------------------------------------
     */
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('FloweringImages');
+    }
 
     /*
     |--------------------------------------------------------------------------
@@ -134,15 +140,15 @@ class Flowering extends Model
     }
     public function choiceCampana()
     {
-    return $this->belongsTo(Choice::class, 'number_leaflets_on_petioles');        
+        return $this->belongsTo(Choice::class, 'campana');        
     }
-
+    
     /*
     |--------------------------------------------------------------------------
     | SCOPES
     |--------------------------------------------------------------------------
     */
-
+    
     /*
     |--------------------------------------------------------------------------
     | ACCESSORS
