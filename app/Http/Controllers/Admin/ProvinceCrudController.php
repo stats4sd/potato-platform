@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\ProvinceRequest;
+use App\Models\Region;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
@@ -46,8 +47,8 @@ class ProvinceCrudController extends CrudController
                 'label' => 'Nombre',
             ],
             [
-                'name'  => 'region_id',
-                'type'  => 'text',
+                'name'  => 'region',
+                'type'  => 'relationship',
                 'label' => 'Región',
             ],
 
@@ -64,7 +65,19 @@ class ProvinceCrudController extends CrudController
     {
         CRUD::setValidation(ProvinceRequest::class);
 
-        CRUD::setFromDb(); // fields
+        $this->crud->addFields([
+            [
+                'name'  => 'name',
+                'type'  => 'text',
+                'label' => 'Nombre',
+            ],
+            [
+                'name'  => 'region',
+                'type'  => 'relationship',
+                'label' => 'Región',
+            ],
+
+        ]);
 
         /**
          * Fields can be defined using the fluent syntax or array syntax:
@@ -83,4 +96,13 @@ class ProvinceCrudController extends CrudController
     {
         $this->setupCreateOperation();
     }
+
+    /**
+     * Show Operation
+     */
+    protected function setupShowOperation()
+    {
+        $this->setupListOperation();
+    }
+
 }

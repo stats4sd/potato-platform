@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\DistrictRequest;
+use App\Models\Province;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
@@ -46,8 +47,8 @@ class DistrictCrudController extends CrudController
                 'label' => 'Nombre',
             ],
             [
-                'name'  => 'province_id',
-                'type'  => 'text',
+                'name'  => 'province',
+                'type'  => 'relationship',
                 'label' => 'Provincia',
             ],
         ]);
@@ -63,7 +64,18 @@ class DistrictCrudController extends CrudController
     {
         CRUD::setValidation(DistrictRequest::class);
 
-        CRUD::setFromDb(); // fields
+        $this->crud->addFields([
+            [
+                'name'  => 'name',
+                'type'  => 'text',
+                'label' => 'Nombre',
+            ],
+            [
+                'name'  => 'province',
+                'type'  => 'relationship',
+                'label' => 'Provincia',
+            ],
+        ]);
 
         /**
          * Fields can be defined using the fluent syntax or array syntax:
@@ -82,4 +94,13 @@ class DistrictCrudController extends CrudController
     {
         $this->setupCreateOperation();
     }
+    
+    /**
+     * Show Operation
+     */
+    protected function setupShowOperation()
+    {
+        $this->setupListOperation();
+    }
+
 }

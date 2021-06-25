@@ -45,6 +45,11 @@ class RegionCrudController extends CrudController
                     'type'  => 'text',
                     'label' => 'Nombre',
                 ],
+                [
+                    'name'  => 'id',
+                    'type'  => 'text',
+                    'label' => 'Código',
+                ],
 
             ]);
     }
@@ -59,7 +64,20 @@ class RegionCrudController extends CrudController
     {
         CRUD::setValidation(RegionRequest::class);
 
-        CRUD::setFromDb(); // fields
+        $this->crud->addFields([
+            [
+                'name'  => 'name',
+                'type'  => 'text',
+                'label' => 'Nombre',
+            ],
+            [
+                'name'  => 'id',
+                'type'  => 'text',
+                'label' => 'Código',
+            ],
+
+        ]);
+            
 
         /**
          * Fields can be defined using the fluent syntax or array syntax:
@@ -78,4 +96,13 @@ class RegionCrudController extends CrudController
     {
         $this->setupCreateOperation();
     }
+    
+    /**
+     * Show Operation
+     */
+    protected function setupShowOperation()
+    {
+        $this->setupListOperation();
+    }
+
 }
