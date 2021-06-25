@@ -40,6 +40,33 @@ class Fructification extends Model
         return $this->belongsTo(Variety::class);
     }
 
+    public function choiceColorBerries()
+    {
+        return $this->belongsTo(Choice::class, 'color_berries');
+    }
+
+    public function choiceShapeBerry()
+    {
+        return $this->belongsTo(Choice::class, 'shape_berry');
+    }
+
+    public function choiceMaturityVariety()
+    {
+        return $this->belongsTo(Choice::class, 'maturity_variety');
+    }
+
+    public function choiceCampana()
+    {
+        return $this->belongsTo(Choice::class, 'campana');
+    }
+
+    public function choiceBerries()
+    {
+        return $this->belongsTo(Choice::class, 'berries');
+    }
+
+
+
     /*
     |--------------------------------------------------------------------------
     | SCOPES

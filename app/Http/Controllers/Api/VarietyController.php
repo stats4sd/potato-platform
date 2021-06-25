@@ -11,10 +11,14 @@ class VarietyController extends Controller
 {
     public function index()
     {
-        $varieties =  Variety::with('farmer.community.district.province.region')->with('flowerings')
-        ->whereHas('flowerings')->whereHas('fructifications')
-        ->whereHas('tubersAtHarvests')->whereHas('sprouts')->get();
-
+        $varieties =  Variety::where('is_mixture', 0)->whereHas('flowerings')->whereHas('fructifications')
+        ->whereHas('tubersAtHarvests')->whereHas('sprouts')
+        ->with('flowerings')
+        ->with('fructifications')
+        ->with('tubersAtHarvests')
+        ->with('sprouts')
+        ->with('farmer.community.district.province.region')->get();
+      
         return $varieties->toJson();
     }
 }

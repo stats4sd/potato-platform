@@ -19,6 +19,8 @@ class Farmer extends Model
     protected $table = 'farmers';
     protected $guarded = [];
     public $incrementing = false;
+    // protected $appends = ['community_name', 'district_name', 'province_name', 'region_name'];
+
 
     /*
     |--------------------------------------------------------------------------
@@ -77,6 +79,32 @@ class Farmer extends Model
     | ACCESSORS
     |--------------------------------------------------------------------------
     */
+    // public function getCountVarietiesAttribute()
+    // {
+    //     return $this->varieties ? $this->varieties->count() : 0;
+    // }
+
+    public function getCommunityNameAttribute()
+    {
+        return $this->community ? $this->community->name : null; 
+    }
+
+    public function getDistrictNameAttribute()
+    {
+        return $this->community->district ? $this->community->district->name : null;
+    }
+
+    public function getProvinceNameAttribute()
+    {
+        return $this->community->district->province ? $this->community->district->province->name : null;
+    }
+
+    public function getRegionNameAttribute()
+    {
+        return $this->community->district->province->region ? $this->community->district->province->region->name : null;
+    }
+
+
 
     /*
     |--------------------------------------------------------------------------

@@ -59,9 +59,65 @@ class VariableCrudController extends CrudController
     {
         CRUD::setValidation(VariableRequest::class);
 
-        CRUD::addField(['name' => 'choices', 'type' => 'relationship']); 
+        CRUD::addFields([
+            [
+                'type' => 'relationship',
+                'name'  => 'data_map_id',
+                
+            ],           
+            [
+                'type' => 'select2_multiple',
+                'name'  => 'choices',
+                'entity'    => 'choices', // the method that defines the relationship in your Model
+                'model'     => "App\Models\Choice", // foreign key model
+                'attribute' => 'list_name', // foreign key attribute that is shown to user
+                'pivot'     => true, // on create&update, do you need to add/delete pivot table entries?
+
+                // also optional
+                'options'   => (function ($query) {
+                    return $query->orderBy('list_name')->get();
+                }), // force the related options to be a cu
+            ],
+            [
+                'type' => 'text',
+                'name'  => 'xlsform_varname',
+            ],  
+            [
+                'type' => 'text',
+                'name'  => 'db_varname',
+            ],  
+            [
+                'type' => 'checkbox',
+                'name'  => 'in_db',
+            ],  
+            [
+                'name' => 'type',
+                'label' => 'Select the variable type',
+                'type' => 'select2_from_array',
+              
+                'options' => [
+                    'boolean' => 'Boolean (select_one with yes/no or 1/0 options)',
+                    'text' => 'text / select_one',
+                    'integer' => 'integer',
+                    'decimal' => 'decimal',
+                    'select_multiple' => 'select_multiple',
+                    'date' => 'date',
+                    'timestamp' => 'datetime',
+                    'gps' => 'geopoint',
+                    'photo' => 'photo',
+                ],
+            ],           
+            [
+                'type' => 'text',
+                'name'  => 'model',
+            ],  
+            [
+                'type' => 'checkbox',
+                'name'  => 'json',
+            ], 
+        ]); 
         
-        CRUD::setFromDb(); // fields
+
 
         /**
          * Fields can be defined using the fluent syntax or array syntax:
