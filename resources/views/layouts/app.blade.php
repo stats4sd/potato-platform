@@ -56,7 +56,7 @@
                     @if(Auth::user()->permission)
                     <b-nav-item href="/fotos">Subir Fotos</b-nav-item>
                     @endif
-                    <b-nav-item active style=" position: absolute; right: 15px;"> Welcome {{ Auth::user()->name }} </b-nav-item>
+                    <b-nav-item active style=" position: absolute; right: 15px;"> Bienvenido {{ Auth::user()->name }} </b-nav-item>
                 @endif
             </b-navbar-nav>
         </b-collapse>
