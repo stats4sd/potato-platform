@@ -105,7 +105,7 @@ class SproutCrudController extends CrudController
             [
                 'name'  => 'distribution_color_secodary_tuber_shoot',
                 'type'  => 'text',
-                'label' => 'Distribución color secundario',
+                'label' => 'Distribución del color secundario',
             ],
         ]);
     }
@@ -119,4 +119,12 @@ class SproutCrudController extends CrudController
     {
         $this->setupCreateOperation();
     } 
+
+    /**
+     * Show Operation
+     */
+    protected function setupShowOperation()
+    {
+        $this->setupListOperation();
+    }
 }

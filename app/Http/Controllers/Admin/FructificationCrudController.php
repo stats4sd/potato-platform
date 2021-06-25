@@ -130,5 +130,13 @@ class FructificationCrudController extends CrudController
     {
         $this->setupCreateOperation();
     }
-       
+    
+    /**
+     * Show Operation
+     */
+    protected function setupShowOperation()
+    {
+        $this->setupListOperation();
+    }
+
 }

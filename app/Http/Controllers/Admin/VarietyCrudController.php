@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\VarietyRequest;
+use App\Models\Farmer;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Request;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
@@ -50,14 +51,9 @@ class VarietyCrudController extends CrudController
                 'label' => 'Código Variedad',
             ],
             [
-                'name'  => 'name',
-                'type'  => 'text',
-                'label' => 'Código',
-            ],
-            [
                 'name'  => 'common_name',
                 'type'  => 'text',
-                'label' => 'Nombre común',
+                'label' => 'Nombre Común',
             ],
             [
                 'name'  => 'other_name',
@@ -70,9 +66,9 @@ class VarietyCrudController extends CrudController
                 'label' => 'Mezcla',
             ],
             [
-                'name'  => 'farmer_id',
-                'type'  => 'text',
-                'label' => 'Código Agricultor',
+                'name'  => 'farmer',
+                'type'  => 'relationship',
+                'label' => 'Agricultor',
 
             ],
             [
@@ -84,7 +80,7 @@ class VarietyCrudController extends CrudController
             [
                 'name'  => 'additional_info',
                 'type'  => 'textarea',
-                'label' => 'Información adicional',
+                'label' => 'Información Adicional',
             ],
         ]);
 
@@ -116,14 +112,9 @@ class VarietyCrudController extends CrudController
                 'label' => 'Código Variedad',
             ],
             [
-                'name'  => 'name',
-                'type'  => 'text',
-                'label' => 'Código',
-            ],
-            [
                 'name'  => 'common_name',
                 'type'  => 'text',
-                'label' => 'Nombre común',
+                'label' => 'Nombre Común',
             ],
             [
                 'name'  => 'other_name',
@@ -133,11 +124,11 @@ class VarietyCrudController extends CrudController
             [
                 'name'  => 'is_mixture',
                 'type'  => 'checkbox',
-                'label' => 'Mezcla',
+                'label' => 'Es Mezcla',
             ],
             [
-                'name'  => 'farmer_id',
-                'type'  => 'text',
+                'name'  => 'farmer',
+                'type'  => 'relationship',
                 'label' => 'Agricultor',
             ],
             [
@@ -150,7 +141,7 @@ class VarietyCrudController extends CrudController
             [
                 'name'  => 'additional_info',
                 'type'  => 'textarea',
-                'label' => 'Información adicional',
+                'label' => 'Información Adicional',
             ],
         ]);
     }
@@ -165,6 +156,15 @@ class VarietyCrudController extends CrudController
     {
         $this->setupCreateOperation();
     }
+
+    /**
+     * Show Operation
+     */
+    protected function setupShowOperation()
+    {
+        $this->setupListOperation();
+    }
+
 
     protected function setupUploadAdditionalInfoRoutes($segment, $routeName, $controller)
     {

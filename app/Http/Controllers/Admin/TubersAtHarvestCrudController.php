@@ -60,7 +60,7 @@ class TubersAtHarvestCrudController extends CrudController
             [
                 'name'  => 'intensity_color_predominant_tuber',
                 'type'  => 'text',
-                'label' => 'Intensidad del color predominante',
+                'label' => 'Intensidad color predominante',
             ],
             [
                 'name'  => 'color_secondary_tuber',
@@ -104,12 +104,12 @@ class TubersAtHarvestCrudController extends CrudController
             ],
             [
                 'name'  => 'number_tubers_plant',
-                'type'  => 'text',
+                'type'  => 'number',
                 'label' => 'Número tubérculos planta',
             ],
             [
                 'name'  => 'yield_plant',
-                'type'  => 'text',
+                'type'  => 'number',
                 'label' => 'Rendimiento planta kg',
             ],
             [
@@ -180,72 +180,72 @@ class TubersAtHarvestCrudController extends CrudController
             [
                 'name'  => 'distribution_color_secodary_tuber',
                 'type'  => 'text',
-                'label' => 'Distribución color secundario',
+                'label' => 'Distribución del color secundario',
             ],
             [
                 'name'  => 'shape_tuber',
                 'type'  => 'text',
-                'label' => 'Forma',
+                'label' => 'Forma general',
             ],
             [
                 'name'  => 'variant_shape_tuber',
                 'type'  => 'text',
-                'label' => 'Variante forma',
+                'label' => 'Variante de forma',
             ],
             [
                 'name'  => 'depth_tuber_eyes',
                 'type'  => 'text',
-                'label' => 'Profundidad ojos',
+                'label' => 'Profundidad de los ojos',
             ],
             [
                 'name'  => 'color_predominant_tuber_pulp',
                 'type'  => 'text',
-                'label' => 'Color predominante pulpa',
+                'label' => 'Color predominante de la pulpa',
             ],
             [
                 'name'  => 'color_secondary_tuber_pulp',
                 'type'  => 'text',
-                'label' => 'Color secundario pulpa',
+                'label' => 'Color secundario de la pulpa',
             ],
             [
                 'name'  => 'distribution_color_secodary_tuber_pulp',
                 'type'  => 'text',
-                'label' => 'Distribución color secundario pulpa',
+                'label' => 'Distribución del color secundario de la pulpa',
             ],
             [
                 'name'  => 'number_tubers_plant',
-                'type'  => 'text',
-                'label' => 'Número tubérculos planta',
+                'type'  => 'number',
+                'label' => 'Número de tubérculos por planta',
             ],
             [
                 'name'  => 'yield_plant',
-                'type'  => 'text',
-                'label' => 'Rendimiento planta kg',
+                'type'  => 'number',
+                'label' => 'Rendimiento por planta en kg',
             ],
             [
                 'name'  => 'level_tolerance_late_blight',
                 'type'  => 'text',
-                'label' => 'Nivel tolerancia rancha',
+                'label' => 'Nivel de tolerancia a la rancha',
             ],
             [
                 'name'  => 'level_tolerance_weevil',
                 'type'  => 'text',
-                'label' => 'Nivel tolerancia gorgojo andes',
+                'label' => 'Nivel de tolerancia al gorgojo andes',
             ],
             [
                 'name'  => 'level_tolerance_hailstorms',
                 'type'  => 'text',
-                'label' => 'Nivel tolerancia granizada',
+                'label' => 'Nivel de tolerancia a la granizada',
             ],
             [
                 'name'  => 'level_tolerance_frost',
                 'type'  => 'text',
-                'label' => 'Nivel tolerancia helada',
+                'label' => 'Nivel de tolerancia a la helada',
             ],
             [
                 'name'  => 'level_tolerance_drought',
                 'type'  => 'text',
-                'label' => 'Nivel tolerancia sequía',
+                'label' => 'Nivel de tolerancia a la sequía',
             ],
 
         ]);
@@ -261,5 +261,12 @@ class TubersAtHarvestCrudController extends CrudController
         $this->setupCreateOperation();
     }
 
+    /**
+     * Show Operation
+     */
+    protected function setupShowOperation()
+    {
+        $this->setupListOperation();
+    }
        
 }

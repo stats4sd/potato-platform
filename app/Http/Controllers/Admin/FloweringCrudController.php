@@ -186,37 +186,37 @@ class FloweringCrudController extends CrudController
                 [
                     'name'  => 'plant_growth',
                     'type'  => 'text',
-                    'label' => 'Habito crecimiento',
+                    'label' => 'Habito de crecimiento de la planta',
                 ],
                 [
                     'name'  => 'color_stem',
                     'type'  => 'text',
-                    'label' => 'Color tallo',
+                    'label' => 'Color de tallo',
                 ],
                 [
                     'name'  => 'shape_stem_wings',
                     'type'  => 'text',
-                    'label' => 'Forma alas tallo',
+                    'label' => 'Forma de las alas del tallo',
                 ],
                 [
                     'name'  => 'leaf_dissection',
                     'type'  => 'text',
-                    'label' => 'Disección hoja',
+                    'label' => 'Tipo de la disección de la hoja',
                 ],
                 [
                     'name'  => 'number_lateral_leaflets',
                     'type'  => 'text',
-                    'label' => 'Número foliolos laterales',
+                    'label' => 'Número de foliolos laterales de la hoja',
                 ],
                 [
                     'name'  => 'number_intermediate_leaflets',
                     'type'  => 'text',
-                    'label' => 'Número inter-hojuelas entre foliolos laterales',
+                    'label' => 'Número de inter-hojuelas entre foliolos laterales',
                 ],
                 [
                     'name'  => 'number_leaflets_on_petioles',
                     'type'  => 'text',
-                    'label' => 'Número inter-hojuelas sobre peciolulos',
+                    'label' => 'Número de inter-hojuelas sobre peciolulos',
                 ],
                 [
                     'name'  => 'degree_flowering_plant',
@@ -226,67 +226,67 @@ class FloweringCrudController extends CrudController
                 [
                     'name'  => 'shape_corolla',
                     'type'  => 'text',
-                    'label' => 'Forma corola',
+                    'label' => 'Forma de la corola',
                 ],
                 [
                     'name'  => 'color_predominant_flower',
                     'type'  => 'text',
-                    'label' => 'Color predominante flor',
+                    'label' => 'Color predominante de la flor',
                 ],
                 [
                     'name'  => 'intensity_color_predominant_flower',
                     'type'  => 'text',
-                    'label' => 'Intensidad color predominante flor',
+                    'label' => 'Intensidad de color predominante de la flor',
                 ],
                 [
                     'name'  => 'color_secondary_flower',
                     'type'  => 'text',
-                    'label' => 'Color secundario flor',
+                    'label' => 'Color secundario de la flor',
                 ],
                 [
                     'name'  => 'distribution_color_secodary_flower',
                     'type'  => 'text',
-                    'label' => 'Distribución color secundario flor',
+                    'label' => 'Distribución del color secundario de la flor',
                 ],
                 [
                     'name'  => 'pigmentation_anthers',
                     'type'  => 'text',
-                    'label' => 'Pigmentación anteras',
+                    'label' => 'Pigmentación de las anteras',
                 ],
                 [
                     'name'  => 'pigmentation_pistil',
                     'type'  => 'text',
-                    'label' => 'Pigmentación pistilo',
+                    'label' => 'Pigmentación en el pistilo',
                 ],
                 [
                     'name'  => 'color_chalice',
                     'type'  => 'text',
-                    'label' => 'Color cáliz',
+                    'label' => 'Color del cáliz',
                 ],
                 [
                     'name'  => 'color_pedicel',
                     'type'  => 'text',
-                    'label' => 'Color pedicelo',
+                    'label' => 'Color del pedicelo',
                 ],
                 [
                     'name'  => 'level_tolerance_late_blight',
                     'type'  => 'text',
-                    'label' => 'Nivel tolerancia rancha',
+                    'label' => 'Nivel de tolerancia a la rancha',
                 ],
                 [
                     'name'  => 'level_tolerance_hailstorms',
                     'type'  => 'text',
-                    'label' => 'Nivel tolerancia granizada',
+                    'label' => 'Nivel de tolerancia a la granizada',
                 ],
                 [
                     'name'  => 'level_tolerance_frost',
                     'type'  => 'text',
-                    'label' => 'Nivel tolerancia helada',
+                    'label' => 'Nivel de tolerancia a la helada',
                 ],
                 [
                     'name'  => 'level_tolerance_drought',
                     'type'  => 'text',
-                    'label' => 'Nivel tolerancia sequía',
+                    'label' => 'Nivel de tolerancia a la sequía',
                 ],
             ]);
     }
@@ -300,6 +300,14 @@ class FloweringCrudController extends CrudController
     protected function setupUpdateOperation()
     {
         $this->setupCreateOperation();
+    }
+
+    /**
+     * Show Operation
+     */
+    protected function setupShowOperation()
+    {
+        $this->setupListOperation();
     }
 }
 
