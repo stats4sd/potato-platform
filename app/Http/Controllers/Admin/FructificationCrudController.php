@@ -48,27 +48,27 @@ class FructificationCrudController extends CrudController
                 'label' => 'Código Variedad',
             ],
             [
-                'name'  => 'campana',
+                'name'  => 'choiceCampana.label_spanish',
                 'type'  => 'text',
                 'label' => 'Campaña',
             ],
             [
-                'name'  => 'berries',
+                'name'  => 'choiceBerries.label_spanish',
                 'type'  => 'text',
                 'label' => 'Bayas',
             ],
             [
-                'name'  => 'color_berries',
+                'name'  => 'choiceColorBerries.label_spanish',
                 'type'  => 'text',
                 'label' => 'Color baya',
             ],
             [
-                'name'  => 'shape_berry',
+                'name'  => 'choiceShapeBerry.label_spanish',
                 'type'  => 'text',
                 'label' => 'Forma baya',
             ],
             [
-                'name'  => 'maturity_variety',
+                'name'  => 'choiceMaturityVariety.label_spanish',
                 'type'  => 'text',
                 'label' => 'Madurez variedad',
             ],

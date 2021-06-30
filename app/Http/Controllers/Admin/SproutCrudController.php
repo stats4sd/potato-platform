@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\SproutRequest;
 use App\Models\Variety;
+use App\Models\Choice;
 use Illuminate\Support\Facades\Route;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
@@ -48,28 +49,27 @@ class SproutCrudController extends CrudController
                 'label' => 'Código Variedad',
             ],
             [
-                'name'  => 'campana',
+                'name'  => 'choiceCampana.label_spanish',
                 'type'  => 'text',
                 'label' => 'Campaña',
             ],
             [
-                'name'  => 'color_predominant_tuber_shoot',
+                'name'  => 'choiceColorPredominantTuberShoot.label_spanish',
                 'type'  => 'text',
                 'label' => 'Color predominante',
             ],
             [
-                'name'  => 'color_secondary_tuber_shoot',
+                'name'  => 'choiceColorSecondaryTuberShoot.label_spanish',
                 'type'  => 'text',
                 'label' => 'Color secundario',
             ],
             [
-                'name'  => 'distribution_color_secodary_tuber_shoot',
+                'name'  => 'choiceDistributionColorSecodaryTuberShoot.label_spanish',
                 'type'  => 'text',
                 'label' => 'Distribución color secundario',
             ],
         ]);
     }
-
       /**
      * Define what happens when the Create operation is loaded.
      * 
