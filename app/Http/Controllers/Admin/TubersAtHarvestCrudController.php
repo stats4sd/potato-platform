@@ -266,6 +266,7 @@ class TubersAtHarvestCrudController extends CrudController
      */
     protected function setupShowOperation()
     {
+        $this->crud->setOperationSetting('setFromDb', false);
         $this->setupListOperation();
     }
        

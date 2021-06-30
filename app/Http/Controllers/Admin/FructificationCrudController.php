@@ -136,6 +136,7 @@ class FructificationCrudController extends CrudController
      */
     protected function setupShowOperation()
     {
+        $this->crud->setOperationSetting('setFromDb', false);
         $this->setupListOperation();
     }
 

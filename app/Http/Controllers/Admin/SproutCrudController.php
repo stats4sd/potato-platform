@@ -125,6 +125,7 @@ class SproutCrudController extends CrudController
      */
     protected function setupShowOperation()
     {
+        $this->crud->setOperationSetting('setFromDb', false);
         $this->setupListOperation();
     }
 }
