@@ -48,6 +48,121 @@ class TubersAtHarvestCrudController extends CrudController
                 'label' => 'Código Variedad',
             ],
             [
+                'name'  => 'choiceCampana.label_spanish',
+                'type'  => 'text',
+                'label' => 'Campaña',
+            ],
+            [
+                'name'  => 'choiceColorPredominantTuber.label_spanish',
+                'type'  => 'text',
+                'label' => 'Color predominante',
+            ],
+            [
+                'name'  => 'choiceIntensityColorPredominantTuber.label_spanish',
+                'type'  => 'text',
+                'label' => 'Intensidad color predominante',
+            ],
+            [
+                'name'  => 'choiceColorSecondaryTuber.label_spanish',
+                'type'  => 'text',
+                'label' => 'Color secundario',
+            ],
+            [
+                'name'  => 'choiceDistributionColorSecodaryTuber.label_spanish',
+                'type'  => 'text',
+                'label' => 'Distribución color secundario',
+            ],
+            [
+                'name'  => 'choiceShapeTuber.label_spanish',
+                'type'  => 'text',
+                'label' => 'Forma',
+            ],
+            [
+                'name'  => 'choiceVariantShapeTuber.label_spanish',
+                'type'  => 'text',
+                'label' => 'Variante forma',
+            ],
+            [
+                'name'  => 'choiceDepthTuberEyes.label_spanish',
+                'type'  => 'text',
+                'label' => 'Profundidad ojos',
+            ],
+            [
+                'name'  => 'choiceColorPredominantTuberPulp.label_spanish',
+                'type'  => 'text',
+                'label' => 'Color predominante pulpa',
+            ],
+            [
+                'name'  => 'choiceColorSecondaryTuberPulp.label_spanish',
+                'type'  => 'text',
+                'label' => 'Color secundario pulpa',
+            ],
+            [
+                'name'  => 'choiceDistributionColorSecodaryTuberPulp.label_spanish',
+                'type'  => 'text',
+                'label' => 'Distribución color secundario pulpa',
+            ],
+            [
+                'name'  => 'number_tubers_plant',
+                'type'  => 'number',
+                'label' => 'Número tubérculos planta',
+            ],
+            [
+                'name'  => 'yield_plant',
+                'type'  => 'number',
+                'label' => 'Rendimiento planta kg',
+            ],
+            [
+                'name'  => 'choiceLevelToleranceLateBlight.label_spanish',
+                'type'  => 'text',
+                'label' => 'Nivel tolerancia rancha',
+            ],
+            [
+                'name'  => 'choiceLevelToleranceWeevil.label_spanish',
+                'type'  => 'text',
+                'label' => 'Nivel tolerancia gorgojo andes',
+            ],
+            [
+                'name'  => 'choiceLevelToleranceHailstorms.label_spanish',
+                'type'  => 'text',
+                'label' => 'Nivel tolerancia granizada',
+            ],
+            [
+                'name'  => 'choiceLevelToleranceFrost.label_spanish',
+                'type'  => 'text',
+                'label' => 'Nivel tolerancia helada',
+            ],
+            [
+                'name'  => 'choiceLevelToleranceDrought.label_spanish',
+                'type'  => 'text',
+                'label' => 'Nivel tolerancia sequía',
+            ],
+        ]);
+    }
+
+     /**
+     * Define what happens when the Create operation is loaded.
+     * 
+     * @see https://backpackforlaravel.com/docs/crud-operation-create
+     * @return void
+     */
+    protected function setupCreateOperation()
+    {
+        CRUD::setValidation(TubersAtHarvestRequest::class);
+        
+        // CRUD::setFromDb(); // fields
+        $this->crud->addFields([
+            [
+                'name'  => 'variety_id',
+                'type'  => 'text',
+                'label' => 'Código Variedad',
+            ],
+            [
+                'name'  => 'campana',
+                'type'  => 'text',
+                'label' => 'Campaña',
+            ],
+            [
                 'name'  => 'color_predominant_tuber',
                 'type'  => 'text',
                 'label' => 'Color predominante',
@@ -65,106 +180,75 @@ class TubersAtHarvestCrudController extends CrudController
             [
                 'name'  => 'distribution_color_secodary_tuber',
                 'type'  => 'text',
-                'label' => 'Distribución color secundario',
+                'label' => 'Distribución del color secundario',
             ],
             [
                 'name'  => 'shape_tuber',
                 'type'  => 'text',
-                'label' => 'Forma',
+                'label' => 'Forma general',
             ],
             [
                 'name'  => 'variant_shape_tuber',
                 'type'  => 'text',
-                'label' => 'Variante forma',
+                'label' => 'Variante de forma',
             ],
             [
                 'name'  => 'depth_tuber_eyes',
                 'type'  => 'text',
-                'label' => 'Profundidad ojos',
+                'label' => 'Profundidad de los ojos',
             ],
             [
                 'name'  => 'color_predominant_tuber_pulp',
                 'type'  => 'text',
-                'label' => 'Color predominante pulpa',
+                'label' => 'Color predominante de la pulpa',
             ],
             [
                 'name'  => 'color_secondary_tuber_pulp',
                 'type'  => 'text',
-                'label' => 'Color secundario pulpa',
+                'label' => 'Color secundario de la pulpa',
             ],
             [
                 'name'  => 'distribution_color_secodary_tuber_pulp',
                 'type'  => 'text',
-                'label' => 'Distribución color secundario pulpa',
+                'label' => 'Distribución del color secundario de la pulpa',
             ],
             [
                 'name'  => 'number_tubers_plant',
-                'type'  => 'text',
-                'label' => 'Número tubérculos planta',
+                'type'  => 'number',
+                'label' => 'Número de tubérculos por planta',
             ],
             [
                 'name'  => 'yield_plant',
-                'type'  => 'text',
-                'label' => 'Rendimiento planta kg',
+                'type'  => 'number',
+                'label' => 'Rendimiento por planta en kg',
             ],
             [
                 'name'  => 'level_tolerance_late_blight',
                 'type'  => 'text',
-                'label' => 'Nivel tolerancia rancha',
+                'label' => 'Nivel de tolerancia a la rancha',
             ],
             [
                 'name'  => 'level_tolerance_weevil',
                 'type'  => 'text',
-                'label' => 'Nivel tolerancia gorgojo andes',
+                'label' => 'Nivel de tolerancia al gorgojo andes',
             ],
             [
                 'name'  => 'level_tolerance_hailstorms',
                 'type'  => 'text',
-                'label' => 'Nivel tolerancia granizada',
+                'label' => 'Nivel de tolerancia a la granizada',
             ],
             [
                 'name'  => 'level_tolerance_frost',
                 'type'  => 'text',
-                'label' => 'Nivel tolerancia helada',
+                'label' => 'Nivel de tolerancia a la helada',
             ],
             [
                 'name'  => 'level_tolerance_drought',
                 'type'  => 'text',
-                'label' => 'Nivel tolerancia sequía',
+                'label' => 'Nivel de tolerancia a la sequía',
             ],
-            [
-                'name'  => 'photo_tuber',
-                'type'  => 'text',
-                'label' => 'Foto tubérculo',
-            ],
-            [
-                'name'  => 'campana',
-                'type'  => 'text',
-                'label' => 'Campaña',
-            ],
-        ]);
-    }
 
-     /**
-     * Define what happens when the Create operation is loaded.
-     * 
-     * @see https://backpackforlaravel.com/docs/crud-operation-create
-     * @return void
-     */
-    protected function setupCreateOperation()
-    {
-        CRUD::setValidation(TubersAtHarvestRequest::class);
-        
-        // CRUD::setFromDb(); // fields
-        CRUD::addField(
-            [   // Upload
-                'name'      => 'photo_tuber',
-                'label'     => 'Suba la foto del tubérculo',
-                'type'      => 'upload',
-                'upload'    => true,
-                'disk'      => 'public',
-            ]
-        );
+        ]);
     }
    /**
      * Define what happens when the Update operation is loaded.
@@ -177,110 +261,13 @@ class TubersAtHarvestCrudController extends CrudController
         $this->setupCreateOperation();
     }
 
-    protected function setupUploadPhotoRoutes($segment, $routeName, $controller)
+    /**
+     * Show Operation
+     */
+    protected function setupShowOperation()
     {
-        Route::get($segment.'/upload-photo', [
-            'as'        => $routeName.'.getUploadPhoto',
-            'uses'      => $controller.'@getUploadPhotoForm',
-            'operation' => 'UploadPhoto',
-        ]);
-
-        Route::post($segment.'/search-mezcla', [
-            'as'        => $routeName.'.search',
-            'uses'      => $controller.'@search',
-            'operation' => 'UploadPhoto',
-        ]);
-
-    }
-
-    public function getUploadPhotoForm() 
-    {
-      
-        $this->crud->setPageLengthMenu([[10, 25, 50, 100, -1], [10, 25, 50, 100, 'backpack::crud.all']],);
-        $this->data['crud'] = $this->crud;
-    
-        // load the view from /resources/views/vendor/backpack/crud/ if it exists, otherwise load the one in the package
-        return view('vendor.backpack.crud.upload_photo', $this->data);
-    
-    }
-
-    public function setupUploadPhotoOperation()
-    {
-        $this->crud->query =  $this->crud->query->orderByRaw('(photo_tuber is NULL) desc');
-        $this->crud->denyAccess('create');
-        $this->crud->denyAccess('delete');
-
-        $this->crud->addFilter([
-            'type'  => 'simple',
-            'name'  => 'photo_empty',
-            'label' => 'Fotos faltantes'
-        ], 
-        false, 
-        function() { // if the filter is active
-            $this->crud->addClause('where', 'photo_tuber', null); 
-        } );
- 
-        // select2 filter
-        $this->crud->addFilter([
-            'name'  => 'variety_code',
-            'type'  => 'text',
-            'label' => 'Código Variedad'
-        ],
-        false,
-        function ($value) { // if the filter is active
-            $this->crud->addClause('where', 'variety_id', $value);
-        });
-
-        CRUD::addColumns([
-            [  
-                'name'      => 'variety_id',
-                'label'     => 'Código Variedad',
-                'type'     => 'closure',
-                'function' => function($entry) {
-                    return "<h6><b>". $entry->variety_id . "</b></h6>";
-                }
-            ],
-            [  
-                'name'      => 'photos_missing',
-                'label'     => 'Subir Fotos',
-                'type'     => 'closure',
-                'function' => function($entry) {
-                   if(!empty($entry->photo_tuber))
-                   {
-                       return '<h6 style="color:green;">Completo</h6>';
-                   } else {
-                    return '<h6 style="color:red;">Incompleto</h6>';
-                   } 
-                },
-                'orderable'  => true,
-                'orderLogic' => function ($query, $column, $columnDirection) {
-                  
-                        return $query->orderByRaw('(photo_tuber is NULL) ' . $columnDirection);
-                    }
-            ],
-            [
-                'name'      => 'photo_tuber',
-                'label'     => 'Foto del tubérculo',
-                'type'     => 'image',
-                'prefix' => 'storage/',
-                'height' => '128px',
-                'width'  => '128px',
-            ],
-        ]);
-    }
-
-    protected function setupUploadPhotoDefaults()
-    {
-        $this->crud->allowAccess('UploadPhoto');
-
-        $this->crud->operation('UploadPhoto', function () {
-            $this->crud->setCurrentOperation('list');
-            $this->crud->loadDefaultOperationSettingsFromConfig();
-            $this->crud->setCurrentOperation('UploadPhoto');
-
-            $this->crud->addButton('line', 'update', 'view', 'crud::buttons.update', 'end');
-            $this->crud->addButton('line', 'delete', 'view', 'crud::buttons.delete', 'end');
-        });
+        $this->crud->setOperationSetting('setFromDb', false);
+        $this->setupListOperation();
     }
        
 }

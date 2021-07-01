@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\SproutRequest;
 use App\Models\Variety;
+use App\Models\Choice;
 use Illuminate\Support\Facades\Route;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
@@ -48,6 +49,50 @@ class SproutCrudController extends CrudController
                 'label' => 'Código Variedad',
             ],
             [
+                'name'  => 'choiceCampana.label_spanish',
+                'type'  => 'text',
+                'label' => 'Campaña',
+            ],
+            [
+                'name'  => 'choiceColorPredominantTuberShoot.label_spanish',
+                'type'  => 'text',
+                'label' => 'Color predominante',
+            ],
+            [
+                'name'  => 'choiceColorSecondaryTuberShoot.label_spanish',
+                'type'  => 'text',
+                'label' => 'Color secundario',
+            ],
+            [
+                'name'  => 'choiceDistributionColorSecodaryTuberShoot.label_spanish',
+                'type'  => 'text',
+                'label' => 'Distribución color secundario',
+            ],
+        ]);
+    }
+      /**
+     * Define what happens when the Create operation is loaded.
+     * 
+     * @see https://backpackforlaravel.com/docs/crud-operation-create
+     * @return void
+     */
+    protected function setupCreateOperation()
+    {
+        CRUD::setValidation(SproutRequest::class);
+        
+        // CRUD::setFromDb(); // fields
+        $this->crud->addFields([
+            [
+                'name'  => 'variety_id',
+                'type'  => 'text',
+                'label' => 'Código Variedad',
+            ],
+            [
+                'name'  => 'campana',
+                'type'  => 'text',
+                'label' => 'Campaña',
+            ],
+            [
                 'name'  => 'color_predominant_tuber_shoot',
                 'type'  => 'text',
                 'label' => 'Color predominante',
@@ -60,41 +105,9 @@ class SproutCrudController extends CrudController
             [
                 'name'  => 'distribution_color_secodary_tuber_shoot',
                 'type'  => 'text',
-                'label' => 'Distribución color secundario',
-            ],
-            [
-                'name'  => 'photo_tuber_shoot',
-                'type'  => 'text',
-                'label' => 'Foto brote',
-            ],
-            [
-                'name'  => 'campana',
-                'type'  => 'text',
-                'label' => 'Campaña',
+                'label' => 'Distribución del color secundario',
             ],
         ]);
-    }
-
-      /**
-     * Define what happens when the Create operation is loaded.
-     * 
-     * @see https://backpackforlaravel.com/docs/crud-operation-create
-     * @return void
-     */
-    protected function setupCreateOperation()
-    {
-        CRUD::setValidation(SproutRequest::class);
-        
-        // CRUD::setFromDb(); // fields
-        CRUD::addField(
-            [   // Upload
-                'name'      => 'photo_tuber_shoot',
-                'label'     => 'Suba la foto del brote',
-                'type'      => 'upload',
-                'upload'    => true,
-                'disk'      => 'public',
-            ]
-        );
     }
    /**
      * Define what happens when the Update operation is loaded.
@@ -105,112 +118,14 @@ class SproutCrudController extends CrudController
     protected function setupUpdateOperation()
     {
         $this->setupCreateOperation();
-    }
+    } 
 
-    protected function setupUploadPhotoRoutes($segment, $routeName, $controller)
+    /**
+     * Show Operation
+     */
+    protected function setupShowOperation()
     {
-        Route::get($segment.'/upload-photo', [
-            'as'        => $routeName.'.getUploadPhoto',
-            'uses'      => $controller.'@getUploadPhotoForm',
-            'operation' => 'UploadPhoto',
-        ]);
-
-        Route::post($segment.'/search-mezcla', [
-            'as'        => $routeName.'.search',
-            'uses'      => $controller.'@search',
-            'operation' => 'UploadPhoto',
-        ]);
-
+        $this->crud->setOperationSetting('setFromDb', false);
+        $this->setupListOperation();
     }
-
-    public function getUploadPhotoForm() 
-    {
-      
-        $this->crud->setPageLengthMenu([[10, 25, 50, 100, -1], [10, 25, 50, 100, 'backpack::crud.all']],);
-        $this->data['crud'] = $this->crud;
-    
-        // load the view from /resources/views/vendor/backpack/crud/ if it exists, otherwise load the one in the package
-        return view('vendor.backpack.crud.upload_photo', $this->data);
-    
-    }
-
-    public function setupUploadPhotoOperation()
-    {
-        $this->crud->query =  $this->crud->query->orderByRaw('(photo_tuber_shoot is NULL) desc');
-        $this->crud->denyAccess('create');
-        $this->crud->denyAccess('delete');
-
-        $this->crud->addFilter([
-            'type'  => 'simple',
-            'name'  => 'photo_empty',
-            'label' => 'Fotos faltantes'
-        ], 
-        false, 
-        function() { // if the filter is active
-            $this->crud->addClause('where', 'photo_tuber_shoot', null); 
-        } );
- 
-        // select2 filter
-        $this->crud->addFilter([
-            'name'  => 'variety_code',
-            'type'  => 'text',
-            'label' => 'Código Variedad'
-        ],
-        false,
-        function ($value) { // if the filter is active
-            $this->crud->addClause('where', 'variety_id', $value);
-        });
-
-        CRUD::addColumns([
-            [  
-                'name'      => 'variety_id',
-                'label'     => 'Código Variedad',
-                'type'     => 'closure',
-                'function' => function($entry) {
-                    return "<h6><b>". $entry->variety_id . "</b></h6>";
-                }
-            ],
-            [  
-                'name'      => 'photos_missing',
-                'label'     => 'Subir Fotos',
-                'type'     => 'closure',
-                'function' => function($entry) {
-                   if(!empty($entry->photo_tuber_shoot))
-                   {
-                       return '<h6 style="color:green;">Completo</h6>';
-                   } else {
-                    return '<h6 style="color:red;">Incompleto</h6>';
-                   } 
-                },
-                'orderable'  => true,
-                'orderLogic' => function ($query, $column, $columnDirection) {
-                  
-                        return $query->orderByRaw('(photo_tuber_shoot is NULL) ' . $columnDirection);
-                    }
-            ],
-            [
-                'name'      => 'photo_tuber_shoot',
-                'label'     => 'Foto del brote',
-                'type'     => 'image',
-                'prefix' => 'storage/',
-                'height' => '128px',
-                'width'  => '128px',
-            ],
-        ]);
-    }
-
-    protected function setupUploadPhotoDefaults()
-    {
-        $this->crud->allowAccess('UploadPhoto');
-
-        $this->crud->operation('UploadPhoto', function () {
-            $this->crud->setCurrentOperation('list');
-            $this->crud->loadDefaultOperationSettingsFromConfig();
-            $this->crud->setCurrentOperation('UploadPhoto');
-
-            $this->crud->addButton('line', 'update', 'view', 'crud::buttons.update', 'end');
-            $this->crud->addButton('line', 'delete', 'view', 'crud::buttons.delete', 'end');
-        });
-    }
-       
 }

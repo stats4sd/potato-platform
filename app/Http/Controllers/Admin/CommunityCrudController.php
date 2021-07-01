@@ -47,7 +47,7 @@ class CommunityCrudController extends CrudController
             ],
             [
                 'name'  => 'district_id',
-                'type'  => 'text',
+                'type'  => 'relationship',
                 'label' => 'Distrito',
             ],
         ]);
@@ -63,7 +63,18 @@ class CommunityCrudController extends CrudController
     {
         CRUD::setValidation(CommunityRequest::class);
 
-        CRUD::setFromDb(); // fields
+        $this->crud->addFields([
+            [
+                'name'  => 'name',
+                'type'  => 'text',
+                'label' => 'Nombre',
+            ],
+            [
+                'name'  => 'district',
+                'type'  => 'relationship',
+                'label' => 'Distrito',
+            ],
+        ]);
 
         /**
          * Fields can be defined using the fluent syntax or array syntax:
@@ -82,4 +93,15 @@ class CommunityCrudController extends CrudController
     {
         $this->setupCreateOperation();
     }
+
+
+    /**
+     * Show Operation
+     */
+    protected function setupShowOperation()
+    {
+        $this->setupListOperation();
+    }
+
 }
+

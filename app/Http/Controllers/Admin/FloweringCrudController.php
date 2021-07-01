@@ -49,130 +49,116 @@ class FloweringCrudController extends CrudController
                 'label' => 'Código Variedad',
             ],
             [
-                'name'  => 'plant_growth',
+                'name'  => 'choiceCampana.label_spanish',
+                'type'  => 'text',
+                'label' => 'Campaña',
+            ],
+            [
+                'name'  => 'choicePlantGrowth.label_spanish',
                 'type'  => 'text',
                 'label' => 'Habito crecimiento',
             ],
             [
-                'name'  => 'color_stem',
+                'name'  => 'choiceColorStem.label_spanish',
                 'type'  => 'text',
                 'label' => 'Color tallo',
             ],
             [
-                'name'  => 'shape_stem_wings',
+                'name'  => 'choiceShapeStemWings.label_spanish',
                 'type'  => 'text',
                 'label' => 'Forma alas tallo',
             ],
             [
-                'name'  => 'leaf_dissection',
+                'name'  => 'choiceLeafDissection.label_spanish',
                 'type'  => 'text',
                 'label' => 'Disección hoja',
             ],
             [
-                'name'  => 'number_lateral_leaflets',
+                'name'  => 'choiceNumberLateralLeaflets.label_spanish',
                 'type'  => 'text',
                 'label' => 'Número foliolos laterales',
             ],
             [
-                'name'  => 'number_intermediate_leaflets',
-                'type'  => 'upload',
+                'name'  => 'choiceNumberIntermediateLeaflets.label_spanish',
+                'type'  => 'text',
                 'label' => 'Número inter-hojuelas entre foliolos laterales',
             ],
             [
-                'name'  => 'number_leaflets_on_petioles',
+                'name'  => 'choiceNumberLeafletsOnPetioles.label_spanish',
                 'type'  => 'text',
                 'label' => 'Número inter-hojuelas sobre peciolulos',
             ],
             [
-                'name'  => 'degree_flowering_plant',
+                'name'  => 'choiceDegreeFloweringPlant.label_spanish',
                 'type'  => 'text',
                 'label' => 'Grado de floración',
             ],
             [
-                'name'  => 'shape_corolla',
+                'name'  => 'choiceShapeCorolla.label_spanish',
                 'type'  => 'text',
                 'label' => 'Forma corola',
             ],
             [
-                'name'  => 'color_predominant_flower',
+                'name'  => 'choiceColorPredominantFlower.label_spanish',
                 'type'  => 'text',
                 'label' => 'Color predominante flor',
             ],
             [
-                'name'  => 'intensity_color_predominant_flower',
+                'name'  => 'choiceIntensityColorPredominantFlower.label_spanish',
                 'type'  => 'text',
                 'label' => 'Intensidad color predominante flor',
             ],
             [
-                'name'  => 'color_secondary_flower',
+                'name'  => 'choiceColorSecondaryFlower.label_spanish',
                 'type'  => 'text',
                 'label' => 'Color secundario flor',
             ],
             [
-                'name'  => 'distribution_color_secodary_flower',
+                'name'  => 'choiceDistributionColorSecodaryFlower.label_spanish',
                 'type'  => 'text',
                 'label' => 'Distribución color secundario flor',
             ],
             [
-                'name'  => 'pigmentation_anthers',
+                'name'  => 'choicePigmentationAnthers.label_spanish',
                 'type'  => 'text',
                 'label' => 'Pigmentación anteras',
             ],
             [
-                'name'  => 'pigmentation_pistil',
+                'name'  => 'choicePigmentationPistil.label_spanish',
                 'type'  => 'text',
                 'label' => 'Pigmentación pistilo',
             ],
             [
-                'name'  => 'color_chalice',
+                'name'  => 'choiceColorChalice.label_spanish',
                 'type'  => 'text',
                 'label' => 'Color cáliz',
             ],
             [
-                'name'  => 'color_pedicel',
+                'name'  => 'choiceColorPedicel.label_spanish',
                 'type'  => 'text',
                 'label' => 'Color pedicelo',
             ],
             [
-                'name'  => 'photo_leaf',
-                'type'  => 'text',
-                'label' => 'Foto hoja',
-            ],
-            [
-                'name'  => 'photo_flower',
-                'type'  => 'text',
-                'label' => 'Foto flor',
-            ],
-            [
-                'name'  => 'photo_plant',
-                'type'  => 'text',
-                'label' => 'Foto planta entera',
-            ],
-            [
-                'name'  => 'level_tolerance_late_blight',
+                'name'  => 'choiceLevelToleranceLateBlight.label_spanish',
                 'type'  => 'text',
                 'label' => 'Nivel tolerancia rancha',
             ],
             [
-                'name'  => 'level_tolerance_hailstorms',
+                'name'  => 'choiceLevelToleranceHailstorms.label_spanish',
                 'type'  => 'text',
                 'label' => 'Nivel tolerancia granizada',
             ],
             [
-                'name'  => 'level_tolerance_frost',
+                'name'  => 'choiceLevelToleranceFrost.label_spanish',
                 'type'  => 'text',
                 'label' => 'Nivel tolerancia helada',
             ],
             [
-                'name'  => 'level_tolerance_drought',
+                'name'  => 'choiceLevelToleranceDrought.label_spanish',
                 'type'  => 'text',
                 'label' => 'Nivel tolerancia sequía',
             ],
-            [
-                'name'  => 'campana',
-                'type'  => 'text',
-                'label' => 'Campaña',
-            ],
+
         ]);
     }
 
@@ -186,34 +172,126 @@ class FloweringCrudController extends CrudController
     {
             CRUD::setValidation(FloweringRequest::class);
             
-            // CRUD::setFromDb(); // fields
-            CRUD::addFields([
-                [   // Upload
-                    'name'      => 'photo_leaf',
-                    'label'     => 'Suba la foto de la hoja',
-                    'type'      => 'upload',
-                    'upload'    => true,
-                    'disk'      => 'public',
+            $this->crud->addFields([
+                [
+                    'name'  => 'variety_id',
+                    'type'  => 'text',
+                    'label' => 'Código Variedad',
                 ],
-
-                [   // Upload  
-                    'name'      => 'photo_flower',
-                    'label'     => 'Suba el foto de la flor',
-                    'type'      => 'upload',
-                    'upload'    => true,
-                    'disk'      => 'public',
+                [
+                    'name'  => 'campana',
+                    'type'  => 'text',
+                    'label' => 'Campaña',
                 ],
-                [   // Upload  
-                    'name'      => 'photo_plant',
-                    'label'     => 'Suba el foto de la planta entera',
-                    'type'      => 'upload',
-                    'upload'    => true,
-                    'disk'      => 'public',
+                [
+                    'name'  => 'plant_growth',
+                    'type'  => 'text',
+                    'label' => 'Habito de crecimiento de la planta',
+                ],
+                [
+                    'name'  => 'color_stem',
+                    'type'  => 'text',
+                    'label' => 'Color de tallo',
+                ],
+                [
+                    'name'  => 'shape_stem_wings',
+                    'type'  => 'text',
+                    'label' => 'Forma de las alas del tallo',
+                ],
+                [
+                    'name'  => 'leaf_dissection',
+                    'type'  => 'text',
+                    'label' => 'Tipo de la disección de la hoja',
+                ],
+                [
+                    'name'  => 'number_lateral_leaflets',
+                    'type'  => 'text',
+                    'label' => 'Número de foliolos laterales de la hoja',
+                ],
+                [
+                    'name'  => 'number_intermediate_leaflets',
+                    'type'  => 'text',
+                    'label' => 'Número de inter-hojuelas entre foliolos laterales',
+                ],
+                [
+                    'name'  => 'number_leaflets_on_petioles',
+                    'type'  => 'text',
+                    'label' => 'Número de inter-hojuelas sobre peciolulos',
+                ],
+                [
+                    'name'  => 'degree_flowering_plant',
+                    'type'  => 'text',
+                    'label' => 'Grado de floración',
+                ],
+                [
+                    'name'  => 'shape_corolla',
+                    'type'  => 'text',
+                    'label' => 'Forma de la corola',
+                ],
+                [
+                    'name'  => 'color_predominant_flower',
+                    'type'  => 'text',
+                    'label' => 'Color predominante de la flor',
+                ],
+                [
+                    'name'  => 'intensity_color_predominant_flower',
+                    'type'  => 'text',
+                    'label' => 'Intensidad de color predominante de la flor',
+                ],
+                [
+                    'name'  => 'color_secondary_flower',
+                    'type'  => 'text',
+                    'label' => 'Color secundario de la flor',
+                ],
+                [
+                    'name'  => 'distribution_color_secodary_flower',
+                    'type'  => 'text',
+                    'label' => 'Distribución del color secundario de la flor',
+                ],
+                [
+                    'name'  => 'pigmentation_anthers',
+                    'type'  => 'text',
+                    'label' => 'Pigmentación de las anteras',
+                ],
+                [
+                    'name'  => 'pigmentation_pistil',
+                    'type'  => 'text',
+                    'label' => 'Pigmentación en el pistilo',
+                ],
+                [
+                    'name'  => 'color_chalice',
+                    'type'  => 'text',
+                    'label' => 'Color del cáliz',
+                ],
+                [
+                    'name'  => 'color_pedicel',
+                    'type'  => 'text',
+                    'label' => 'Color del pedicelo',
+                ],
+                [
+                    'name'  => 'level_tolerance_late_blight',
+                    'type'  => 'text',
+                    'label' => 'Nivel de tolerancia a la rancha',
+                ],
+                [
+                    'name'  => 'level_tolerance_hailstorms',
+                    'type'  => 'text',
+                    'label' => 'Nivel de tolerancia a la granizada',
+                ],
+                [
+                    'name'  => 'level_tolerance_frost',
+                    'type'  => 'text',
+                    'label' => 'Nivel de tolerancia a la helada',
+                ],
+                [
+                    'name'  => 'level_tolerance_drought',
+                    'type'  => 'text',
+                    'label' => 'Nivel de tolerancia a la sequía',
                 ],
             ]);
     }
 
-    /**
+        /**
      * Define what happens when the Update operation is loaded.
      * 
      * @see https://backpackforlaravel.com/docs/crud-operation-update
@@ -224,126 +302,13 @@ class FloweringCrudController extends CrudController
         $this->setupCreateOperation();
     }
 
-    protected function setupUploadPhotoRoutes($segment, $routeName, $controller)
+    /**
+     * Show Operation
+     */
+    protected function setupShowOperation()
     {
-        Route::get($segment.'/upload-photo', [
-            'as'        => $routeName.'.getUploadPhoto',
-            'uses'      => $controller.'@getUploadPhotoForm',
-            'operation' => 'UploadPhoto',
-        ]);
-
-        Route::post($segment.'/search-mezcla', [
-            'as'        => $routeName.'.search',
-            'uses'      => $controller.'@search',
-            'operation' => 'UploadPhoto',
-        ]);
-
-    }
-
-    public function getUploadPhotoForm() 
-    {
-      
-        $this->crud->setPageLengthMenu([[10, 25, 50, 100, -1], [10, 25, 50, 100, 'backpack::crud.all']],);
-        $this->data['crud'] = $this->crud;
-    
-        // load the view from /resources/views/vendor/backpack/crud/ if it exists, otherwise load the one in the package
-        return view('vendor.backpack.crud.upload_photo', $this->data);
-    
-    }
-
-    public function setupUploadPhotoOperation()
-    {
-        $this->crud->query =  $this->crud->query->orderByRaw('((photo_leaf is NULL) + (photo_flower is NULL) + (photo_plant is NULL)) desc');
-        $this->crud->denyAccess('create');
-        $this->crud->denyAccess('delete');
-
-        $this->crud->addFilter([
-            'type'  => 'simple',
-            'name'  => 'photo_empty',
-            'label' => 'Fotos faltantes'
-        ], 
-        false, 
-        function() { // if the filter is active
-            $this->crud->query->where('photo_leaf', null)->orWhere('photo_flower', null)->orWhere('photo_plant', null);
-        } );
- 
-        // select2 filter
-        $this->crud->addFilter([
-            'name'  => 'variety_code',
-            'type'  => 'text',
-            'label' => 'Código Variedad'
-        ],
-        false,
-        function ($value) { // if the filter is active
-            $this->crud->addClause('where', 'variety_id', $value);
-        });
-
-        CRUD::addColumns([
-            [  
-                'name'      => 'variety_id',
-                'label'     => 'Código Variedad',
-                'type'     => 'closure',
-                'function' => function($entry) {
-                    return "<h6><b>". $entry->variety_id . "</b></h6>";
-                }
-            ],
-            [  
-                'name'      => 'photos_missing',
-                'label'     => 'Subir Fotos',
-                'type'     => 'closure',
-                'function' => function($entry) {
-                   if(!empty($entry->photo_leaf) && !empty($entry->photo_flower) && !empty($entry->photo_plant))
-                   {
-                       return '<h6 style="color:green;">Completo</h6>';
-                   } else {
-                    return '<h6 style="color:red;">Incompleto</h6>';
-                   } 
-                },
-                'orderable'  => true,
-                'orderLogic' => function ($query, $column, $columnDirection) {
-                  
-                        return $query->orderByRaw('((photo_leaf is NULL) + (photo_flower is NULL) + (photo_plant is NULL)) ' . $columnDirection);
-                    }
-            ],
-            [
-                'name'      => 'photo_leaf',
-                'label'     => 'Foto de la hoja',
-                'type'     => 'image',
-                'prefix' => 'storage/',
-                'height' => '128px',
-                'width'  => '128px',
-            ],
-            [
-                'name'      => 'photo_flower',
-                'label'     => 'Foto de la flor',
-                'type'     => 'image',
-                'prefix' => 'storage/',
-                'height' => '128px',
-                'width'  => '128px',
-            ],
-            [
-                'name'      => 'photo_plant',
-                'label'     => 'Foto de la planta entera',
-                'type'     => 'image',
-                'prefix' => 'storage/',
-                'height' => '128px',
-                'width'  => '128px',
-            ],
-        ]);
-    }
-
-    protected function setupUploadPhotoDefaults()
-    {
-        $this->crud->allowAccess('UploadPhoto');
-
-        $this->crud->operation('UploadPhoto', function () {
-            $this->crud->setCurrentOperation('list');
-            $this->crud->loadDefaultOperationSettingsFromConfig();
-            $this->crud->setCurrentOperation('UploadPhoto');
-
-            $this->crud->addButton('line', 'update', 'view', 'crud::buttons.update', 'end');
-            $this->crud->addButton('line', 'delete', 'view', 'crud::buttons.delete', 'end');
-        });
+        $this->crud->setOperationSetting('setFromDb', false);
+        $this->setupListOperation();
     }
 }
 
